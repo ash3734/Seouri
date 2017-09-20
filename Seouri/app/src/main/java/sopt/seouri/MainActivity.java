@@ -1,20 +1,28 @@
 package sopt.seouri;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+
+import sopt.seouri.community.CommunityFragment;
+import sopt.seouri.home.HomeFragment;
+import sopt.seouri.recommend.RecommendFragment;
+import sopt.seouri.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Fragment fragmentHome;
+    private Fragment fragmentSearch;
+    private Fragment fragmentRecommend;
+    private Fragment fragmentCommunity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +31,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fragmentHome = new HomeFragment();
+        fragmentSearch = new SearchFragment();
+        fragmentRecommend = new RecommendFragment();
+        fragmentCommunity = new CommunityFragment();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.container, fragmentHome);
+        transaction.addToBackStack(null); transaction.commit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,12 +61,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
+    /* 오른쪽 위 옵션 넣을때 용으로 즉 필용벗음
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,21 +88,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            transaction.replace(R.id.container,fragmentHome);
         } else if (id == R.id.nav_gallery) {
-
+            transaction.replace(R.id.container,fragmentSearch);
         } else if (id == R.id.nav_slideshow) {
-
+            transaction.replace(R.id.container,fragmentRecommend);
         } else if (id == R.id.nav_manage) {
+            transaction.replace(R.id.container,fragmentCommunity);
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }
+        transaction.addToBackStack(null); transaction.commit();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
