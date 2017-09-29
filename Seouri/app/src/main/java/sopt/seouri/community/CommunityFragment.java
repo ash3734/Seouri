@@ -2,7 +2,9 @@ package sopt.seouri.community;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,11 @@ public class CommunityFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private String  mParam1;
     private String  mParam2;
+
+    public TabLayout tabLayout;
+    public ViewPager viewPager;
+    public CommunityMainAdapter communityMainAdapter;
+
 
     public CommunityFragment() {
     }
@@ -44,9 +51,37 @@ public class CommunityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.community_fragment, container, false);
+            ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.community_fragment, container, false);
 
 
-        return rootView;
+        tabLayout = (TabLayout)rootView.findViewById(R.id.tab_layout);
+        viewPager = (ViewPager)rootView.findViewById(R.id.view_pager);
+
+
+        tabLayout.addTab(tabLayout.newTab().setText("구별 게시판"));
+        tabLayout.addTab(tabLayout.newTab().setText("서울시 게시판"));
+        //set equal tab interval
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        //creating Home_PageAdapter adapter
+        communityMainAdapter = new CommunityMainAdapter(getChildFragmentManager());
+        viewPager.setAdapter(communityMainAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+            return rootView;
     }
 }
