@@ -14,6 +14,7 @@ import sopt.seouri.R;
  */
 
 public class SearchFragment extends Fragment {
+    // 푸시가 되는지 한번 해보자!
     /*뭘 의미하는지는 모르겠음*/
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
