@@ -29,7 +29,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
     <View
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -38,11 +37,10 @@
         android:layout_marginTop="5sp"
         android:alpha="0.5"
         android:background="#000000" />
-
-    <ListView
-        android:id="@+id/list_item"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/seoulsiBulletin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
