@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import sopt.seouri.community.CommunityFragment;
 import sopt.seouri.home.HomeFragment;
@@ -20,9 +21,13 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragmentHome;
-    private Fragment fragmentSearch;
+    private SearchFragment fragmentSearch;
     private Fragment fragmentRecommend;
     private Fragment fragmentCommunity;
+
+    // 뒤로버튼 두번 터치시 종료 이벤트 관련 변수
+    private long backKeyPressedTime = 0;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +38,13 @@ public class MainActivity extends AppCompatActivity
 
         fragmentHome = new HomeFragment();
         fragmentSearch = new SearchFragment();
+        fragmentSearch.setContext(getApplicationContext());
         fragmentRecommend = new RecommendFragment();
         fragmentCommunity = new CommunityFragment();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, fragmentHome);
         transaction.addToBackStack(null); transaction.commit();
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -57,7 +62,16 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+                backKeyPressedTime = System.currentTimeMillis();
+                toast = Toast.makeText(getApplicationContext(),"\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+            if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+                this.finish();
+                toast.cancel();
+            }
         }
     }
 
