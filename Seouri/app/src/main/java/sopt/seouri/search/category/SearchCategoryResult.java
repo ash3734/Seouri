@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public class SearchCategoryResult {
     public String message;
-    public ArrayList<SearchCategoryResultData> result;
+    public ArrayList<SearchCategoryResultData> list;
 }

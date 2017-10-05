@@ -5,16 +5,8 @@ package sopt.seouri.search.category;
  */
 
 public class SearchCategoryResultData {
-    public String villageEnterpriseId;
-    public String name;
-    public String address;
-    public String phone;
-    public String url;
-    public String detail;
-    public String article;
-    public String photo;
-    public String category;
-    public String lat;
-    public String lng;
-    public String location;
+    public String villageEnterpriseId;  // id
+    public String name;     // 마을기업 이름
+    public String photo;    // 사진
+    public String category; // 카테고리
 }
