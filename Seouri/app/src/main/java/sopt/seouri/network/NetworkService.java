@@ -14,8 +14,8 @@ import sopt.seouri.search.popup.SearchPopupResult;
 public interface NetworkService {
     /*검색 API**/
     // 카테고리별 마을기업 조회
-    @GET("villageEnterprise/category/{category}/{location}")
-    Call<SearchCategoryResult> getSearchCategoryResult(@Path("category") String category, @Path("location") String location);
+    @GET("villageEnterprise/list/{location}")
+    Call<SearchCategoryResult> getSearchCategoryResult(@Path("location") String location);
 
     // 특정 마을기업 조회
     @GET("villageEnterprise/detail/{villageEnterpriseId}")
