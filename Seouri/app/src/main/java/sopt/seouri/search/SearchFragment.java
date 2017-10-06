@@ -72,7 +72,7 @@ public class SearchFragment extends Fragment {
 //                bundle.putSerializable("select", countryList[position]);
 //                bundle.putSerializable("selectNum",position);
 //                categoryFragment.setArguments(bundle);
-                categoryFragment.setContext(context, position);
+                categoryFragment.setContext(context, String.valueOf(position));
                 transaction.replace(R.id.container,categoryFragment);
                 transaction.commit();
             }
