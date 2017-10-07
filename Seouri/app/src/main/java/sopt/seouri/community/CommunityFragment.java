@@ -38,6 +38,7 @@ public class CommunityFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class CommunityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.community_fragment, container, false);
+            ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.community_fragment, container, false);
 
 
         tabLayout = (TabLayout)rootView.findViewById(R.id.tab_layout);
@@ -79,6 +80,7 @@ public class CommunityFragment extends Fragment {
             }
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
         });
 

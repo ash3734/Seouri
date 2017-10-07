@@ -2,12 +2,11 @@ package sopt.seouri.community;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import sopt.seouri.R;
 
@@ -16,27 +15,30 @@ import sopt.seouri.R;
  */
 public class GuBulletinFragment extends Fragment {
 
-    LinearLayout dobong;
+
+    GuBulletinFirstFragmnet guBulletinFirstFragmnet;
+    GuBulletinListFragment guBulletinListFragment;
 
     public GuBulletinFragment() {
         // Required empty public constructor
     }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        ViewGroup guView = (ViewGroup) inflater.inflate(R.layout.fragment_gu_bulletin, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
-        dobong = (LinearLayout)guView.findViewById(R.id.dobong);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View guView = (View)inflater.inflate(R.layout.fragment_gu_bulletin, container, false);
 
-        dobong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"게시판 글 목록 보여주기",Toast.LENGTH_SHORT).show();
-            }
-        });
+        guBulletinFirstFragmnet = (GuBulletinFirstFragmnet)getChildFragmentManager().findFragmentById(R.id.gubulletinmain);
 
         return guView;
     }
-
 }
