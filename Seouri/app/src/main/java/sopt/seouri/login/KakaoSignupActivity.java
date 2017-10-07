@@ -3,6 +3,7 @@ package sopt.seouri.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
@@ -58,6 +59,9 @@ public class KakaoSignupActivity extends Activity {
             @Override
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Logger.d("UserProfile : " + userProfile);
+                String kakaoID = String.valueOf(userProfile.getId()); // userProfile에서 ID값을 가져옴
+                String kakaoNickname = userProfile.getNickname();     // Nickname 값을 가져옴
+                Log.d("ash",kakaoID+kakaoNickname);
                 redirectMainActivity(); // 로그인 성공시 MainActivity로
             }
         });

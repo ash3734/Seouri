@@ -9,7 +9,7 @@ import com.kakao.auth.IApplicationConfig;
 import com.kakao.auth.ISessionConfig;
 import com.kakao.auth.KakaoAdapter;
 
-import sopt.seouri.ApplicationController;
+import sopt.seouri.application.ApplicationController;
 
 /**
  * Created by ash on 2017-09-27.

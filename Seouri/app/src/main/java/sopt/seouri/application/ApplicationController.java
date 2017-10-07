@@ -1,9 +1,13 @@
 package sopt.seouri.application;
 
+import android.app.Activity;
 import android.app.Application;
+
+import com.kakao.auth.KakaoSDK;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import sopt.seouri.login.KakaoSDKAdapter;
 import sopt.seouri.network.NetworkService;
 
 /**
@@ -12,6 +16,7 @@ import sopt.seouri.network.NetworkService;
 
 public class ApplicationController extends Application {
     private static ApplicationController instance;
+    private static volatile Activity currentActivity = null;
     public static ApplicationController getInstance(){
         return instance;
     }
@@ -33,6 +38,7 @@ public class ApplicationController extends Application {
 //                .addCustom4(Typekit.createFromAsset(this,"NanumSquareR.ttf"));
 
         ApplicationController.instance = this;
+        KakaoSDK.init(new KakaoSDKAdapter());
 
 //        buildService();       //통신소스 완료 후 주석풀자.
     }
@@ -42,6 +48,33 @@ public class ApplicationController extends Application {
         Retrofit retrofit = builder.baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
 
         networkService = retrofit.create(NetworkService.class);
+    }
+
+    public static Activity getCurrentActivity() {
+        return currentActivity;
+    }
+
+    public static void setCurrentActivity(Activity currentActivity) {
+        ApplicationController.currentActivity = currentActivity;
+    }
+
+    /**
+     * singleton 애플리케이션 객체를 얻는다.
+     * @return singleton 애플리케이션 객체
+     */
+    public static ApplicationController getGlobalApplicationContext() {
+        if(instance == null)
+            throw new IllegalStateException("this application does not inherit com.kakao.GlobalApplication");
+        return instance;
+    }
+
+    /**
+     * 애플리케이션 종료시 singleton 어플리케이션 객체 초기화한다.
+     */
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        instance = null;
     }
 
 }
