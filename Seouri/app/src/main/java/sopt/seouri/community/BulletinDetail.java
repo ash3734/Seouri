@@ -4,11 +4,23 @@ package sopt.seouri.community;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sopt.seouri.R;
+import sopt.seouri.application.ApplicationController;
+import sopt.seouri.network.NetworkService;
+
+import static sopt.seouri.MainActivity.fragmentManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,11 +29,26 @@ public class BulletinDetail extends Fragment {
 
     Context context;
     String location;
+    public BulletinPostData postData;
 
+    TextView D_writer;
+    TextView D_date;
+    TextView D_content;
+    TextView D_reply_writer;
+    TextView D_reply_content;
 
-    public void setContext(Context context, String location) {
+    TextView D_more_reply;
+
+    ArrayList<ImageData> images;
+    ArrayList<CommentsData> commentsDatas;
+
+    private NetworkService service2;
+
+    BulletinDetailMoreReplyFragment bulletinDetailMoreReplyFragment;
+
+    public void setContext(Context context, BulletinPostData postData) {
         this.context = context;
-        this.location = location;
+        this.postData = postData;
     }
 
 
@@ -35,8 +62,75 @@ public class BulletinDetail extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_bulletin_detail, container, false);
 
+        //Toast.makeText(getContext(),postData.title.toString(),Toast.LENGTH_SHORT).show();
+
+        service2 = ApplicationController.getInstance().getNetworkService();
+
+        D_writer = (TextView)rootView.findViewById(R.id.D_writer);
+        D_content = (TextView)rootView.findViewById(R.id.D_content);
+        D_date = (TextView)rootView.findViewById(R.id.D_date);
+        D_reply_content = (TextView)rootView.findViewById(R.id.D_reply_content);
+        D_reply_writer = (TextView)rootView.findViewById(R.id.D_reply_writer);
+
+        D_writer.setText(postData.getName());
+        D_content.setText(postData.content);
+        D_date.setText(postData.date);
+
+        D_more_reply = (TextView)rootView.findViewById(R.id.D_more_reply);
+
+//        Call<FindBulletinResult> getFindBulletinResult = service2.getFindBulletinResult("1");
+//        getFindBulletinResult.enqueue(new Callback<FindBulletinResult>() {
+//            @Override
+//            public void onResponse(Call<FindBulletinResult> call, Response<FindBulletinResult> response) {
+//                Toast.makeText(getContext(),"통신tdstssd",Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<FindBulletinResult> call, Throwable t) {
+//                Toast.makeText(getContext(),"통신 실패",Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
 
+        commentsDatas = new ArrayList<>();
+        images = new ArrayList<>();
+        Call<FindBulletinDetailResult> getBulletinDetailResult = service2.getFindBulletinDetailResult(postData.postId);
+        getBulletinDetailResult.enqueue(new Callback<FindBulletinDetailResult>() {
+            @Override
+            public void onResponse(Call<FindBulletinDetailResult> call, Response<FindBulletinDetailResult> response)
+            {
+                if(response.isSuccessful())
+                {
+                    images = response.body().images;
+                    commentsDatas = response.body().comments;
+
+                    if(commentsDatas.size() != 0) {
+                        D_reply_writer.setText(commentsDatas.get(0).getName().toString());
+                        D_reply_content.setText(commentsDatas.get(0).getContent().toString());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<FindBulletinDetailResult> call, Throwable t) {
+                Toast.makeText(getContext(),"통신 실패",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        bulletinDetailMoreReplyFragment = new BulletinDetailMoreReplyFragment();
+        D_more_reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                bulletinDetailMoreReplyFragment.setContext(getContext(), commentsDatas,postData.postId);
+                transaction.replace(R.id.container,bulletinDetailMoreReplyFragment);
+                transaction.commit();
+            }
+        });
 
         return rootView;
     }

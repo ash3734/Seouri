@@ -1,8 +1,15 @@
 package sopt.seouri.network;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
+import sopt.seouri.community.BulletinAddCommentData;
+import sopt.seouri.community.BulletinAddCommentResult;
+import sopt.seouri.community.BulletinAddPostData;
+import sopt.seouri.community.BulletinAddPostResult;
+import sopt.seouri.community.FindBulletinDetailResult;
 import sopt.seouri.community.FindBulletinResult;
 import sopt.seouri.search.category.SearchCategoryResult;
 import sopt.seouri.search.detail.SearchDetailResult;
@@ -30,6 +37,18 @@ public interface NetworkService {
     /////////////////////////////////////////  커뮤니티
 
     // 게시글 조회
-    @GET("posts/{postId}")
-    Call<FindBulletinResult> getFindBulletinResult(@Path("postId") String postId);
+    @GET("community/list/{location}")
+    Call<FindBulletinResult> getFindBulletinResult(@Path("location") String location);
+
+    //게시글 상세 조회
+    @GET("community/{postId}")
+    Call<FindBulletinDetailResult> getFindBulletinDetailResult(@Path("postId") String postId);
+
+    //게시글 작성
+    @POST("community")
+    Call<BulletinAddPostResult> getBulletinAddPostResult(@Body BulletinAddPostData bulletinAddPostData);
+
+    //댓글 작성
+    @POST("community/comment")
+    Call<BulletinAddCommentResult> getBulletinAddCommentResult(@Body BulletinAddCommentData bulletinAddCommentData);
 }

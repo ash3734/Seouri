@@ -19,8 +19,8 @@
         <ImageView
             android:id="@+id/b_profile"
             android:src="@drawable/ppp"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
         <TextView
             android:layout_below="@+id/b_profile"
             android:layout_width="wrap_content"

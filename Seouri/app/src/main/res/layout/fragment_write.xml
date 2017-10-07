@@ -18,6 +18,9 @@
             android:textSize="20dp" />
 
         <EditText
+            android:id="@+id/W_title"
+            android:paddingLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/tt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +70,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/Bulletin_input_content"
+        android:id="@+id/W_content"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center"
@@ -84,7 +87,7 @@
 
     <Button
         android:layout_gravity="center"
-        android:id="@+id/w_complete"
+        android:id="@+id/W_complete"
         android:text="완료"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
