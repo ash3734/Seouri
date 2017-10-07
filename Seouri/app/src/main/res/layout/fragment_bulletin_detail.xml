@@ -3,38 +3,79 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginRight="35dp"
+    android:layout_marginLeft="35dp"
     tools:context="sopt.seouri.community.BulletinDetail">
 
-    <TextView
-        android:id="@+id/D_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <View
-        android:layout_marginTop="13sp"
-        android:alpha="0.3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:background="#808080"/>
-
-    <TextView
-        android:text="내용내용"
-        android:id="@+id/D_content"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-    <View
-        android:layout_marginTop="13sp"
-        android:alpha="0.2"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_centerInParent="true"
-        android:background="#808080"/>
-
-    <ListView
-        android:id="@+id/reply"
+    <RelativeLayout
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </ListView>
+
+        <ImageView
+            android:id="@+id/qw"
+            android:src="@drawable/ppp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:layout_marginLeft="35dp"
+            android:text="희망 마을 운영자"
+            android:layout_toRightOf="@+id/qw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="17.08.18 07:45"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:text="희망마을  새로운 레터가 나왔어요"
+        android:id="@+id/D_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_marginTop="15dp"
+        android:src="@drawable/aa"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="25dp"
+            android:text="댓글"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="더보기"
+            android:layout_alignParentRight="true"
+            android:textSize="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/asd"
+            android:text="옹성우"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@+id/asd"
+            android:layout_marginLeft="20dp"
+            android:text=" 좋아요 좋아요"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 </LinearLayout>

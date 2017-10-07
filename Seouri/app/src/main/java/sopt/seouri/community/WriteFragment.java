@@ -33,13 +33,13 @@ public class WriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup v = (ViewGroup) inflater.inflate(R.layout.fragment_write, container, false);
 
-        complete = (Button)v.findViewById(R.id.complete);
-        complete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                
-            }
-        });
+//        complete = (Button)v.findViewById(R.id.complete);
+//        complete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         return  v;
     }

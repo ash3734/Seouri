@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,7 +43,12 @@ public class GuBulletinListFragment extends Fragment {
         public void onClick(View v) {
             int position = recyclerView2.getChildAdapterPosition(v);
 
-            Toast.makeText(getActivity(),bulletinItemArrayList.get(position).getB_title().toString(),Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(),bulletinItemArrayList.get(position).getB_title().toString(),Toast.LENGTH_SHORT).show();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            BulletinDetail bulletinDetail = new BulletinDetail();
+            bulletinDetail.setContext(context,String.valueOf(position));
+            transaction.replace(R.id.container,bulletinDetail);
+            transaction.commit();
 
         }
     };

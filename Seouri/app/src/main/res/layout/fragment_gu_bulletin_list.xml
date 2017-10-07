@@ -5,44 +5,41 @@
     android:orientation="vertical"
     tools:context="sopt.seouri.community.GuBulletinListFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
-            android:drawableLeft="@drawable/ss"
-            android:hint="  검색"
-            android:paddingLeft="35dp"
-            android:background="@null"
-            android:singleLine="true"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8" />
         <LinearLayout
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/pencil"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:text="검색"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:layout_gravity="right"
             android:id="@+id/write_img"
-            android:layout_weight="0.2"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
                 android:src="@drawable/aa"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="20dp"
                 android:layout_height="20dp" />
             <TextView
                 android:text="글쓰기"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </LinearLayout>
-    <View
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="4.0dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="5sp"
-        android:alpha="0.5"
-        android:background="#000000" />
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/guBulletin"
         android:layout_width="match_parent"

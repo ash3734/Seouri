@@ -1,6 +1,7 @@
 package sopt.seouri.community;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,15 @@ import sopt.seouri.R;
  * A simple {@link Fragment} subclass.
  */
 public class BulletinDetail extends Fragment {
+
+    Context context;
+    String location;
+
+
+    public void setContext(Context context, String location) {
+        this.context = context;
+        this.location = location;
+    }
 
 
     public BulletinDetail() {

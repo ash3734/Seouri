@@ -1,13 +1,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="35dp"
+    android:layout_marginTop="25dp"
     tools:context="sopt.seouri.community.WriteFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제목"
+            android:textSize="20dp" />
 
+        <EditText
+            android:layout_toRightOf="@+id/tt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:singleLine="true" />
+        <View
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_alignBottom="@+id/tt"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="18dp"
+            android:layout_toRightOf="@+id/tt"
+            android:alpha="0.7"
+            android:background="#808080" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/aa"
+            android:layout_toLeftOf="@+id/vv"
+            android:text="첨부파일 이름"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/vv"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/pencil"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/aa"
+            android:layout_width="110dp"
+            android:layout_height="0.7dp"
+            android:alpha="0.7"
+            android:background="#808080" />
+    </RelativeLayout>
+
+    <TextView
+        android:text="내용"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/Bulletin_input_content"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:alpha="20"
+        android:background="@drawable/griditem_rectangle_background"
+        android:gravity="start"
+        android:hint="여기를 눌러 글을 작성할 수 있습니다\n(140자 제한)"
+        android:maxLength="140"
+        android:paddingLeft="12dp"
+        android:paddingTop="20dp"
+        android:textColor="#eeeeee"
+        android:textSize="15sp" />
 
     <Button
-        android:id="@+id/complete"
+        android:layout_gravity="center"
+        android:id="@+id/w_complete"
         android:text="완료"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
