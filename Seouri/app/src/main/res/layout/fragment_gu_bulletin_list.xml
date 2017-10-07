@@ -2,13 +2,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:orientation="vertical"
     tools:context="sopt.seouri.community.GuBulletinListFragment">
 
-
-    <TextView
+    <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="dsfsdfghfhghfghhsdf" />
+        android:layout_height="wrap_content">
+        <EditText
+            android:drawableLeft="@drawable/ss"
+            android:hint="  검색"
+            android:paddingLeft="35dp"
+            android:background="@null"
+            android:singleLine="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8" />
+        <LinearLayout
+            android:id="@+id/write_img"
+            android:layout_weight="0.2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/aa"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:text="글쓰기"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="4.0dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5sp"
+        android:alpha="0.5"
+        android:background="#000000" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/guBulletin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

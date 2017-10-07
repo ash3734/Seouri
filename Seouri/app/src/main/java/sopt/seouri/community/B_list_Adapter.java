@@ -18,18 +18,24 @@ public class B_list_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     ArrayList<BulletinItem> bulletinItems;
     Context context;
+    View.OnClickListener onClick;
+
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.b_list_recyler,parent,false);
+        v.setOnClickListener(onClick);
         return new B_list_Viewholder(v);
     }
 
-    public B_list_Adapter(ArrayList<BulletinItem> bulletinItems, Context context)
+    public B_list_Adapter(ArrayList<BulletinItem> bulletinItems, Context context, View.OnClickListener click)
     {
         this.context = context;
         this.bulletinItems = bulletinItems;
+        this.onClick = click;
     }
+
 
 
     @Override
@@ -39,6 +45,7 @@ public class B_list_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ViewHolder.B_writer.setText(bulletinItems.get(position).getB_writer().toString());
         ViewHolder.B_date.setText(bulletinItems.get(position).getB_date().toString());
         ViewHolder.B_views.setText(bulletinItems.get(position).getB_views() + " ");
+
     }
 
     @Override

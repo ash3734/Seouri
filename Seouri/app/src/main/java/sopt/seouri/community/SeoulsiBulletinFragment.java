@@ -30,6 +30,16 @@ public class SeoulsiBulletinFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private final View.OnClickListener mClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            int position = recyclerView.getChildAdapterPosition(v);
+
+
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,7 +63,7 @@ public class SeoulsiBulletinFragment extends Fragment {
         bulletinItemArrayList.add(bulletinItem3);
 
 
-        b_list_adapter = new B_list_Adapter(bulletinItemArrayList,getContext());
+        b_list_adapter = new B_list_Adapter(bulletinItemArrayList,getContext(),mClickListener);
 
         recyclerView.setAdapter(b_list_adapter);
 
