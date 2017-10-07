@@ -18,7 +18,7 @@
                 android:layout_margin="15dp"/>
 
             <ImageView
-                android:id="@+id/search_detail_coupon"
+                android:id="@+id/search_detail_image"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:src="@drawable/ic_menu_camera"/>
@@ -37,6 +37,7 @@
                 android:orientation="horizontal">
             </android.support.v7.widget.RecyclerView>
             <TextView
+                android:id="@+id/search_detail_news_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="마을기업 소식"
@@ -78,16 +79,19 @@
                     android:layout_height="150dp"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/search_detail_homepage"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:text="홈페이지 주소"
                         android:gravity="center_vertical"/>
                     <TextView
+                        android:id="@+id/search_detail_phone"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:text="전화번호"
                         android:gravity="center_vertical"/>
                     <TextView
+                        android:id="@+id/search_detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:text="위치"
@@ -96,6 +100,11 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/search_detail_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_menu_camera"/>
 
         </LinearLayout>
     </ScrollView>
