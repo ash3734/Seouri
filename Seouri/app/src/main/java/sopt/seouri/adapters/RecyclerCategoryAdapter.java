@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import sopt.seouri.R;
-import sopt.seouri.search.category.CategoryDatas;
+import sopt.seouri.search.category.SearchCategoryResultData;
 import sopt.seouri.viewholders.CategoryViewHolder;
 
 /**
@@ -16,10 +16,10 @@ import sopt.seouri.viewholders.CategoryViewHolder;
  */
 
 public class RecyclerCategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
-    ArrayList<CategoryDatas> itemData;
+    ArrayList<SearchCategoryResultData> itemData;
     View.OnClickListener clickListener;
 
-    public RecyclerCategoryAdapter(ArrayList<CategoryDatas> itemData, View.OnClickListener clickListener) {
+    public RecyclerCategoryAdapter(ArrayList<SearchCategoryResultData> itemData, View.OnClickListener clickListener) {
         this.itemData = itemData;
         this.clickListener = clickListener;
     }
