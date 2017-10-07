@@ -74,6 +74,7 @@ public class SearchFragment extends Fragment {
 //                categoryFragment.setArguments(bundle);
                 categoryFragment.setContext(context, String.valueOf(position));
                 transaction.replace(R.id.container,categoryFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
