@@ -3,6 +3,7 @@ package sopt.seouri.network;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import sopt.seouri.community.FindBulletinResult;
 import sopt.seouri.search.category.SearchCategoryResult;
 import sopt.seouri.search.detail.SearchDetailResult;
 import sopt.seouri.search.popup.SearchPopupResult;
@@ -24,4 +25,11 @@ public interface NetworkService {
     // 검색 팝업
     @GET("villageEnterprise/{name}")
     Call<SearchPopupResult> getSearchPopupResult(@Path("name") String name);
+
+
+    /////////////////////////////////////////  커뮤니티
+
+    // 게시글 조회
+    @GET("posts/{postId}")
+    Call<FindBulletinResult> getFindBulletinResult(@Path("postId") String postId);
 }
