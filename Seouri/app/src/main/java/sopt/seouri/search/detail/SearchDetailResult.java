@@ -5,4 +5,6 @@ package sopt.seouri.search.detail;
  */
 
 public class SearchDetailResult {
+    public String message;
+    public SearchDetailResultData specificVe;
 }
