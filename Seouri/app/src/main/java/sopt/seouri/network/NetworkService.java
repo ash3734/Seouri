@@ -51,4 +51,7 @@ public interface NetworkService {
     //댓글 작성
     @POST("community/comment")
     Call<BulletinAddCommentResult> getBulletinAddCommentResult(@Body BulletinAddCommentData bulletinAddCommentData);
+
+    //게시글 검색
+    
 }

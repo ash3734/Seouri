@@ -6,7 +6,7 @@ package sopt.seouri.community;
 
 public class BulletinAddCommentData
 {
-    public String uesrId;
+    public String userId;
     public String postId;
     private String content;
 

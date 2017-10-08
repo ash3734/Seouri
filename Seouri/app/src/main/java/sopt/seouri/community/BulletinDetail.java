@@ -8,8 +8,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -42,6 +45,10 @@ public class BulletinDetail extends Fragment {
     ArrayList<ImageData> images;
     ArrayList<CommentsData> commentsDatas;
 
+    ImageView imageView;
+
+    ImageView contentimage;
+
     private NetworkService service2;
 
     BulletinDetailMoreReplyFragment bulletinDetailMoreReplyFragment;
@@ -72,6 +79,10 @@ public class BulletinDetail extends Fragment {
         D_reply_content = (TextView)rootView.findViewById(R.id.D_reply_content);
         D_reply_writer = (TextView)rootView.findViewById(R.id.D_reply_writer);
 
+        imageView = (ImageView)rootView.findViewById(R.id.qw);
+        contentimage = (ImageView)rootView.findViewById(R.id.D_cimage);
+
+        Glide.with(context).load(postData.profile).into(imageView);
         D_writer.setText(postData.getName());
         D_content.setText(postData.content);
         D_date.setText(postData.date);
@@ -110,8 +121,10 @@ public class BulletinDetail extends Fragment {
                         D_reply_writer.setText(commentsDatas.get(0).getName().toString());
                         D_reply_content.setText(commentsDatas.get(0).getContent().toString());
                     }
+                    if(images.size() != 0) {
+                        Glide.with(getContext()).load(images.get(0).image).into(contentimage);
+                    }
                 }
-
             }
 
             @Override
@@ -126,7 +139,7 @@ public class BulletinDetail extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                bulletinDetailMoreReplyFragment.setContext(getContext(), commentsDatas,postData.postId);
+                bulletinDetailMoreReplyFragment.setContext(getContext(), commentsDatas,postData.profile);
                 transaction.replace(R.id.container,bulletinDetailMoreReplyFragment);
                 transaction.commit();
             }

@@ -6,5 +6,5 @@ package sopt.seouri.community;
 
 public class ImageData
 {
-    public String imageurl;
+    public String image;
 }

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -28,16 +30,19 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
 
     Context context;
     ArrayList<CommentsData> commentsDataArrayList;
-    String postId;
+    String profile;
 
     ListView listView;
     ImageView addreply;
     EditText addreply_edit;
 
+    ListViewAdapter mMyAdapter;
 
     NetworkService service;
 
     BulletinAddCommentData bulletinAddCommentData;
+
+    ImageView R_proimg;
 
     public BulletinDetailMoreReplyFragment() {
         // Required empty public constructor
@@ -46,7 +51,7 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
     public void setContext(Context context, ArrayList<CommentsData> cData, String postId) {
         this.context = context;
         this.commentsDataArrayList = cData;
-        this.postId = postId;
+        this.profile = postId;
     }
 
 
@@ -59,8 +64,15 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
         addreply = (ImageView)v.findViewById(R.id.R_add_reply_img);
         addreply_edit = (EditText)v.findViewById(R.id.R_add_reply_edit);
 
+
+        R_proimg = (ImageView)v.findViewById(R.id.DR_proimg);
+        Glide.with(getContext()).load(profile).into(R_proimg);
+
+
         service = ApplicationController.getInstance().getNetworkService();
 
+        mMyAdapter = new ListViewAdapter(commentsDataArrayList);
+        listView.setAdapter(mMyAdapter);
 
         addreply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +81,7 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
                 String str3 = addreply_edit.getText().toString();
                 bulletinAddCommentData = new BulletinAddCommentData();
 
-                bulletinAddCommentData.uesrId = "1";
+                bulletinAddCommentData.userId = "1";
                 bulletinAddCommentData.postId = commentsDataArrayList.get(0).postId;
                 bulletinAddCommentData.setContent(str3);
 
@@ -79,12 +91,15 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
                     public void onResponse(Call<BulletinAddCommentResult> call, Response<BulletinAddCommentResult> response) {
                         if(response.isSuccessful())
                         {
+                            mMyAdapter.notifyDataSetChanged();
+                            listView.setAdapter(mMyAdapter);
                             Toast.makeText(getContext()," 댓글 등록 성공",Toast.LENGTH_SHORT).show();
                             addreply_edit.setText("");
+
                         }
                         else
                         {
-                            Toast.makeText(getContext()," 실패 실패",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),response.body().message.toString(),Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -97,10 +112,6 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
                 });
             }
         });
-
-        ListViewAdapter mMyAdapter = new ListViewAdapter(commentsDataArrayList);
-        listView.setAdapter(mMyAdapter);
-        mMyAdapter.notifyDataSetChanged();
 
 
         return v;

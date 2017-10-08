@@ -13,6 +13,7 @@ public class BulletinPostData {
     public String date;
     public String location;
     private String name;
+    public String profile;
 
     public String getName() {
         return name;

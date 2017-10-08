@@ -17,20 +17,20 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/qw"
+                android:id="@+id/DR_proimg"
                 android:src="@drawable/ppp"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
             <TextView
-                android:id="@+id/D_writer"
+                android:id="@+id/DR_writer"
                 android:layout_marginLeft="35dp"
                 android:text="희망 마을 운영자"
-                android:layout_toRightOf="@+id/qw"
+                android:layout_toRightOf="@+id/DR_proimg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/D_date"
+                android:id="@+id/DR_date"
                 android:text="17.08.18 07:45"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"

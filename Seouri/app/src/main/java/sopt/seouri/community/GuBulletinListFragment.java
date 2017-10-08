@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -43,6 +44,8 @@ public class GuBulletinListFragment extends Fragment {
 
     private NetworkService service;
     LinearLayout Write_img;
+
+    ImageView Search_img;
 
     public GuBulletinListFragment() {
         // Required empty public constructor
@@ -81,13 +84,6 @@ public class GuBulletinListFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);             //리니어레이아웃의 형태이면 방향은 수직
         recyclerView2.setLayoutManager(layoutManager);
 
-//        bulletinItem = new BulletinItem("작성자","제목1","2015-05-01",50);
-//        bulletinItem1 = new BulletinItem("작성자","제목2","2015-05-01",50);
-//        bulletinItem2 = new BulletinItem("작성자","제목3","2015-05-01",50);
-//
-//        bulletinItemArrayList.add(bulletinItem);
-//        bulletinItemArrayList.add(bulletinItem1);
-//        bulletinItemArrayList.add(bulletinItem2);
 
         Data = new ArrayList<BulletinPostData>();
         String a = "1";
@@ -128,6 +124,17 @@ public class GuBulletinListFragment extends Fragment {
             }
         });
 
+        Search_img = (ImageView)v.findViewById(R.id.Search_img);
+        Search_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                SearchBulletinFragment searchBulletinFragment = new SearchBulletinFragment();
+                searchBulletinFragment.setContext(context);
+                transaction.replace(R.id.container,searchBulletinFragment);
+                transaction.commit();
+            }
+        });
 
         return v;
     }
