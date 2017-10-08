@@ -20,13 +20,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sopt.seouri.R;
-import sopt.seouri.adapters.RecyclerCategoryAdapter;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
-/**
- * Created by 김지원 on 2017-10-06.
- */
 
 public class CategoryFragment extends Fragment {
     private Context context;
@@ -144,7 +140,7 @@ public class CategoryFragment extends Fragment {
                                 itemData5.add(itemData1.get(i));
                             }
                         }
-                        RecyclerCategoryAdapter adapter1 = new RecyclerCategoryAdapter(itemData1, clickListener);
+                    /*    RecyclerCategoryAdapter adapter1 = new RecyclerCategoryAdapter(itemData1, clickListener);
                         recyclerView1.setAdapter(adapter1);
                         RecyclerCategoryAdapter adapter2 = new RecyclerCategoryAdapter(itemData2, clickListener);
                         recyclerView2.setAdapter(adapter2);
@@ -153,7 +149,7 @@ public class CategoryFragment extends Fragment {
                         RecyclerCategoryAdapter adapter4 = new RecyclerCategoryAdapter(itemData4, clickListener);
                         recyclerView4.setAdapter(adapter4);
                         RecyclerCategoryAdapter adapter5 = new RecyclerCategoryAdapter(itemData5, clickListener);
-                        recyclerView5.setAdapter(adapter5);
+                        recyclerView5.setAdapter(adapter5);*/
                     }
                 } else {
                     Log.d("SearchCategory 통신 에러", response.body().message);

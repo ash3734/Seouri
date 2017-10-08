@@ -13,20 +13,27 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
 import sopt.seouri.MainActivity;
+import sopt.seouri.SharedPrefrernceController;
+import sopt.seouri.application.ApplicationController;
+import sopt.seouri.network.NetworkService;
 
 /**
  * Created by ash on 2017-09-27.
  */
 
 public class KakaoSignupActivity extends Activity {
+    NetworkService service;
+
     /**
      * Main으로 넘길지 가입 페이지를 그릴지 판단하기 위해 me를 호출한다.
+     *
      * @param savedInstanceState 기존 session 정보가 저장된 객체
      */
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        service = ApplicationController.getInstance().getNetworkService();
         requestMe();
     }
 
@@ -54,15 +61,48 @@ public class KakaoSignupActivity extends Activity {
             }
 
             @Override
-            public void onNotSignedUp() {} // 카카오톡 회원이 아닐 시 showSignup(); 호출해야함
+            public void onNotSignedUp() {
+            } // 카카오톡 회원이 아닐 시 showSignup(); 호출해야함
 
             @Override
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Logger.d("UserProfile : " + userProfile);
-                String kakaoID = String.valueOf(userProfile.getId()); // userProfile에서 ID값을 가져옴
+                final String kakaoID = String.valueOf(userProfile.getId()); // userProfile에서 ID값을 가져옴
                 String kakaoNickname = userProfile.getNickname();     // Nickname 값을 가져옴
-                Log.d("ash",kakaoID+kakaoNickname);
-                redirectMainActivity(); // 로그인 성공시 MainActivity로
+                String kakaoUserProfile = "";
+                if (userProfile.getProfileImagePath() != null)
+                    kakaoUserProfile = userProfile.getProfileImagePath();
+                Log.d("ash",userProfile.toString());
+                Log.d("ash", String.valueOf(userProfile.getId()));
+                SharedPrefrernceController.setUserId(getApplicationContext(),kakaoID);
+                //// TODO: 2017-10-07 나중에 데이타 지우고 해보자
+                /*Call<SignupResult> signupResultCall = service.getsignupResult(new SignupData(Integer.parseInt(kakaoID), kakaoNickname, kakaoUserProfile));
+                signupResultCall.enqueue(new Callback<SignupResult>() {
+                    @Override
+                    public void onResponse(Call<SignupResult> call, Response<SignupResult> response) {
+                        if (response.isSuccessful()) {
+                            if(response.body().message.equals("Succeed in inserting memberInfo.")){
+                                ApplicationController.memberId = Integer.parseInt(kakaoID);
+                                SharedPrefrernceController.setUserId(getApplicationContext(),kakaoID);
+                                redirectMainActivity(); // 로그인 성공시 MainActivity로
+                            }else{
+                                Log.d("ash",response.body().message);
+                            }
+
+                        } else {
+                            Toast toast = Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SignupResult> call, Throwable t) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                });*/
+
             }
         });
     }
@@ -71,6 +111,7 @@ public class KakaoSignupActivity extends Activity {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
+
     protected void redirectLoginActivity() {
         final Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

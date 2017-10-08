@@ -7,15 +7,17 @@ import com.dev.sacot41.scviewpager.SCViewPagerAdapter;
 
 import java.util.ArrayList;
 
+import sopt.seouri.home.networkData.PosterData;
+
 /**
  * Created by ash on 2017-07-15.
  */
 
 
 public class MPagerAdapter extends SCViewPagerAdapter {
-    ArrayList<MainPagerData> datas;
+    ArrayList<PosterData> datas;
 
-    public MPagerAdapter(FragmentManager fragmentManager, ArrayList<MainPagerData> datas) {
+    public MPagerAdapter(FragmentManager fragmentManager, ArrayList<PosterData> datas) {
         super(fragmentManager);
         this.datas=datas;
     }

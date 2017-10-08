@@ -46,7 +46,7 @@ public class GuBulletinFirstFragmnet extends Fragment {
         if(index == 1)
         {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.gubulletinmain,guBulletinListFragment);
+            transaction.replace(R.id.gubulletinmain,guBulletinListFragment);///gubulletinmain
             transaction.addToBackStack(null);
             transaction.commit();
         }

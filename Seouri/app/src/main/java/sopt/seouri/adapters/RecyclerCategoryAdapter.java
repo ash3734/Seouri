@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import sopt.seouri.CategoryDatas;
 import sopt.seouri.R;
-import sopt.seouri.search.category.CategoryDatas;
 import sopt.seouri.viewholders.CategoryViewHolder;
 
 /**

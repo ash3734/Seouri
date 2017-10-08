@@ -20,11 +20,13 @@ public class ApplicationController extends Application {
     public static ApplicationController getInstance(){
         return instance;
     }
-    private static String baseUrl = "";
+    private static String baseUrl = "http://52.78.119.54:3000/";
     private NetworkService networkService;
     public NetworkService getNetworkService(){
         return networkService;
     }
+
+    public static int memberId;
 
     @Override
     public void onCreate() {
@@ -40,7 +42,7 @@ public class ApplicationController extends Application {
         ApplicationController.instance = this;
         KakaoSDK.init(new KakaoSDKAdapter());
 
-//        buildService();       //통신소스 완료 후 주석풀자.
+        buildService();       //통신소스 완료 후 주석풀자.
     }
 
     public void buildService(){

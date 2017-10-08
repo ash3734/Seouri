@@ -1,0 +1,11 @@
+package sopt.seouri.home.networkData;
+
+/**
+ * Created by ash on 2017-10-07.
+ */
+
+public class JobinformationData {
+    public int jobnum;
+    public String jobcomment;
+    public String joburl;
+}
