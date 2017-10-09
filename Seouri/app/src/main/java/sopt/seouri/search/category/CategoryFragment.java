@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,8 +20,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sopt.seouri.R;
+import sopt.seouri.adapters.RecyclerCategoryAdapter;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
+import sopt.seouri.search.detail.SearchDetailFragment;
+
+import static sopt.seouri.MainActivity.fragmentManager;
 
 
 public class CategoryFragment extends Fragment {
@@ -116,40 +120,45 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onResponse(Call<SearchCategoryResult> call, Response<SearchCategoryResult> response) {
                 if (response.isSuccessful()) {
-                    if (response.body().message.equals("Succeed in selecting location")) {
+                    if (response.body().message.equals("Succeed in selecting location") || response.body().message.equals("Succeed in selecting total location")) {
 //                        Toast.makeText(context, ""+response.body().list.get(0).name, Toast.LENGTH_SHORT).show();
 
                         // 통신 완료 후 주석처리
-                        itemData1.add(new SearchCategoryResultData("1", "성북구 마을기업", "사진1", "1"));
-                        itemData1.add(new SearchCategoryResultData("2", "혜화 마을기업", "사진2", "2"));
-                        itemData1.add(new SearchCategoryResultData("3", "성신여대 마을기업", "사진3", "3"));
-                        itemData1.add(new SearchCategoryResultData("4", "동대문 마을기업", "사진4", "4"));
-                        itemData1.add(new SearchCategoryResultData("5", "강남구 마을기업", "사진5", "4"));
+//                        itemData1.add(new SearchCategoryResultData("1", "성북구 마을기업", "사진1", "1"));
+//                        itemData1.add(new SearchCategoryResultData("2", "혜화 마을기업", "사진2", "2"));
+//                        itemData1.add(new SearchCategoryResultData("3", "성신여대 마을기업", "사진3", "3"));
+//                        itemData1.add(new SearchCategoryResultData("4", "동대문 마을기업", "사진4", "4"));
+//                        itemData1.add(new SearchCategoryResultData("5", "강남구 마을기업", "사진5", "4"));
 
                         // 서버에 데이터 추가 된 후 주석 풀 것
-//                        itemData1 = response.body().list;
+                        itemData1 = response.body().list;
 
                         for(int i=0; i<itemData1.size(); i++) {
                             if (itemData1.get(i).category.equals("1")){
                                 itemData2.add(itemData1.get(i));
-                            } else if (itemData1.get(i).category.equals("2")) {
-                                itemData3.add(itemData1.get(i));
                             } else if (itemData1.get(i).category.equals("3")) {
+                                itemData3.add(itemData1.get(i));
+                            } else if (itemData1.get(i).category.equals("2")) {
                                 itemData4.add(itemData1.get(i));
                             } else if (itemData1.get(i).category.equals("4")) {
                                 itemData5.add(itemData1.get(i));
                             }
                         }
                     /*    RecyclerCategoryAdapter adapter1 = new RecyclerCategoryAdapter(itemData1, clickListener);
+                        RecyclerCategoryAdapter adapter1 = new RecyclerCategoryAdapter(itemData1, clickListener, context);
+>>>>>>> a971fe854435870273f85f64f410196cec733da0
                         recyclerView1.setAdapter(adapter1);
-                        RecyclerCategoryAdapter adapter2 = new RecyclerCategoryAdapter(itemData2, clickListener);
+                        RecyclerCategoryAdapter adapter2 = new RecyclerCategoryAdapter(itemData2, clickListener, context);
                         recyclerView2.setAdapter(adapter2);
-                        RecyclerCategoryAdapter adapter3 = new RecyclerCategoryAdapter(itemData3, clickListener);
+                        RecyclerCategoryAdapter adapter3 = new RecyclerCategoryAdapter(itemData3, clickListener, context);
                         recyclerView3.setAdapter(adapter3);
-                        RecyclerCategoryAdapter adapter4 = new RecyclerCategoryAdapter(itemData4, clickListener);
+                        RecyclerCategoryAdapter adapter4 = new RecyclerCategoryAdapter(itemData4, clickListener, context);
                         recyclerView4.setAdapter(adapter4);
+<<<<<<< HEAD
                         RecyclerCategoryAdapter adapter5 = new RecyclerCategoryAdapter(itemData5, clickListener);
                         recyclerView5.setAdapter(adapter5);*/
+                        RecyclerCategoryAdapter adapter5 = new RecyclerCategoryAdapter(itemData5, clickListener, context);
+                        recyclerView5.setAdapter(adapter5);
                     }
                 } else {
                     Log.d("SearchCategory 통신 에러", response.body().message);
@@ -173,32 +182,44 @@ public class CategoryFragment extends Fragment {
         @Override
         public void onClick(View view) {
             int position;
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
+
             switch (((View)view.getParent()).getId()){
                 case R.id.recycler_category1 :
                     position = recyclerView1.getChildPosition(view);
-                    Toast.makeText(context,"첫번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData1.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"첫번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData1.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+                    searchDetailFragment.setContext(context, String.valueOf(itemData1.get(position).villageEnterpriseId));
                     break;
 
                 case R.id.recycler_category2 :
                     position = recyclerView2.getChildPosition(view);
-                    Toast.makeText(context,"두번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData2.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"두번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData2.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+                    searchDetailFragment.setContext(context, String.valueOf(itemData2.get(position).villageEnterpriseId));
                     break;
 
                 case R.id.recycler_category3 :
                     position = recyclerView3.getChildPosition(view);
-                    Toast.makeText(context,"세번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData3.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"세번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData3.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+                    searchDetailFragment.setContext(context, String.valueOf(itemData3.get(position).villageEnterpriseId));
                     break;
 
                 case R.id.recycler_category4 :
                     position = recyclerView4.getChildPosition(view);
-                    Toast.makeText(context,"네번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData4.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"네번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData4.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+                    searchDetailFragment.setContext(context, String.valueOf(itemData4.get(position).villageEnterpriseId));
                     break;
 
                 case R.id.recycler_category5 :
                     position = recyclerView5.getChildPosition(view);
-                    Toast.makeText(context,"다섯번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData5.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"다섯번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData5.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
+                    searchDetailFragment.setContext(context, String.valueOf(itemData5.get(position).villageEnterpriseId));
                     break;
             }
+
+            transaction.replace(R.id.container,searchDetailFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
     };
 }

@@ -16,29 +16,36 @@ import sopt.seouri.R;
 
 public class B_list_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<BulletinItem> bulletinItems;
+    ArrayList<BulletinPostData> bulletinItems;
     Context context;
+    View.OnClickListener onClick;
+
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.b_list_recyler,parent,false);
+        v.setOnClickListener(onClick);
         return new B_list_Viewholder(v);
     }
 
-    public B_list_Adapter(ArrayList<BulletinItem> bulletinItems, Context context)
+    public B_list_Adapter(ArrayList<BulletinPostData> bulletinItems, Context context, View.OnClickListener click)
     {
         this.context = context;
         this.bulletinItems = bulletinItems;
+        this.onClick = click;
     }
+
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         B_list_Viewholder ViewHolder = (B_list_Viewholder) holder;
-        ViewHolder.B_title.setText(bulletinItems.get(position).getB_title().toString());
-        ViewHolder.B_writer.setText(bulletinItems.get(position).getB_writer().toString());
-        ViewHolder.B_date.setText(bulletinItems.get(position).getB_date().toString());
-        ViewHolder.B_views.setText(bulletinItems.get(position).getB_views() + " ");
+        ViewHolder.B_title.setText(bulletinItems.get(position).title.toString());
+        ViewHolder.B_writer.setText(bulletinItems.get(position).getName().toString());
+        ViewHolder.B_date.setText(bulletinItems.get(position).date.toString());
+        ViewHolder.B_views.setText(bulletinItems.get(position).view_num + " ");
+
     }
 
     @Override

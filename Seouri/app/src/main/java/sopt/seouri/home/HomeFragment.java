@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
+import sopt.seouri.home.networkData.JobinformationData;
 import sopt.seouri.home.networkData.PosterData;
 import sopt.seouri.network.NetworkService;
 
@@ -52,8 +55,10 @@ public class HomeFragment extends Fragment {
     private TextView textViewNotice3;
     private TextView textViewNotice4;
     private TextView textViewNotice5;
-    private TextView textViewJob1;
-    private TextView textViewJob2;
+    RecyclerView recyclerView;
+    JobListAdapter jobListAdapter;
+    ArrayList<JobinformationData> datas;
+    LinearLayoutManager linearLayoutManager;
     NetworkService service;
 
     public HomeFragment() {
@@ -86,7 +91,6 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful()){
                     if(response.body().message.equals("Succeed in home")){
                         pageDatas=response.body().poster;
-
                         mPageAdapter = new MPagerAdapter(getChildFragmentManager(),pageDatas);
                         mPageAdapter.setNumberOfPage(pageDatas.size());
                         mPageAdapter.setFragmentBackgroundColor(R.color.theme_100);
@@ -120,29 +124,64 @@ public class HomeFragment extends Fragment {
                         };
 
                         int flags = Pattern.CASE_INSENSITIVE;
-
-                        textViewNotice1.setText(response.body().villageinformation.get(0).comment);
-                        Pattern p = Pattern.compile(response.body().villageinformation.get(0).comment, flags);
+                        Pattern p;
+                        if(response.body().villageinformation.get(0).comment.length()>20){
+                            textViewNotice1.setText(response.body().villageinformation.get(0).comment.substring(0,20)+" [...]");
+                            p= Pattern.compile(response.body().villageinformation.get(0).comment.substring(0,20), flags);
+                        }
+                        else{
+                             p= Pattern.compile(response.body().villageinformation.get(0).comment, flags);
+                            textViewNotice1.setText(response.body().villageinformation.get(0).comment);
+                        }
                         Linkify.addLinks(textViewNotice1, p,response.body().villageinformation.get(0).inforUrl,null,transform);
 
-                        textViewNotice2.setText(response.body().villageinformation.get(1).comment);
-                        Pattern p2 = Pattern.compile(response.body().villageinformation.get(1).comment, flags);
+                        if(response.body().villageinformation.get(1).comment.length()>20){
+                            textViewNotice2.setText(response.body().villageinformation.get(1).comment.substring(0,20)+" [...]");
+                            p= Pattern.compile(response.body().villageinformation.get(1).comment.substring(0,20), flags);
+                        }
+                        else{
+                            p= Pattern.compile(response.body().villageinformation.get(1).comment, flags);
+                            textViewNotice2.setText(response.body().villageinformation.get(1).comment);
+                        }
                         Linkify.addLinks(textViewNotice2, p,response.body().villageinformation.get(1).inforUrl,null,transform);
 
-                        textViewNotice3.setText(response.body().villageinformation.get(2).comment);
-                        Pattern p3 = Pattern.compile(response.body().villageinformation.get(2).comment, flags);
+                        if(response.body().villageinformation.get(2).comment.length()>20){
+                            textViewNotice3.setText(response.body().villageinformation.get(2).comment.substring(0,20)+" [...]");
+                            p= Pattern.compile(response.body().villageinformation.get(2).comment.substring(0,20), flags);
+                        }
+                        else{
+                            p= Pattern.compile(response.body().villageinformation.get(2).comment, flags);
+                            textViewNotice3.setText(response.body().villageinformation.get(2).comment);
+                        }
                         Linkify.addLinks(textViewNotice3, p,response.body().villageinformation.get(2).inforUrl,null,transform);
 
-                        textViewNotice4.setText(response.body().villageinformation.get(3).comment);
-                        Pattern p4 = Pattern.compile(response.body().villageinformation.get(3).comment, flags);
+                        if(response.body().villageinformation.get(3).comment.length()>20){
+                            textViewNotice4.setText(response.body().villageinformation.get(3).comment.substring(0,20)+" [...]");
+                            p= Pattern.compile(response.body().villageinformation.get(3).comment.substring(0,20), flags);
+                        }
+                        else{
+                            p= Pattern.compile(response.body().villageinformation.get(3).comment, flags);
+                            textViewNotice4.setText(response.body().villageinformation.get(3).comment);
+                        }
                         Linkify.addLinks(textViewNotice4, p,response.body().villageinformation.get(3).inforUrl,null,transform);
 
-                        textViewNotice5.setText(response.body().villageinformation.get(4).comment);
-                        Pattern p5 = Pattern.compile(response.body().villageinformation.get(4).comment, flags);
+                        if(response.body().villageinformation.get(4).comment.length()>20){
+                            textViewNotice5.setText(response.body().villageinformation.get(4).comment.substring(0,20)+" [...]");
+                            p= Pattern.compile(response.body().villageinformation.get(4).comment.substring(0,20), flags);
+                        }
+                        else{
+                            p= Pattern.compile(response.body().villageinformation.get(4).comment, flags);
+                            textViewNotice5.setText(response.body().villageinformation.get(4).comment);
+                        }
                         Linkify.addLinks(textViewNotice5, p,response.body().villageinformation.get(4).inforUrl,null,transform);
 
-                        textViewJob1.setText(response.body().jobinformation.get(0).jobcomment);
-                        textViewJob2.setText(response.body().jobinformation.get(1).jobcomment);
+                        datas = response.body().jobinformation;
+                        recyclerView.setHasFixedSize(true);
+                        linearLayoutManager = new LinearLayoutManager(getActivity());
+                        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        jobListAdapter = new JobListAdapter(datas,getContext());
+                        recyclerView.setAdapter(jobListAdapter);
                     }else{
                         Toast toast = Toast.makeText(getContext(), "서버 오류 입니다.", Toast.LENGTH_LONG);
                         toast.show();
@@ -181,8 +220,9 @@ public class HomeFragment extends Fragment {
         textViewNotice3= (TextView) rootView.findViewById(R.id.main_notice_3);
         textViewNotice4= (TextView) rootView.findViewById(R.id.main_notice_4);
         textViewNotice5= (TextView) rootView.findViewById(R.id.main_notice_5);
-        textViewJob1= (TextView) rootView.findViewById(R.id.main_job_1);
-        textViewJob2= (TextView) rootView.findViewById(R.id.main_job_2);
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.home_job_list);
+        //textViewJob1= (TextView) rootView.findViewById(R.id.main_job_1);
+        //textViewJob2= (TextView) rootView.findViewById(R.id.main_job_2);
         return rootView;
     }
 }

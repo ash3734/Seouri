@@ -2,12 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="sopt.seouri.community.GuBulletinListFragment">
 
-
-    <TextView
+    <RelativeLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="dsfsdfghfhghfghhsdf" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/pencil"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:text="검색"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:id="@+id/write_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/aa"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:text="글쓰기"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/guBulletin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

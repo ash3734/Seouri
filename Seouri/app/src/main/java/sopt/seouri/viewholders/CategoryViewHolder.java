@@ -12,8 +12,8 @@ import sopt.seouri.R;
  */
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
-    public String id;
-    public String category;
+//    public String id;
+//    public String category;
     public TextView cardText;
     public ImageView cardImg;
 

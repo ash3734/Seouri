@@ -1,14 +1,17 @@
 package sopt.seouri.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
-import sopt.seouri.CategoryDatas;
 import sopt.seouri.R;
+import sopt.seouri.search.category.SearchCategoryResultData;
 import sopt.seouri.viewholders.CategoryViewHolder;
 
 /**
@@ -16,12 +19,14 @@ import sopt.seouri.viewholders.CategoryViewHolder;
  */
 
 public class RecyclerCategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
-    ArrayList<CategoryDatas> itemData;
+    ArrayList<SearchCategoryResultData> itemData;
     View.OnClickListener clickListener;
+    Context context;
 
-    public RecyclerCategoryAdapter(ArrayList<CategoryDatas> itemData, View.OnClickListener clickListener) {
+    public RecyclerCategoryAdapter(ArrayList<SearchCategoryResultData> itemData, View.OnClickListener clickListener, Context context) {
         this.itemData = itemData;
         this.clickListener = clickListener;
+        this.context = context;
     }
 
     @Override
@@ -37,6 +42,8 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter<CategoryViewHo
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         holder.cardText.setText(itemData.get(position).name);
 //        holder.cardImg.setImageResource(itemData.get(position).photo);
+        Glide.with(context).load(itemData.get(position).photo).into(holder.cardImg);
+
     }
 
     @Override

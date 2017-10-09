@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="sopt.seouri.search.SearchFragment">
+    tools:context="sopt.seouri.recommend.RecommendFragment">
     <RelativeLayout
         android:id="@+id/reco_1"
         android:layout_weight="1"

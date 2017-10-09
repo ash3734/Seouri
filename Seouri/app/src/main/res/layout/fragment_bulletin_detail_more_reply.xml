@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sopt.seouri.community.BulletinDetailMoreReplyFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/qw"
+                android:src="@drawable/ppp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/D_writer"
+                android:layout_marginLeft="35dp"
+                android:text="희망 마을 운영자"
+                android:layout_toRightOf="@+id/qw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/D_date"
+                android:text="17.08.18 07:45"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.2dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:alpha="0.5"
+            android:background="#808080" />
+
+        <ListView
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:id="@+id/reply_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#FFFFFF"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="30dp"
+            android:id="@+id/sd"
+            android:text="댓글 쓰기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_below="@+id/sd"
+            android:layout_width="match_parent"
+            android:layout_height="1.2dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="15dp"
+            android:alpha="0.5"
+            android:background="#808080" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/R_add_reply_edit"
+                android:layout_marginTop="10dp"
+                android:hint=" 내용을 입력하세요"
+                android:background="@null"
+                android:layout_weight="0.8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/R_add_reply_img"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/pencil"
+                android:layout_width="25dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

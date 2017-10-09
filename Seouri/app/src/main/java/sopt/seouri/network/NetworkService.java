@@ -5,14 +5,23 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import sopt.seouri.community.BulletinAddCommentData;
+import sopt.seouri.community.BulletinAddCommentResult;
+import sopt.seouri.community.BulletinAddPostData;
+import sopt.seouri.community.BulletinAddPostResult;
+import sopt.seouri.community.FindBulletinDetailResult;
+import sopt.seouri.community.FindBulletinResult;
 import sopt.seouri.home.MainResult;
 import sopt.seouri.login.LoginData;
 import sopt.seouri.login.LoginResult;
 import sopt.seouri.login.SignupData;
 import sopt.seouri.login.SignupResult;
+import sopt.seouri.mypage.networkData.MyPageData;
+import sopt.seouri.mypage.networkData.MyPageResult;
 import sopt.seouri.search.category.SearchCategoryResult;
 import sopt.seouri.search.detail.SearchDetailResult;
 import sopt.seouri.search.popup.SearchPopupResult;
+
 
 /**
  * Created by 김지원 on 2017-10-05.
@@ -20,6 +29,8 @@ import sopt.seouri.search.popup.SearchPopupResult;
 
 public interface NetworkService {
     /*성현이 API*/
+    @POST("member/mypage")
+    Call<MyPageResult> getMyPageResult(@Body MyPageData myPageData);
     @POST("member")
     Call<SignupResult> getsignupResult(@Body SignupData signupData);
     @POST("member/login")
@@ -39,4 +50,23 @@ public interface NetworkService {
     // 검색 팝업
     @GET("villageEnterprise/{name}")
     Call<SearchPopupResult> getSearchPopupResult(@Path("name") String name);
+
+
+    /////////////////////////////////////////  커뮤니티
+
+    // 게시글 조회
+    @GET("community/list/{location}")
+    Call<FindBulletinResult> getFindBulletinResult(@Path("location") String location);
+
+    //게시글 상세 조회
+    @GET("community/{postId}")
+    Call<FindBulletinDetailResult> getFindBulletinDetailResult(@Path("postId") String postId);
+
+    //게시글 작성
+    @POST("community")
+    Call<BulletinAddPostResult> getBulletinAddPostResult(@Body BulletinAddPostData bulletinAddPostData);
+
+    //댓글 작성
+    @POST("community/comment")
+    Call<BulletinAddCommentResult> getBulletinAddCommentResult(@Body BulletinAddCommentData bulletinAddCommentData);
 }

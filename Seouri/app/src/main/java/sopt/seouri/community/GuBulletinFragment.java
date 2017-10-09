@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import sopt.seouri.R;
 
@@ -15,9 +17,7 @@ import sopt.seouri.R;
  */
 public class GuBulletinFragment extends Fragment {
 
-
-    GuBulletinFirstFragmnet guBulletinFirstFragmnet;
-    GuBulletinListFragment guBulletinListFragment;
+    GridView gridView2;
 
     public GuBulletinFragment() {
         // Required empty public constructor
@@ -35,9 +35,8 @@ public class GuBulletinFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View guView = (View)inflater.inflate(R.layout.fragment_gu_bulletin, container, false);
+        LinearLayout guView = (LinearLayout) inflater.inflate(R.layout.fragment_gu_bulletin, container, false);
 
-        guBulletinFirstFragmnet = (GuBulletinFirstFragmnet)getChildFragmentManager().findFragmentById(R.id.gubulletinmain);
 
         return guView;
     }

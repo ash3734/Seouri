@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import sopt.seouri.community.CommunityFragment;
 import sopt.seouri.home.HomeFragment;
+import sopt.seouri.mypage.MyPageFragment;
 import sopt.seouri.recommend.RecommendFragment;
 import sopt.seouri.search.SearchFragment;
 
@@ -27,7 +28,9 @@ public class MainActivity extends AppCompatActivity
     private SearchFragment fragmentSearch;
     private Fragment fragmentRecommend;
     private Fragment fragmentCommunity;
+    private Fragment fragmentMyPage;
 
+//    public static ArrayList<Fragment> fragmentStack;
     // 뒤로버튼 두번 터치시 종료 이벤트 관련 변수
     private long backKeyPressedTime = 0;
     private Toast toast;
@@ -38,25 +41,33 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("서우리");
 
         fragmentHome = new HomeFragment();
         fragmentSearch = new SearchFragment();
         fragmentSearch.setContext(getApplicationContext());
         fragmentRecommend = new RecommendFragment();
         fragmentCommunity = new CommunityFragment();
+        fragmentMyPage = new MyPageFragment();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, fragmentHome);
-        transaction.addToBackStack(null); transaction.commit();
+//        transaction.addToBackStack(null);
+        transaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer,  toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+       /* toggle.setDrawerIndicatorEnabled(false);
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(),, getApplicationContext().getTheme());
+        toggle.setHomeAsUpIndicator(drawable);*/
         toggle.syncState();
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+//        fragmentStack = new ArrayList<>();
     }
 
     @Override
@@ -65,15 +76,19 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-                backKeyPressedTime = System.currentTimeMillis();
-                toast = Toast.makeText(getApplicationContext(),"\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
-                toast.show();
-                return;
-            }
-            if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-                this.finish();
-                toast.cancel();
+            if(fragmentManager.getBackStackEntryCount() > 0){
+                fragmentManager.popBackStack();
+            } else {
+                if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+                    backKeyPressedTime = System.currentTimeMillis();
+                    toast = Toast.makeText(getApplicationContext(), "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+                    this.finish();
+                    toast.cancel();
+                }
             }
         }
     }
@@ -111,21 +126,31 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
+        for(int i=0; i<fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
+        }
+
         if (id == R.id.nav_camera) {
             transaction.replace(R.id.container,fragmentHome);
+
+//            fragmentStack.removeAll(fragmentStack);
         } else if (id == R.id.nav_gallery) {
             transaction.replace(R.id.container,fragmentSearch);
+//            fragmentStack.removeAll(fragmentStack);
         } else if (id == R.id.nav_slideshow) {
             transaction.replace(R.id.container,fragmentRecommend);
+//            fragmentStack.removeAll(fragmentStack);
         } else if (id == R.id.nav_manage) {
             transaction.replace(R.id.container,fragmentCommunity);
+//            fragmentStack.removeAll(fragmentStack);
 
         } else if (id == R.id.nav_share) {
-
+            transaction.replace(R.id.container,fragmentMyPage);
         } else if (id == R.id.nav_send) {
 
         }
-        transaction.addToBackStack(null); transaction.commit();
+//        transaction.addToBackStack(null);
+        transaction.commit();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

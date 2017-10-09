@@ -8,4 +8,7 @@ public class JobinformationData {
     public int jobnum;
     public String jobcomment;
     public String joburl;
+    public String address;
+    public String pay;
+    public String time;
 }
