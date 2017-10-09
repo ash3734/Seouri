@@ -1,13 +1,16 @@
 package sopt.seouri.network;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import sopt.seouri.community.BulletinAddCommentData;
 import sopt.seouri.community.BulletinAddCommentResult;
-import sopt.seouri.community.BulletinAddPostData;
 import sopt.seouri.community.BulletinAddPostResult;
 import sopt.seouri.community.FindBulletinDetailResult;
 import sopt.seouri.community.FindBulletinResult;
@@ -45,13 +48,20 @@ public interface NetworkService {
     Call<FindBulletinDetailResult> getFindBulletinDetailResult(@Path("postId") String postId);
 
     //게시글 작성
+    @Multipart
     @POST("community")
-    Call<BulletinAddPostResult> getBulletinAddPostResult(@Body BulletinAddPostData bulletinAddPostData);
+    Call<BulletinAddPostResult> getBulletinAddPostResult(@Part("userId") RequestBody userId,
+                                                         @Part("title") RequestBody title,
+                                                         @Part("content") RequestBody content,
+                                                         @Part("location") RequestBody location,
+                                                         @Part MultipartBody.Part images);
+
+//    Call<BulletinAddPostResult> getBulletinAddPostResult(@Body BulletinAddPostData bulletinAddPostData);
 
     //댓글 작성
     @POST("community/comment")
     Call<BulletinAddCommentResult> getBulletinAddCommentResult(@Body BulletinAddCommentData bulletinAddCommentData);
 
     //게시글 검색
-    
+
 }
