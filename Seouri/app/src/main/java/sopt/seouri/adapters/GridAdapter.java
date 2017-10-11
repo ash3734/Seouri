@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import sopt.seouri.R;
@@ -25,7 +25,7 @@ public class GridAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return countryList.length;
+        return 25;
     }
 
     @Override
@@ -40,16 +40,19 @@ public class GridAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout griditem;
+        RelativeLayout griditem;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-//            griditem = new LinearLayout(context);
-            griditem = (LinearLayout)inflater.inflate(R.layout.search_griditem, null);
+            griditem = new RelativeLayout(context);
+            griditem = (RelativeLayout) inflater.inflate(R.layout.search_griditem, null);
             TextView textView = (TextView) griditem.findViewById(R.id.griditem);
             textView.setText(countryList[position]);
+//            griditem = (LinearLayout)inflater.inflate(R.layout.search_griditem_image,null);
+//            ImageView imageView = (ImageView)griditem.findViewById(R.id.griditem_image);
+
         } else {
-            griditem = (LinearLayout)convertView;
+            griditem = (RelativeLayout) convertView;
         }
 
         return griditem;
