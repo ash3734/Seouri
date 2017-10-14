@@ -1,5 +1,6 @@
 package sopt.seouri.mypage;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,8 @@ public class MyPageFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private String  mParam1;
     private String  mParam2;
+    Context context;
+
 
     public MyPageFragment() {
     }
@@ -103,5 +106,9 @@ public class MyPageFragment extends Fragment {
         recyclerView = (RecyclerView)rootView.findViewById(R.id.mypage_recyclerView);
 
         return rootView;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

@@ -11,13 +11,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import sopt.seouri.community.CommunityFragment;
 import sopt.seouri.home.HomeFragment;
 import sopt.seouri.mypage.MyPageFragment;
+import sopt.seouri.navi.NaviFragment;
 import sopt.seouri.recommend.RecommendFragment;
 import sopt.seouri.search.SearchFragment;
+
+import static sopt.seouri.R.id.toolbar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +33,11 @@ public class MainActivity extends AppCompatActivity
     private Fragment fragmentRecommend;
     private Fragment fragmentCommunity;
     private Fragment fragmentMyPage;
+    private NaviFragment naviFragment;
+    public static DrawerLayout drawer;
+    public static Toolbar mToolbar;
+    public TextView textViewToolbar;
+
 
 //    public static ArrayList<Fragment> fragmentStack;
     // 뒤로버튼 두번 터치시 종료 이벤트 관련 변수
@@ -39,9 +48,13 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("서우리");
+         drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mToolbar = (Toolbar) findViewById(toolbar);
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle("");
+        textViewToolbar = (TextView)mToolbar.findViewById(R.id.toolbar_text);
+        textViewToolbar.setText("서우리");
+
 
         fragmentHome = new HomeFragment();
         fragmentSearch = new SearchFragment();
@@ -49,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         fragmentRecommend = new RecommendFragment();
         fragmentCommunity = new CommunityFragment();
         fragmentMyPage = new MyPageFragment();
-
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, fragmentHome);
 //        transaction.addToBackStack(null);
@@ -57,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer,  toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer,  mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
        /* toggle.setDrawerIndicatorEnabled(false);
         Drawable drawable = ResourcesCompat.getDrawable(getResources(),, getApplicationContext().getTheme());
@@ -66,9 +79,30 @@ public class MainActivity extends AppCompatActivity
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //navigationView.setNavigationItemSelectedListener(this);
 //        fragmentStack = new ArrayList<>();
+
+        naviFragment = (NaviFragment)getSupportFragmentManager().findFragmentById(R.id.navi_fragment);
+
     }
+/*
+    View.OnClickListener clickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Log.d("ash","click??");
+            fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction2 = fragmentManager.beginTransaction();
+            for(int i=0; i<fragmentManager.getBackStackEntryCount(); i++) {
+                fragmentManager.popBackStack();
+            }
+            transaction2.replace(R.id.container,fragmentSearch);
+            transaction2.commit();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+
+        }
+    };*/
 
     @Override
     public void onBackPressed() {
@@ -121,7 +155,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        fragmentManager = getSupportFragmentManager();
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         int id = item.getItemId();
@@ -151,10 +185,11 @@ public class MainActivity extends AppCompatActivity
         }
 //        transaction.addToBackStack(null);
         transaction.commit();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
+
+
     }
 }

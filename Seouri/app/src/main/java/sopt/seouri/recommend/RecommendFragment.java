@@ -54,8 +54,8 @@ public class RecommendFragment extends Fragment {
           @Override
           public void onClick(View v) {
               FragmentTransaction transaction = fragmentManager.beginTransaction();
-              RecommendData recommendData = new RecommendData("꿈 더하기 베이커리","부가내용"
-              ,"사랑 뻥뻥 사랑","부가내용","협동 조합 노느 메기","부가내용","먹방 쇼핑","영등포구 먹방 투어 후 책과 옷 쇼핑!",R.drawable.aa);
+              RecommendData recommendData = new RecommendData("북촌 고예마을 협동 조합","부가내용"
+              ,"통인 시장","부가내용","북초 한옥 체험","부가내용","북촌 데이트","",R.drawable.bookchon_bg);
               RecommendDetailFragment recommendDetailFragment = new RecommendDetailFragment(recommendData);
               recommendDetailFragment.setContext(context);
               transaction.replace(R.id.container,recommendDetailFragment);

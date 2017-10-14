@@ -1,5 +1,6 @@
 package sopt.seouri.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,8 +60,11 @@ public class HomeFragment extends Fragment {
     ArrayList<JobinformationData> datas;
     LinearLayoutManager linearLayoutManager;
     NetworkService service;
-
+    Context context;
     public HomeFragment() {
+    }
+    public void setContext(Context context){
+        this.context = context;
     }
     /*뭘 의미하는지는 모르겠음*/
     public static HomeFragment newInstance(String param1,String param2){
@@ -194,9 +197,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<MainResult> call, Throwable t) {
-                Toast toast = Toast.makeText(getContext(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+                //Toast toast = Toast.makeText(, "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
+                //toast.setGravity(Gravity.CENTER, 0, 0);
+                //toast.show();
             }
         });
 

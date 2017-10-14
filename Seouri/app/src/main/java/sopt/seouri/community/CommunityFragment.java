@@ -1,5 +1,6 @@
 package sopt.seouri.community;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -38,8 +39,11 @@ public class CommunityFragment extends Fragment {
     GuBulletinListFragment guBulletinListFragment;
 
     NetworkService service;
-
+    Context context;
     public CommunityFragment() {
+    }
+    public void setContext(Context context){
+        this.context = context;
     }
     /*뭘 의미하는지는 모르겠음*/
 //    public static CommunityFragment newInstance(String param1, String param2){
