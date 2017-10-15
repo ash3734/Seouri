@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import sopt.seouri.R;
 import sopt.seouri.adapters.GridAdapter;
@@ -25,6 +26,7 @@ import static sopt.seouri.MainActivity.fragmentManager;
 public class SearchFragment extends Fragment {
     private Context context;
     private GridView gridView;
+    private TextView search_all_btn;
     private String[] countryList;
 
 
@@ -65,20 +67,35 @@ public class SearchFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(context, countryList[position], Toast.LENGTH_SHORT).show();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                CategoryFragment categoryFragment = new CategoryFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("select", countryList[position]);
-//                bundle.putSerializable("selectNum",position);
-//                categoryFragment.setArguments(bundle);
-                categoryFragment.setContext(context, String.valueOf(position));
-                transaction.replace(R.id.container,categoryFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+//                FragmentTransaction transaction = fragmentManager.beginTransaction();
+//                CategoryFragment categoryFragment = new CategoryFragment();
+//
+//                categoryFragment.setContext(context, String.valueOf(position));
+//                transaction.replace(R.id.container,categoryFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+                toDetailFragment(String.valueOf(position));
+
+            }
+        });
+
+        search_all_btn = (TextView)layout.findViewById(R.id.search_all_btn);
+        search_all_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toDetailFragment("25");
             }
         });
 
         return layout;
+    }
+
+    private void toDetailFragment(String position){
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        CategoryFragment categoryFragment = new CategoryFragment();
+        categoryFragment.setContext(context, position);
+        transaction.replace(R.id.container,categoryFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

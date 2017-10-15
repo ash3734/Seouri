@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
         }
         else{
             String userId = SharedPrefrernceController.getUserId(getApplicationContext());
+            Log.d("ash","userId "+userId);
             Call<LoginResult> loginResultCall = service.getLoginResult(new LoginData(Integer.parseInt(userId)));
             loginResultCall.enqueue(new Callback<LoginResult>() {
                 @Override

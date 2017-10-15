@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import sopt.seouri.R;
@@ -45,7 +47,9 @@ public class B_list_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ViewHolder.B_writer.setText(bulletinItems.get(position).getName().toString());
         ViewHolder.B_date.setText(bulletinItems.get(position).date.toString());
         ViewHolder.B_views.setText(bulletinItems.get(position).view_num + " ");
-
+        if(!bulletinItems.get(position).profile.equals("")) {
+            Glide.with(context).load(bulletinItems.get(position).profile).into(ViewHolder.B_profile);
+        }
     }
 
     @Override

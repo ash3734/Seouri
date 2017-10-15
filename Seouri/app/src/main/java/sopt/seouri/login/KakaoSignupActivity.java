@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
@@ -12,6 +14,9 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sopt.seouri.MainActivity;
 import sopt.seouri.SharedPrefrernceController;
 import sopt.seouri.application.ApplicationController;
@@ -75,8 +80,7 @@ public class KakaoSignupActivity extends Activity {
                 Log.d("ash",userProfile.toString());
                 Log.d("ash", String.valueOf(userProfile.getId()));
                 SharedPrefrernceController.setUserId(getApplicationContext(),kakaoID);
-                //// TODO: 2017-10-07 나중에 데이타 지우고 해보자
-                /*Call<SignupResult> signupResultCall = service.getsignupResult(new SignupData(Integer.parseInt(kakaoID), kakaoNickname, kakaoUserProfile));
+                Call<SignupResult> signupResultCall = service.getsignupResult(new SignupData(Integer.parseInt(kakaoID), kakaoNickname, kakaoUserProfile));
                 signupResultCall.enqueue(new Callback<SignupResult>() {
                     @Override
                     public void onResponse(Call<SignupResult> call, Response<SignupResult> response) {
@@ -101,7 +105,7 @@ public class KakaoSignupActivity extends Activity {
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                     }
-                });*/
+                });
 
             }
         });

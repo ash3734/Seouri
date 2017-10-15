@@ -2,12 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sopt.seouri">
 
-
+    <permission
+        android:name="sopt.seouri.locationapi.maps.permission.MAP_RECEIVE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="sopt.seouri.locationapi.maps.permission.MAP_RECEIVE"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.DIAL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
 
     <application
         android:name=".application.ApplicationController"
@@ -19,17 +26,20 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="com.kakao.sdk.AppKey"
             android:value="ce69674cd70e3d996ecfe14219a7fd63" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBqo9UQl8swPgye6m-ffds6HUS762FYKpc" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".login.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".login.SplashActivity" >
          </activity>
         <activity android:name=".login.LoginActivity">
         </activity>

@@ -41,6 +41,7 @@
         android:layout_height="wrap_content" />
 
     <ImageView
+        android:id="@+id/D_cimage"
         android:layout_marginTop="15dp"
         android:src="@drawable/aa"
         android:layout_centerInParent="true"
