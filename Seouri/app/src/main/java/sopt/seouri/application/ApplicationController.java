@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.kakao.auth.KakaoSDK;
+import com.tsengvn.typekit.Typekit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -27,17 +28,19 @@ public class ApplicationController extends Application {
     }
 
     public static int memberId;
+    public static String memberName;
+    public static String memberImg;
 
     @Override
     public void onCreate() {
         super.onCreate();
         // 폰트 바꿀 때 주석 풀고 내용 변경할 것
-//        Typekit.getInstance()
-//                .addNormal(Typekit.createFromAsset(this,"NanumSquareR.ttf"))
-//                .addCustom1(Typekit.createFromAsset(this,"NanumBarunGothic.ttf"))
-//                .addCustom2(Typekit.createFromAsset(this,"NanumMyeongjo.ttc"))
-//                .addCustom3(Typekit.createFromAsset(this,"NanumMyeongjoExtraBold.ttf"))
-//                .addCustom4(Typekit.createFromAsset(this,"NanumSquareR.ttf"));
+               Typekit.getInstance()
+                       .addNormal(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_R_TTF.ttf"));
+                       //.addCustom1(Typekit.createFromAsset(this,"NanumBarunGothic.ttf"))
+                       //.addCustom2(Typekit.createFromAsset(this,"NanumMyeongjo.ttc"))
+                       //.addCustom3(Typekit.createFromAsset(this,"NanumMyeongjoExtraBold.ttf"))
+                       //.addCustom4(Typekit.createFromAsset(this,"NanumSquareR.ttf"));
 
         ApplicationController.instance = this;
         KakaoSDK.init(new KakaoSDKAdapter());

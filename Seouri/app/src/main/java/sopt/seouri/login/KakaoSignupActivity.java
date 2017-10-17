@@ -81,12 +81,14 @@ public class KakaoSignupActivity extends Activity {
                 Log.d("ash", String.valueOf(userProfile.getId()));
                 SharedPrefrernceController.setUserId(getApplicationContext(),kakaoID);
                 Call<SignupResult> signupResultCall = service.getsignupResult(new SignupData(Integer.parseInt(kakaoID), kakaoNickname, kakaoUserProfile));
+                final String finalKakaoUserProfile = kakaoUserProfile;
                 signupResultCall.enqueue(new Callback<SignupResult>() {
                     @Override
                     public void onResponse(Call<SignupResult> call, Response<SignupResult> response) {
                         if (response.isSuccessful()) {
                             if(response.body().message.equals("Succeed in inserting memberInfo.")){
                                 ApplicationController.memberId = Integer.parseInt(kakaoID);
+                                ApplicationController.memberImg = finalKakaoUserProfile;
                                 SharedPrefrernceController.setUserId(getApplicationContext(),kakaoID);
                                 redirectMainActivity(); // 로그인 성공시 MainActivity로
                             }else{

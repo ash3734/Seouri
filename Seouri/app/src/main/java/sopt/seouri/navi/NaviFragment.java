@@ -6,17 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import sopt.seouri.MainActivity;
 import sopt.seouri.MyColor;
 import sopt.seouri.R;
+import sopt.seouri.application.ApplicationController;
 import sopt.seouri.community.CommunityFragment;
 import sopt.seouri.home.HomeFragment;
 import sopt.seouri.mypage.MyPageFragment;
@@ -65,18 +68,21 @@ public class NaviFragment extends Fragment {
         linearLayoutComu.setOnClickListener(clickListner3);
         linearLayoutReco.setOnClickListener(clickListner4);
         textViewMyPageBtn.setOnClickListener(clickListener);
+        Log.d("ash", "userImg" + ApplicationController.memberImg);
+        Glide.with(getActivity()).load(ApplicationController.memberImg).into(circularImageView);
     }
-        public View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                MyPageFragment myPageFragment = new MyPageFragment();
-                myPageFragment.setContext(getContext());
-                transaction.replace(R.id.container, myPageFragment);
-                transaction.commit();
-                MainActivity.drawer.closeDrawer(GravityCompat.START);
-            }
-        };
+
+    public View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            MyPageFragment myPageFragment = new MyPageFragment();
+            myPageFragment.setContext(getContext());
+            transaction.replace(R.id.container, myPageFragment);
+            transaction.commit();
+            MainActivity.drawer.closeDrawer(GravityCompat.START);
+        }
+    };
     public View.OnClickListener clickListner1 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

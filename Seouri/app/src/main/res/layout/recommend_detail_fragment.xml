@@ -6,25 +6,30 @@
     android:orientation="vertical"
     tools:context="sopt.seouri.recommend.RecommendDetailFragment">
 
-    <LinearLayout
-        android:layout_marginTop="-57dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="250dp">
 
         <ImageView
             android:id="@+id/recommend_img"
             android:layout_width="match_parent"
             android:layout_height="218dp"
-            android:background="@drawable/bookchon_bg" />
+            />
 
         <ImageView
+            android:id="@+id/reco_comment_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="-40dp"
-            android:src="@drawable/bookchon"></ImageView>
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"></ImageView>
+
+        <ImageView
+            android:id="@+id/recommend_text_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -106,7 +111,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="26dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="18dp"
                     android:src="@drawable/house" />
 
                 <TextView
@@ -114,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="33dp"
+                    android:layout_marginTop="23dp"
                     android:text="꿈 더하기 베이커리"
                     android:textColor="#333333"
                     android:textSize="18sp" />
@@ -166,7 +171,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="26dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="18dp"
                     android:src="@drawable/house" />
 
                 <TextView
@@ -174,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="33dp"
+                    android:layout_marginTop="13dp"
                     android:text="꿈 더하기 베이커리"
                     android:textColor="#333333"
                     android:textSize="18sp" />

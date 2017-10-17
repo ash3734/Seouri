@@ -1,17 +1,21 @@
 package sopt.seouri.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,10 @@ import sopt.seouri.application.ApplicationController;
 import sopt.seouri.home.networkData.JobinformationData;
 import sopt.seouri.home.networkData.PosterData;
 import sopt.seouri.network.NetworkService;
+import sopt.seouri.search.detail.SearchDetailFragment;
+
+import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.MainActivity.toolbarImage;
 
 /**
  * Created by ash on 2017-09-20.
@@ -54,13 +62,15 @@ public class HomeFragment extends Fragment {
     private TextView textViewNotice2;
     private TextView textViewNotice3;
     private TextView textViewNotice4;
-    private TextView textViewNotice5;
+    private RelativeLayout relativeLayoutWeek1;
+    private RelativeLayout relativeLayoutWeek2;
     RecyclerView recyclerView;
     JobListAdapter jobListAdapter;
     ArrayList<JobinformationData> datas;
     LinearLayoutManager linearLayoutManager;
     NetworkService service;
     Context context;
+    TextView textViewJobBtn;
     public HomeFragment() {
     }
     public void setContext(Context context){
@@ -82,11 +92,30 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        toolbarImage.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        toolbarImage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         pageDatas = new ArrayList<PosterData>();
-
+        setContext(getContext());
         service = ApplicationController.getInstance().getNetworkService();
+        textViewJobBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),JobAddActivityDialog.class);
+                startActivity(intent);
+            }
+        });
         Call<MainResult> mainResultCall = service.getMainResult();
         mainResultCall.enqueue(new Callback<MainResult>() {
             @Override
@@ -97,7 +126,6 @@ public class HomeFragment extends Fragment {
                         mPageAdapter = new MPagerAdapter(getChildFragmentManager(),pageDatas);
                         mPageAdapter.setNumberOfPage(pageDatas.size());
                         mPageAdapter.setFragmentBackgroundColor(R.color.theme_100);
-                        mDotsView.setNumberOfPage(pageDatas.size());
                         mViewPager.setAdapter(mPageAdapter);
 
                         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -168,16 +196,6 @@ public class HomeFragment extends Fragment {
                         }
                         Linkify.addLinks(textViewNotice4, p,response.body().villageinformation.get(3).inforUrl,null,transform);
 
-                        if(response.body().villageinformation.get(4).comment.length()>20){
-                            textViewNotice5.setText(response.body().villageinformation.get(4).comment.substring(0,20)+" [...]");
-                            p= Pattern.compile(response.body().villageinformation.get(4).comment.substring(0,20), flags);
-                        }
-                        else{
-                            p= Pattern.compile(response.body().villageinformation.get(4).comment, flags);
-                            textViewNotice5.setText(response.body().villageinformation.get(4).comment);
-                        }
-                        Linkify.addLinks(textViewNotice5, p,response.body().villageinformation.get(4).inforUrl,null,transform);
-
                         datas = response.body().jobinformation;
                         recyclerView.setHasFixedSize(true);
                         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -185,6 +203,29 @@ public class HomeFragment extends Fragment {
                         recyclerView.setLayoutManager(linearLayoutManager);
                         jobListAdapter = new JobListAdapter(datas,getContext());
                         recyclerView.setAdapter(jobListAdapter);
+
+                        relativeLayoutWeek1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
+                                searchDetailFragment.setContext(context,String.valueOf(response.body().weekvillageEnterprise.get(0).villageEnterpriseId));
+                                transaction.replace(R.id.container,searchDetailFragment);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                            }
+                        });
+                        relativeLayoutWeek2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
+                                searchDetailFragment.setContext(context,String.valueOf(response.body().weekvillageEnterprise.get(1).villageEnterpriseId));
+                                transaction.replace(R.id.container,searchDetailFragment);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                            }
+                        });
                     }else{
                         Toast toast = Toast.makeText(getContext(), "서버 오류 입니다.", Toast.LENGTH_LONG);
                         toast.show();
@@ -197,9 +238,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<MainResult> call, Throwable t) {
-                //Toast toast = Toast.makeText(, "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
-                //toast.setGravity(Gravity.CENTER, 0, 0);
-                //toast.show();
+                Toast toast = Toast.makeText(getActivity(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
             }
         });
 
@@ -212,8 +253,10 @@ public class HomeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
         mViewPager = (SCViewPager)rootView.findViewById(R.id.viewpager_main_activity);
         mDotsView = (DotsView)rootView.findViewById(R.id.dotsview_main);
-        mDotsView.setDotRessource(R.drawable.dot_selected, R.drawable.dot_unselected);
-
+        mDotsView.setDotRessource(R.drawable.yellowdot, R.drawable.whitedot);
+        mDotsView.setNumberOfPage(3);
+        relativeLayoutWeek1 = (RelativeLayout)rootView.findViewById(R.id.home_week_com1);
+        relativeLayoutWeek2 = (RelativeLayout)rootView.findViewById(R.id.home_week_com2);
         imageViewWeek1 = (ImageView)rootView.findViewById(R.id.main_week_seouri_imge_1);
         imageViewWeek2 = (ImageView)rootView.findViewById(R.id.main_week_seouri_imge_2);
         textViewWeek1= (TextView) rootView.findViewById(R.id.main_week_seouri_text_1);
@@ -222,8 +265,8 @@ public class HomeFragment extends Fragment {
         textViewNotice2= (TextView) rootView.findViewById(R.id.main_notice_2);
         textViewNotice3= (TextView) rootView.findViewById(R.id.main_notice_3);
         textViewNotice4= (TextView) rootView.findViewById(R.id.main_notice_4);
-        textViewNotice5= (TextView) rootView.findViewById(R.id.main_notice_5);
         recyclerView = (RecyclerView)rootView.findViewById(R.id.home_job_list);
+        textViewJobBtn = (TextView)rootView.findViewById(R.id.home_job_regisgter);
         //textViewJob1= (TextView) rootView.findViewById(R.id.main_job_1);
         //textViewJob2= (TextView) rootView.findViewById(R.id.main_job_2);
         return rootView;

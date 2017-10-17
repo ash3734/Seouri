@@ -1,5 +1,6 @@
 package sopt.seouri;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,9 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import sopt.seouri.community.CommunityFragment;
 import sopt.seouri.home.HomeFragment;
@@ -36,7 +42,11 @@ public class MainActivity extends AppCompatActivity
     private NaviFragment naviFragment;
     public static DrawerLayout drawer;
     public static Toolbar mToolbar;
+    public static ImageView toolbarImage;
+    public static TextView toolbarText;
     public TextView textViewToolbar;
+    public static ImageView imageViewDdang;
+    public static ActionBarDrawerToggle toggle;
 
 
 //    public static ArrayList<Fragment> fragmentStack;
@@ -45,15 +55,22 @@ public class MainActivity extends AppCompatActivity
     private Toast toast;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        imageViewDdang = (ImageView)findViewById(R.id.toolbar_ddang);
+        imageViewDdang.setVisibility(View.INVISIBLE);
          drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
         mToolbar = (Toolbar) findViewById(toolbar);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("");
-        textViewToolbar = (TextView)mToolbar.findViewById(R.id.toolbar_text);
-        textViewToolbar.setText("서우리");
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //툴바 글씨 지우기
+        toolbarImage = (ImageView)findViewById(R.id.toolbar_img);
+        toolbarText = (TextView)findViewById(R.id.toolbar_text);
 
 
         fragmentHome = new HomeFragment();
@@ -69,7 +86,7 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer,  mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
        /* toggle.setDrawerIndicatorEnabled(false);
@@ -127,13 +144,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /* 오른쪽 위 옵션 넣을때 용으로 즉 필용벗음
         @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

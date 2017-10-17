@@ -15,6 +15,8 @@ import android.widget.TextView;
 import sopt.seouri.R;
 
 import static sopt.seouri.MainActivity.mToolbar;
+import static sopt.seouri.MainActivity.toggle;
+import static sopt.seouri.MainActivity.toolbarText;
 
 /**
  * Created by ash on 2017-09-20.
@@ -36,6 +38,8 @@ public class RecommendDetailFragment extends Fragment {
     TextView textViewRecommendCompanyComment2;
     TextView textViewRecommendCompanyComment3;
     TextView textViewToolbar;
+    private ImageView imageViewText;
+    private ImageView imageViewCommentText;
 
 
     public RecommendDetailFragment(RecommendData recommendData) {
@@ -58,6 +62,12 @@ public class RecommendDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        toolbarText.setText("");
+        mToolbar.getBackground().setAlpha(0);
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
+        //toggle.getDrawerArrowDrawable().setColor(getColor(R.color.colorPrimary));
+        imageViewText.setImageResource(recommendData.recommendName);
+        imageViewCommentText.setImageResource(recommendData.recommendComment);
         imageView.setImageResource(recommendData.recommendImg);
         textViewRecommendCompany1.setText(recommendData.commpanyName1);
         textViewRecommendCompany2.setText(recommendData.commpanyName2);
@@ -65,11 +75,7 @@ public class RecommendDetailFragment extends Fragment {
         textViewRecommendCompanyComment1.setText(recommendData.commpanyComment1);
         textViewRecommendCompanyComment2.setText(recommendData.commpanyComment2);
         textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3);
-        textViewToolbar = (TextView)mToolbar.findViewById(R.id.toolbar_text);
-        textViewToolbar.setText(recommendData.recommendName);
-        mToolbar.setTitle("");
-        textViewToolbar.setTextColor(Color.WHITE);
-        mToolbar.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.bookchon_bg));
+        imageView.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.bookchon_bg));
     }
 
     @Nullable
@@ -83,7 +89,16 @@ public class RecommendDetailFragment extends Fragment {
         textViewRecommendCompanyComment1 = (TextView)rootView.findViewById(R.id.reco_coma_comment1);
         textViewRecommendCompanyComment2 = (TextView)rootView.findViewById(R.id.reco_coma_comment2);
         textViewRecommendCompanyComment3 = (TextView)rootView.findViewById(R.id.reco_coma_comment3);
+        imageViewText = (ImageView)rootView.findViewById(R.id.recommend_text_img);
+        imageViewCommentText = (ImageView)rootView.findViewById(R.id.reco_comment_img);
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mToolbar.getBackground().setAlpha(255);
+        toggle.getDrawerArrowDrawable().setColor(Color.rgb(55,176,166));//37B0A6
     }
 
     public void setContext(Context context) {

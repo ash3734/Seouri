@@ -6,7 +6,7 @@ package sopt.seouri.home.networkData;
 
 public class JobinformationData {
     public int jobnum;
-    public String jobcomment;
+    public String name;
     public String joburl;
     public String address;
     public String pay;

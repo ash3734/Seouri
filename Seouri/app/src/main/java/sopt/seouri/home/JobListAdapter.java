@@ -34,9 +34,10 @@ public class JobListAdapter extends RecyclerView.Adapter<JobViewHolder> {
 
     @Override
     public void onBindViewHolder(JobViewHolder holder, int position) {
-        holder.imageViewJob.setImageResource(R.drawable.shoes);
+        if(position==1)holder.imageViewJob.setImageResource(R.drawable.shoes);
+        else holder.imageViewJob.setImageResource(R.drawable.sill);
         holder.textViewAddress.setText(datas.get(position).address);
-        holder.textViewCom.setText(datas.get(position).jobcomment);
+        holder.textViewCom.setText(datas.get(position).name);
         holder.textViewTime.setText(datas.get(position).time);
         holder.textViewPay.setText(datas.get(position).pay);
     }

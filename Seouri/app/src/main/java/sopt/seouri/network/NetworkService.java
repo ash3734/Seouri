@@ -9,12 +9,16 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import sopt.seouri.ask.AskData;
+import sopt.seouri.ask.AskResult;
 import sopt.seouri.community.BulletinAddCommentData;
 import sopt.seouri.community.BulletinAddCommentResult;
 import sopt.seouri.community.BulletinAddPostResult;
 import sopt.seouri.community.FindBulletinDetailResult;
 import sopt.seouri.community.FindBulletinResult;
 import sopt.seouri.home.MainResult;
+import sopt.seouri.home.networkData.JobRegData;
+import sopt.seouri.home.networkData.JobResult;
 import sopt.seouri.login.LoginData;
 import sopt.seouri.login.LoginResult;
 import sopt.seouri.login.SignupData;
@@ -32,6 +36,12 @@ import sopt.seouri.search.popup.SearchPopupResult;
 
 public interface NetworkService {
     /*성현이 API*/
+    @GET("question/{userId}")
+    Call<AskResult> getAskResult(@Path("userid")int userId);
+    @POST("question")
+    Call<String> getAskPostResult(@Body AskData askData);
+    @POST("job")
+    Call<JobResult> getJobResult(@Body JobRegData jobRegData);
     @POST("member/mypage")
     Call<MyPageResult> getMyPageResult(@Body MyPageData myPageData);
     @POST("member")

@@ -1,38 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="sopt.seouri.MainActivity">
 
+
+    <include layout="@layout/content_main" />
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
-        android:background="@null"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:background="#00000000"
+        app:elevation="0dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#ffffff"
-            android:elevation="0dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#ffffff"
+                app:elevation="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay"></android.support.v7.widget.Toolbar>
+
+            <ImageView
+                android:id="@+id/toolbar_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/seowoori" />
+
             <TextView
                 android:id="@+id/toolbar_text"
-                android:layout_gravity="center"
-                android:textSize="22sp"
-                android:textColor="@color/colorMint"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </android.support.v7.widget.Toolbar>
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#37b0a6"
+                android:textSize="22sp" />
+            <ImageView
+                android:id="@+id/toolbar_ddang"
+                android:src="@drawable/ddang"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
 
+        </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
 
-</android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>

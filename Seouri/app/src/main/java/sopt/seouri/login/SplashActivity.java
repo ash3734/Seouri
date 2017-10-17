@@ -2,7 +2,6 @@ package sopt.seouri.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,7 +28,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void AutoLogin(){
-        if(SharedPrefrernceController.getUserId(SplashActivity.this).equals("")){
+        //// TODO: 2017-10-16 회원가이 되면 고치자 
+      /*  if(SharedPrefrernceController.getUserId(SplashActivity.this).equals("")){
 
             Handler handler = new Handler();
             handler.postDelayed(new Runnable(){
@@ -41,15 +41,19 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }, 3000);
         }
-        else{
+        else{*/
             String userId = SharedPrefrernceController.getUserId(getApplicationContext());
+            ApplicationController.memberId=532978074;
             Log.d("ash","userId "+userId);
-            Call<LoginResult> loginResultCall = service.getLoginResult(new LoginData(Integer.parseInt(userId)));
+            Call<LoginResult> loginResultCall = service.getLoginResult(new LoginData(532978074)); //
             loginResultCall.enqueue(new Callback<LoginResult>() {
                 @Override
                 public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                     if(response.isSuccessful()){
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        ApplicationController.memberImg = response.body().userInfo.profile;
+                        ApplicationController.memberName = response.body().userInfo.name;
+                        finish();
                         startActivity(intent);
                     }else{
                         Toast toast = Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG);
@@ -64,6 +68,6 @@ public class SplashActivity extends AppCompatActivity {
                     toast.show();
                 }
             });
-        }
+        //}
     }
 }

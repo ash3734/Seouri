@@ -31,9 +31,12 @@
             android:value="AIzaSyBqo9UQl8swPgye6m-ffds6HUS762FYKpc" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".home.JobAddActivityDialog"
+            android:theme="@style/Theme.Transparent" ></activity>
         <activity android:name=".login.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
