@@ -73,23 +73,28 @@ public class KakaoSignupActivity extends Activity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Logger.d("UserProfile : " + userProfile);
                 final String kakaoID = String.valueOf(userProfile.getId()); // userProfile에서 ID값을 가져옴
-                String kakaoNickname = userProfile.getNickname();     // Nickname 값을 가져옴
+                final String kakaoNickname = userProfile.getNickname();     // Nickname 값을 가져옴
+                final String kakaoEmail = userProfile.getEmail();
                 String kakaoUserProfile = "";
                 if (userProfile.getProfileImagePath() != null)
                     kakaoUserProfile = userProfile.getProfileImagePath();
                 Log.d("ash",userProfile.toString());
                 Log.d("ash", String.valueOf(userProfile.getId()));
                 SharedPrefrernceController.setUserId(getApplicationContext(),kakaoID);
-                Call<SignupResult> signupResultCall = service.getsignupResult(new SignupData(Integer.parseInt(kakaoID), kakaoNickname, kakaoUserProfile));
+                //// TODO: 2017-10-18 지원에게 밑에 SignupData 맨 뒤에 디바이스 토큰 넣어주면 됨!!
+                Call<SignupResult> signupResultCall = service.getsignupResult(new SignupData(kakaoEmail, kakaoNickname, kakaoUserProfile,Integer.parseInt(kakaoID),""));
                 final String finalKakaoUserProfile = kakaoUserProfile;
                 signupResultCall.enqueue(new Callback<SignupResult>() {
                     @Override
                     public void onResponse(Call<SignupResult> call, Response<SignupResult> response) {
                         if (response.isSuccessful()) {
                             if(response.body().message.equals("Succeed in inserting memberInfo.")){
-                                ApplicationController.memberId = Integer.parseInt(kakaoID);
+                                ApplicationController.memberId = kakaoEmail;
                                 ApplicationController.memberImg = finalKakaoUserProfile;
-                                SharedPrefrernceController.setUserId(getApplicationContext(),kakaoID);
+                                ApplicationController.memberName = kakaoNickname;
+                                SharedPrefrernceController.setUserId(getApplicationContext(),kakaoEmail);
+                                SharedPrefrernceController.setKakaotoken(getApplicationContext(),kakaoID);
+                                SharedPrefrernceController.setServertoken(getApplicationContext(),response.body().token);
                                 redirectMainActivity(); // 로그인 성공시 MainActivity로
                             }else{
                                 Log.d("ash",response.body().message);

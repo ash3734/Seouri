@@ -27,17 +27,19 @@ public class ApplicationController extends Application {
         return networkService;
     }
 
-    public static int memberId;
+    public static String memberId;
     public static String memberName;
     public static String memberImg;
+    public static String serverToken;
 
     @Override
     public void onCreate() {
         super.onCreate();
         // 폰트 바꿀 때 주석 풀고 내용 변경할 것
                Typekit.getInstance()
-                       .addNormal(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_R_TTF.ttf"));
-                       //.addCustom1(Typekit.createFromAsset(this,"NanumBarunGothic.ttf"))
+                       .addNormal(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_R_TTF.ttf"))
+                        .addBold(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_B_TTF.ttf"))
+                       .addCustom1(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_L_TTF.ttf"));
                        //.addCustom2(Typekit.createFromAsset(this,"NanumMyeongjo.ttc"))
                        //.addCustom3(Typekit.createFromAsset(this,"NanumMyeongjoExtraBold.ttf"))
                        //.addCustom4(Typekit.createFromAsset(this,"NanumSquareR.ttf"));

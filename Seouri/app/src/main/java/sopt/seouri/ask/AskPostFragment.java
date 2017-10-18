@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -31,7 +31,7 @@ public class AskPostFragment extends Fragment {
     Context context;
     private EditText editTextTitle;
     private EditText editTextContent;
-    private RelativeLayout relativeLayoutConfirm;
+    private ImageView imageViewConfirm;
     NetworkService service;
 
     public AskPostFragment() {
@@ -54,7 +54,7 @@ public class AskPostFragment extends Fragment {
         toolbarText.setText("문의하기");
 
         service = ApplicationController.getInstance().getNetworkService();
-        relativeLayoutConfirm.setOnClickListener(new View.OnClickListener() {
+        imageViewConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Call<String> stringCall = service.getAskPostResult(new AskData(ApplicationController.memberId,editTextTitle.getText().toString(),editTextContent.getText().toString()));
@@ -89,7 +89,7 @@ public class AskPostFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.ask_post_fragment, container, false);
         editTextTitle = (EditText)rootView.findViewById(R.id.ask_post_title);
         editTextContent = (EditText)rootView.findViewById(R.id.ask_post_content);
-        relativeLayoutConfirm = (RelativeLayout)rootView.findViewById(R.id.ask_post_confirm);
+        imageViewConfirm = (ImageView) rootView.findViewById(R.id.ask_post_confirm);
         return rootView;
     }
 

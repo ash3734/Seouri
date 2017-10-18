@@ -9,31 +9,39 @@ import android.content.SharedPreferences;
 
 public class SharedPrefrernceController {
     public static final String UERID = "userID";
+    public static final String KAKAOTOKEN = "kakaoToken";
+    public static final String SERVERTOKEN = "serverToken";
     private static final String USER = "user";
 
-    //일딴 제껴두자
-  //  private static final String LOGIN_TYPE = "loginType";
-/*
-    public static void setLoginType(Context context, String loginType){
+    public static void setUserId(Context context,String userID){
         SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString(LOGIN_TYPE, loginType);
-        editor.commit();
-    }
-    public static String getLoginType(Context context){
-        SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
-        String loginType = pref.getString(LOGIN_TYPE,"");
-        return loginType;
-    }*/
-    public static void setUserId(Context context,String userId){
-        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(UERID,userId);
+        editor.putString(UERID,userID);
         editor.commit();
     }
     public static String getUserId(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
         return pref.getString(UERID,"");
+    }
+    public static void setKakaotoken(Context context,String kakaoToken){
+        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(KAKAOTOKEN,kakaoToken);
+        editor.commit();
+    }
+    public static String getKakaotoken(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
+        return pref.getString(KAKAOTOKEN,"");
+    }
+    public static void setServertoken(Context context,String serverToekn){
+        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(SERVERTOKEN,serverToekn);
+        editor.commit();
+    }
+    public static String getServertoken(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
+        return pref.getString(SERVERTOKEN,"");
     }
 
 }

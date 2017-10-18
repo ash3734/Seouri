@@ -5,13 +5,17 @@ package sopt.seouri.login;
  */
 
 public class SignupData {
-    public int userId;
+    public String userId;
     public String name;
     public String profile;
+    public int kakaoToken;
+    public String deviceToken;
 
-    public SignupData(int userId, String name, String profile) {
+    public SignupData(String userId, String name, String profile, int kakaoToken, String deviceToken) {
         this.userId = userId;
         this.name = name;
         this.profile = profile;
+        this.kakaoToken = kakaoToken;
+        this.deviceToken = deviceToken;
     }
 }
