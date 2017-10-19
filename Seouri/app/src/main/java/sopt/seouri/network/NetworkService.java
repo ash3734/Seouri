@@ -5,6 +5,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -19,6 +20,7 @@ import sopt.seouri.community.FindBulletinResult;
 import sopt.seouri.home.MainResult;
 import sopt.seouri.home.networkData.JobRegData;
 import sopt.seouri.home.networkData.JobResult;
+import sopt.seouri.home.networkData.MainData;
 import sopt.seouri.login.LoginData;
 import sopt.seouri.login.LoginResult;
 import sopt.seouri.login.SignupData;
@@ -37,19 +39,19 @@ import sopt.seouri.search.popup.SearchPopupResult;
 public interface NetworkService {
     /*성현이 API*/
     @GET("question/{userId}")
-    Call<AskResult> getAskResult(@Path("userid")int userId);
+    Call<AskResult> getAskResult(@Header("token")String token,@Path("userid")int userId);
     @POST("question")
     Call<String> getAskPostResult(@Body AskData askData);
     @POST("job")
     Call<JobResult> getJobResult(@Body JobRegData jobRegData);
     @POST("member/mypage")
-    Call<MyPageResult> getMyPageResult(@Body MyPageData myPageData);
+    Call<MyPageResult> getMyPageResult(@Header("token")String token,@Body MyPageData myPageData);
     @POST("member")
     Call<SignupResult> getsignupResult(@Body SignupData signupData);
     @POST("member/login")
     Call<LoginResult> getLoginResult(@Body LoginData loginData);
-    @GET("home")
-    Call<MainResult> getMainResult();
+    @POST("home")
+    Call<MainResult> getMainResult(@Header("token")String token,@Body MainData mainData);
 
     /*검색 API**/
     // 카테고리별 마을기업 조회

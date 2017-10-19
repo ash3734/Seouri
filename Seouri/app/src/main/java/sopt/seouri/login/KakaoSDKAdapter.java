@@ -1,6 +1,5 @@
 package sopt.seouri.login;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.kakao.auth.ApprovalType;
@@ -23,7 +22,7 @@ public class KakaoSDKAdapter extends KakaoAdapter {
      */
     @Override
     public ISessionConfig getSessionConfig() {
-        return new ISessionConfig() {
+        /*return new ISessionConfig() {
             @Override
             public AuthType[] getAuthTypes() {
                 return new AuthType[] {AuthType.KAKAO_LOGIN_ALL};
@@ -43,12 +42,45 @@ public class KakaoSDKAdapter extends KakaoAdapter {
             public boolean isSaveFormData() {
                 return true;
             }
+        };*/
+        return new ISessionConfig() {
+            @Override
+            public AuthType[] getAuthTypes() {
+                return new AuthType[] {AuthType.KAKAO_LOGIN_ALL};
+            }
+
+            @Override
+            public boolean isUsingWebviewTimer() {
+                return false;
+            }
+
+            @Override
+            public boolean isSecureMode() {
+                return false;
+            }
+
+            @Override
+            public ApprovalType getApprovalType() {
+                return null;
+            }
+
+            @Override
+            public boolean isSaveFormData() {
+                return false;
+            }
         };
+
     }
 
     @Override
     public IApplicationConfig getApplicationConfig() {
         return new IApplicationConfig() {
+            @Override
+            public Context getApplicationContext() {
+                return ApplicationController.getGlobalApplicationContext();
+            }
+        };
+        /*return new IApplicationConfig() {
             @Override
             public Activity getTopActivity() {
                 return ApplicationController.getCurrentActivity();
@@ -58,7 +90,7 @@ public class KakaoSDKAdapter extends KakaoAdapter {
             public Context getApplicationContext() {
                 return ApplicationController.getGlobalApplicationContext();
             }
-        };
+        };*/
     }
 
 

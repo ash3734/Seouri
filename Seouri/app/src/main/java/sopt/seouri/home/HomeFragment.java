@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.home.networkData.JobinformationData;
+import sopt.seouri.home.networkData.MainData;
 import sopt.seouri.home.networkData.PosterData;
 import sopt.seouri.network.NetworkService;
 import sopt.seouri.search.detail.SearchDetailFragment;
@@ -116,7 +118,10 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        Call<MainResult> mainResultCall = service.getMainResult();
+        String token = ApplicationController.serverToken;
+        Log.d("ash","serverToken "+token);
+        //// TODO: 2017-10-18 gps 센서 이용하여 데이터 넣기
+        Call<MainResult> mainResultCall = service.getMainResult(token,new MainData(37.674187000,127.059169000));
         mainResultCall.enqueue(new Callback<MainResult>() {
             @Override
             public void onResponse(Call<MainResult> call, final Response<MainResult> response) {
@@ -142,9 +147,9 @@ public class HomeFragment extends Fragment {
                             public void onPageScrollStateChanged(int state) {
                             }
                         });
-                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(0).photo).into(imageViewWeek1);
+                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(0).image).into(imageViewWeek1);
                         textViewWeek1.setText(response.body().weekvillageEnterprise.get(0).name);
-                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(1).photo).into(imageViewWeek2);
+                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(1).image).into(imageViewWeek2);
                         textViewWeek2.setText(response.body().weekvillageEnterprise.get(1).name);
 
                         Linkify.TransformFilter transform = new Linkify.TransformFilter() {

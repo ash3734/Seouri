@@ -57,7 +57,7 @@ public class AskPostFragment extends Fragment {
         imageViewConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<String> stringCall = service.getAskPostResult(new AskData(ApplicationController.memberId,editTextTitle.getText().toString(),editTextContent.getText().toString()));
+                Call<String> stringCall = service.getAskPostResult(new AskData(Integer.parseInt(ApplicationController.memberId),editTextTitle.getText().toString(),editTextContent.getText().toString()));
                 stringCall.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {

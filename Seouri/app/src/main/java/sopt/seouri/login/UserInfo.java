@@ -5,8 +5,7 @@ package sopt.seouri.login;
  */
 
 public class UserInfo {
-    public int userId;
+    public String userId;
     public String name;
     public String profile;
-    public String token;
 }

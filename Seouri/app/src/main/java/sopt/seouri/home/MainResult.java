@@ -2,6 +2,7 @@ package sopt.seouri.home;
 
 import java.util.ArrayList;
 
+import sopt.seouri.home.networkData.DistanceRec;
 import sopt.seouri.home.networkData.JobinformationData;
 import sopt.seouri.home.networkData.PosterData;
 import sopt.seouri.home.networkData.VillageinformationData;
@@ -17,4 +18,5 @@ public class MainResult {
     public ArrayList<WeekvillageEnterpriseData> weekvillageEnterprise;
     public ArrayList<VillageinformationData> villageinformation;
     public ArrayList<JobinformationData> jobinformation;
+    public DistanceRec distanceRec;
 }

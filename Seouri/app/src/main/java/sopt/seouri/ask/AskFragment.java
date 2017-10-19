@@ -7,17 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
@@ -72,7 +67,18 @@ public class AskFragment extends Fragment {
             }
         });
         service = ApplicationController.getInstance().getNetworkService();
-        Call<AskResult> askResultCall = service.getAskResult(ApplicationController.memberId);
+        datas = new ArrayList<MyQuestion>();
+        datas.add(new MyQuestion(1,"111","1111","11111","11111","11111","11111"));
+        datas.add(new MyQuestion(1,"111","1111","11111","11111","11111","11111"));
+        datas.add(new MyQuestion(1,"111","1111","11111","11111","11111","11111"));
+
+        recyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        askListAdapter = new AskListAdapter(datas,getContext());
+        recyclerView.setAdapter(askListAdapter);
+        /*Call<AskResult> askResultCall = service.getAskResult(ApplicationController.serverToken,ApplicationController.memberId);
         askResultCall.enqueue(new Callback<AskResult>() {
             @Override
             public void onResponse(Call<AskResult> call, Response<AskResult> response) {
@@ -96,7 +102,7 @@ public class AskFragment extends Fragment {
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             }
-        });
+        });*/
 
       }
 

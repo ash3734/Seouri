@@ -12,4 +12,14 @@ public class MyQuestion {
     public String date;
     public String name;
     public String profile;
+
+    public MyQuestion(int queId, String userId, String title, String content, String date, String name, String profile) {
+        this.queId = queId;
+        this.userId = userId;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.name = name;
+        this.profile = profile;
+    }
 }

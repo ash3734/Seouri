@@ -6,5 +6,6 @@ package sopt.seouri.login;
 
 public class LoginResult {
     public String message;
+    public String token;
     public UserInfo userInfo;
 }

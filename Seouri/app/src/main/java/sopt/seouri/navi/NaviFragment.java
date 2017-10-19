@@ -20,6 +20,7 @@ import sopt.seouri.MainActivity;
 import sopt.seouri.MyColor;
 import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
+import sopt.seouri.ask.AskFragment;
 import sopt.seouri.community.CommunityFragment;
 import sopt.seouri.home.HomeFragment;
 import sopt.seouri.mypage.MyPageFragment;
@@ -67,7 +68,9 @@ public class NaviFragment extends Fragment {
         linearLayoutSearch.setOnClickListener(clickListner2);
         linearLayoutComu.setOnClickListener(clickListner3);
         linearLayoutReco.setOnClickListener(clickListner4);
+        linearLayoutQuestion.setOnClickListener(clickListener5);
         textViewMyPageBtn.setOnClickListener(clickListener);
+
         Log.d("ash", "userImg" + ApplicationController.memberImg);
         Glide.with(getActivity()).load(ApplicationController.memberImg).into(circularImageView);
     }
@@ -132,10 +135,10 @@ public class NaviFragment extends Fragment {
             viewHomeTop.setBackgroundColor(Color.WHITE);
             viewSearchBottom.setBackgroundColor(Color.WHITE);
             viewSearchTop.setBackgroundColor(Color.WHITE);
-            viewRecoBottom.setBackgroundColor(MyColor.ORANGE);
-            viewRecoTop.setBackgroundColor(MyColor.ORANGE);
-            viewComuBottom.setBackgroundColor(Color.WHITE);
-            viewComuTop.setBackgroundColor(Color.WHITE);
+            viewRecoBottom.setBackgroundColor(Color.WHITE);
+            viewRecoTop.setBackgroundColor(Color.WHITE);
+            viewComuBottom.setBackgroundColor(MyColor.ORANGE);
+            viewComuTop.setBackgroundColor(MyColor.ORANGE);
             viewQuestionTop.setBackgroundColor(Color.WHITE);
             viewQuestionBottom.setBackgroundColor(Color.WHITE);
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -153,16 +156,39 @@ public class NaviFragment extends Fragment {
             viewHomeTop.setBackgroundColor(Color.WHITE);
             viewSearchBottom.setBackgroundColor(Color.WHITE);
             viewSearchTop.setBackgroundColor(Color.WHITE);
-            viewRecoBottom.setBackgroundColor(Color.WHITE);
-            viewRecoTop.setBackgroundColor(Color.WHITE);
-            viewComuBottom.setBackgroundColor(MyColor.ORANGE);
-            viewComuTop.setBackgroundColor(MyColor.ORANGE);
+            viewRecoBottom.setBackgroundColor(MyColor.ORANGE);
+            viewRecoTop.setBackgroundColor(MyColor.ORANGE);
+            viewComuBottom.setBackgroundColor(Color.WHITE);
+            viewComuTop.setBackgroundColor(Color.WHITE);
             viewQuestionTop.setBackgroundColor(Color.WHITE);
             viewQuestionBottom.setBackgroundColor(Color.WHITE);
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             RecommendFragment recommendFragment = new RecommendFragment();
             recommendFragment.setContext(getContext());
             transaction.replace(R.id.container, recommendFragment);
+            transaction.commit();
+
+            MainActivity.drawer.closeDrawer(GravityCompat.START);
+        }
+    };
+
+    public View.OnClickListener clickListener5 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            viewHomeBottom.setBackgroundColor(Color.WHITE);
+            viewHomeTop.setBackgroundColor(Color.WHITE);
+            viewSearchBottom.setBackgroundColor(Color.WHITE);
+            viewSearchTop.setBackgroundColor(Color.WHITE);
+            viewRecoBottom.setBackgroundColor(Color.WHITE);
+            viewRecoTop.setBackgroundColor(Color.WHITE);
+            viewComuBottom.setBackgroundColor(Color.WHITE);
+            viewComuTop.setBackgroundColor(Color.WHITE);
+            viewQuestionTop.setBackgroundColor(MyColor.ORANGE);
+            viewQuestionBottom.setBackgroundColor(MyColor.ORANGE);
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            AskFragment askFragment = new AskFragment();
+            askFragment.setContext(getContext());
+            transaction.replace(R.id.container, askFragment);
             transaction.commit();
 
             MainActivity.drawer.closeDrawer(GravityCompat.START);
@@ -181,7 +207,7 @@ public class NaviFragment extends Fragment {
         viewRecoTop = (View) rootView.findViewById(R.id.drawer_reco_line_top);
         viewRecoBottom = (View) rootView.findViewById(R.id.drawer_reco_line_bottom);
         viewComuTop = (View) rootView.findViewById(R.id.drawer_comu_line_top);
-        viewComuBottom = (View) rootView.findViewById(R.id.drawer_search_line_top);
+        viewComuBottom = (View) rootView.findViewById(R.id.drawer_comu_line_bottom);
         viewQuestionTop = (View) rootView.findViewById(R.id.drawer_qu_line_top);
         viewQuestionBottom = (View) rootView.findViewById(R.id.drawer_qu_line_bottom);
         linearLayoutHome = (LinearLayout) rootView.findViewById(R.id.drawer_home_layout);

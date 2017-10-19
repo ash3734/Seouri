@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +47,12 @@ public class SplashActivity extends AppCompatActivity {
             String userId = SharedPrefrernceController.getUserId(getApplicationContext());
             String kakoToken = SharedPrefrernceController.getKakaotoken(getApplicationContext());
             ApplicationController.serverToken = SharedPrefrernceController.getServertoken(getApplicationContext());
+            ApplicationController.memberId = userId;
+            String token = FirebaseInstanceId.getInstance().getToken();
             Log.d("ash", "userId " + userId);
+            Log.d("ash", "kakoToken " + kakoToken);
+            Log.d("ash", "token " + token);
+
             Call<LoginResult> loginResultCall = service.getLoginResult(new LoginData(userId, kakoToken)); //
             loginResultCall.enqueue(new Callback<LoginResult>() {
                 @Override
@@ -55,6 +61,7 @@ public class SplashActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         ApplicationController.memberImg = response.body().userInfo.profile;
                         ApplicationController.memberName = response.body().userInfo.name;
+                        Log.d("ash", "serverToken in login" + response.body().token);
                         finish();
                         startActivity(intent);
                     } else {
@@ -66,7 +73,6 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<LoginResult> call, Throwable t) {
                     Toast toast = Toast.makeText(getApplicationContext(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
             });

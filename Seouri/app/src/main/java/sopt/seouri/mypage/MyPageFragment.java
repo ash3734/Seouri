@@ -123,7 +123,7 @@ public class MyPageFragment extends Fragment {
             }
         });
         Log.d("ash","userId in mypage"+ApplicationController.memberId);
-        Call<MyPageResult> myPageResultCall = service.getMyPageResult(new MyPageData(ApplicationController.memberId));
+        Call<MyPageResult> myPageResultCall = service.getMyPageResult(ApplicationController.serverToken,new MyPageData(ApplicationController.memberId));
         myPageResultCall.enqueue(new Callback<MyPageResult>() {
             @Override
             public void onResponse(Call<MyPageResult> call, Response<MyPageResult> response) {

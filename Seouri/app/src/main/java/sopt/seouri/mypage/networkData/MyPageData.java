@@ -5,9 +5,9 @@ package sopt.seouri.mypage.networkData;
  */
 
 public class MyPageData {
-    public int userId;
+    public String userId;
 
-    public MyPageData(int userId) {
+    public MyPageData(String userId) {
         this.userId = userId;
     }
 }
