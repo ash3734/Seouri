@@ -71,11 +71,11 @@ public interface NetworkService {
 
     // 게시글 조회
     @GET("community/list/{location}")
-    Call<FindBulletinResult> getFindBulletinResult(@Path("location") String location);
+    Call<FindBulletinResult> getFindBulletinResult(@Header("token")String token,@Path("location") String location);
 
     //게시글 상세 조회
     @GET("community/{postId}")
-    Call<FindBulletinDetailResult> getFindBulletinDetailResult(@Path("postId") String postId);
+    Call<FindBulletinDetailResult> getFindBulletinDetailResult(@Header("token")String token,@Path("postId") String postId);
 
     //게시글 작성
     @Multipart
@@ -90,7 +90,7 @@ public interface NetworkService {
 
     //댓글 작성
     @POST("community/comment")
-    Call<BulletinAddCommentResult> getBulletinAddCommentResult(@Body BulletinAddCommentData bulletinAddCommentData);
+    Call<BulletinAddCommentResult> getBulletinAddCommentResult(@Header("token")String token,@Body BulletinAddCommentData bulletinAddCommentData);
 
     //게시글 검색
 

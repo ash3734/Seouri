@@ -81,11 +81,11 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
                 String str3 = addreply_edit.getText().toString();
                 bulletinAddCommentData = new BulletinAddCommentData();
 
-                bulletinAddCommentData.userId = "1";
+                bulletinAddCommentData.userId = "ash3734@naver.com";
                 bulletinAddCommentData.postId = commentsDataArrayList.get(0).postId;
                 bulletinAddCommentData.setContent(str3);
 
-                Call<BulletinAddCommentResult> bulletinAddCommentResultCall = service.getBulletinAddCommentResult(bulletinAddCommentData);
+                Call<BulletinAddCommentResult> bulletinAddCommentResultCall = service.getBulletinAddCommentResult(ApplicationController.serverToken,bulletinAddCommentData);
                 bulletinAddCommentResultCall.enqueue(new Callback<BulletinAddCommentResult>() {
                     @Override
                     public void onResponse(Call<BulletinAddCommentResult> call, Response<BulletinAddCommentResult> response) {

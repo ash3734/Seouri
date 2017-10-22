@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,7 +44,7 @@ import static sopt.seouri.MainActivity.fragmentManager;
 public class WriteFragment extends Fragment {
     private Context context;
 
-    Button complete;
+    ImageView complete;
     EditText W_title;
     EditText W_content;
 
@@ -102,7 +101,7 @@ public class WriteFragment extends Fragment {
         });
 
 
-        complete = (Button)v.findViewById(R.id.W_complete);
+        complete = (ImageView)v.findViewById(R.id.W_complete);
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

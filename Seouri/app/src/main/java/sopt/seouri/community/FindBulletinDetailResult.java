@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class FindBulletinDetailResult
 {
+    public ArrayList<postData> post;
     public String message;
     public ArrayList<CommentsData> comments;
     public ArrayList<ImageData> images;
