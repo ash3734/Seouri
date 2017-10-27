@@ -26,6 +26,7 @@ import sopt.seouri.network.NetworkService;
 import sopt.seouri.search.detail.SearchDetailFragment;
 
 import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.application.ApplicationController.serverToken;
 
 
 public class CategoryFragment extends Fragment {
@@ -115,7 +116,7 @@ public class CategoryFragment extends Fragment {
         ts5.setIndicator("체험거리");
         tabHost.addTab(ts5);
 
-        Call<SearchCategoryResult> searchCategoryResultCall = service.getSearchCategoryResult(location);
+        Call<SearchCategoryResult> searchCategoryResultCall = service.getSearchCategoryResult(serverToken,location);
         searchCategoryResultCall.enqueue(new Callback<SearchCategoryResult>() {
             @Override
             public void onResponse(Call<SearchCategoryResult> call, Response<SearchCategoryResult> response) {
@@ -161,7 +162,7 @@ public class CategoryFragment extends Fragment {
                         recyclerView5.setAdapter(adapter5);
                     }
                 } else {
-                    Log.d("SearchCategory 통신 에러", response.body().message);
+                    Log.d("SearchCategory 통신 에러", "");
                 }
             }
 
