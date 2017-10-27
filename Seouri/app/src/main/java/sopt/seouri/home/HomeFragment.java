@@ -2,10 +2,16 @@ package sopt.seouri.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +30,9 @@ import com.bumptech.glide.Glide;
 import com.dev.sacot41.scviewpager.DotsView;
 import com.dev.sacot41.scviewpager.SCViewPager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
+import sopt.seouri.application.GPSTracker;
 import sopt.seouri.home.networkData.JobinformationData;
 import sopt.seouri.home.networkData.MainData;
 import sopt.seouri.home.networkData.PosterData;
@@ -64,6 +73,7 @@ public class HomeFragment extends Fragment {
     private TextView textViewNotice2;
     private TextView textViewNotice3;
     private TextView textViewNotice4;
+    private TextView textViewAround;
     private RelativeLayout relativeLayoutWeek1;
     private RelativeLayout relativeLayoutWeek2;
     RecyclerView recyclerView;
@@ -73,6 +83,16 @@ public class HomeFragment extends Fragment {
     NetworkService service;
     Context context;
     TextView textViewJobBtn;
+    double latitude;
+    double longitude;
+
+    //gps 부분
+    GPSTracker gps = null;
+    public Handler mHandler;
+
+    public static int RENEW_GPS = 1;
+    public static int SEND_PRINT = 2;
+
     public HomeFragment() {
     }
     public void setContext(Context context){
@@ -90,9 +110,46 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions( getActivity(), new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
+                    0 );
+        }
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                if(msg.what==RENEW_GPS){
+                    makeNewGpsService();
+                }
+                if(msg.what==SEND_PRINT){
+                    logPrint((String)msg.obj);
+                }
+            }
+        };
 
     }
+    public void makeNewGpsService(){
+        if(gps == null) {
+            gps = new GPSTracker(getActivity(),mHandler);
+        }else{
+            gps.Update();
+        }
 
+    }
+    //// TODO: 2017-10-27 gps 날리기
+    public void logPrint(String str){
+        //editText.append(getTimeStr()+" "+str+"\n");
+        Log.d("ash","gps "+str);
+//        Toast toast = Toast.makeText(getContext(), getTimeStr()+" "+str+"\n", Toast.LENGTH_LONG);
+  //      toast.show();
+
+    }
+    public String getTimeStr(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("MM/dd HH:mm:ss");
+        return sdfNow.format(date);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -110,6 +167,24 @@ public class HomeFragment extends Fragment {
         super.onStart();
         pageDatas = new ArrayList<PosterData>();
         setContext(getContext());
+        if(gps == null) {
+            gps = new GPSTracker(getActivity(),mHandler);
+        }else{
+            gps.Update();
+        }
+
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+            // \n is for new line
+            //Toast.makeText(getActivity(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
         service = ApplicationController.getInstance().getNetworkService();
         textViewJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +196,7 @@ public class HomeFragment extends Fragment {
         String token = ApplicationController.serverToken;
         Log.d("ash","serverToken "+token);
         //// TODO: 2017-10-18 gps 센서 이용하여 데이터 넣기
-        Call<MainResult> mainResultCall = service.getMainResult(token,new MainData(37.674187000,127.059169000));
+        Call<MainResult> mainResultCall = service.getMainResult(token,new MainData(latitude,longitude));
         mainResultCall.enqueue(new Callback<MainResult>() {
             @Override
             public void onResponse(Call<MainResult> call, final Response<MainResult> response) {
@@ -147,9 +222,9 @@ public class HomeFragment extends Fragment {
                             public void onPageScrollStateChanged(int state) {
                             }
                         });
-                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(0).image).into(imageViewWeek1);
+                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(0).photo).into(imageViewWeek1);
                         textViewWeek1.setText(response.body().weekvillageEnterprise.get(0).name);
-                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(1).image).into(imageViewWeek2);
+                        Glide.with(getActivity()).load(response.body().weekvillageEnterprise.get(1).photo).into(imageViewWeek2);
                         textViewWeek2.setText(response.body().weekvillageEnterprise.get(1).name);
 
                         Linkify.TransformFilter transform = new Linkify.TransformFilter() {
@@ -200,7 +275,7 @@ public class HomeFragment extends Fragment {
                             textViewNotice4.setText(response.body().villageinformation.get(3).comment);
                         }
                         Linkify.addLinks(textViewNotice4, p,response.body().villageinformation.get(3).inforUrl,null,transform);
-
+                        textViewAround.setText(response.body().distanceRec.name);
                         datas = response.body().jobinformation;
                         recyclerView.setHasFixedSize(true);
                         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -260,6 +335,7 @@ public class HomeFragment extends Fragment {
         mDotsView = (DotsView)rootView.findViewById(R.id.dotsview_main);
         mDotsView.setDotRessource(R.drawable.yellowdot, R.drawable.whitedot);
         mDotsView.setNumberOfPage(3);
+        textViewAround = (TextView)rootView.findViewById(R.id.home_around_com);
         relativeLayoutWeek1 = (RelativeLayout)rootView.findViewById(R.id.home_week_com1);
         relativeLayoutWeek2 = (RelativeLayout)rootView.findViewById(R.id.home_week_com2);
         imageViewWeek1 = (ImageView)rootView.findViewById(R.id.main_week_seouri_imge_1);

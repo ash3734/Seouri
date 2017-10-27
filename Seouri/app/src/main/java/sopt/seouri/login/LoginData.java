@@ -6,10 +6,10 @@ package sopt.seouri.login;
 
 public class LoginData {
     public String userId;
-    public String kakaoToken;
+    //public String kakaoToken;
 
-    public LoginData(String userId, String kakaoToken) {
+    public LoginData(String userId) {
         this.userId = userId;
-        this.kakaoToken = kakaoToken;
+
     }
 }

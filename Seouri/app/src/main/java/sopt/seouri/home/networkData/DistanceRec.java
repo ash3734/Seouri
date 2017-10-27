@@ -5,18 +5,18 @@ package sopt.seouri.home.networkData;
  */
 
 public class DistanceRec {
-    int villageEnterpriseId;
-    String name;
-    String address;
-    double lat;
-    double lng;
-    String phone;
-    String url;
-    String category;
-    String detail;
-    String article;
-    String photo;
-    String location;
-    String coupon;
-    double distance;
+    public int villageEnterpriseId;
+    public   String name;
+    public String address;
+    public double lat;
+    public double lng;
+    public String phone;
+    public String url;
+    public String category;
+    public String detail;
+    public String article;
+    public String photo;
+    public String location;
+    public String coupon;
+    public double distance;
 }

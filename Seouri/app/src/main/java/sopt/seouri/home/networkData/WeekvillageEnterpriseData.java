@@ -7,5 +7,5 @@ package sopt.seouri.home.networkData;
 public class WeekvillageEnterpriseData {
     public int villageEnterpriseId;
     public String name;
-    public String image;
+    public String photo;
 }

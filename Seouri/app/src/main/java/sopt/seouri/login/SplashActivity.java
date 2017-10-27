@@ -2,9 +2,9 @@ package sopt.seouri.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -78,12 +78,11 @@ public class SplashActivity extends AppCompatActivity {
             });
             //}
         }
-        /*
-            String userId = "bttb66@naver.com";
+           /* String userId = "533453077";
             String kakoToken = "11111";
-            ApplicationController.serverToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJidHRiNkBuYXZlci5jb20iLCJpYXQiOjE1MDgzMTAxMzAsImV4cCI6MTUxMDkwMjEzMH0.efcqFCG1C7DzwcndhtFbW_oQx5wtkvSxMJ4IUoFk0oM";
+            ApplicationController.serverToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MzM0NTMwNzciLCJpYXQiOjE1MDkxMDI0NzUsImV4cCI6MTUxMTY5NDQ3NX0.hKvYXKVbURvpLbvyl0qSIOw5x6nOaTtbPDKDCWckbdE";
 
-            Call<LoginResult> loginResultCall = service.getLoginResult(new LoginData(userId, kakoToken)); //
+            Call<LoginResult> loginResultCall = service.getLoginResult(new LoginData(userId)); //
             loginResultCall.enqueue(new Callback<LoginResult>() {
                 @Override
                 public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
@@ -105,8 +104,7 @@ public class SplashActivity extends AppCompatActivity {
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
-            });
+            });*/
             //}
-        */
     }
 }
