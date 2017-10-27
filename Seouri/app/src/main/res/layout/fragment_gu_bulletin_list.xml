@@ -5,12 +5,18 @@
     android:orientation="vertical"
     tools:context="sopt.seouri.community.GuBulletinListFragment">
 
+    <View
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="#D0EDEA"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"></View>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -19,14 +25,17 @@
 
             <ImageView
                 android:id="@+id/Search_img"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/pencil" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/search_board" />
             <TextView
+                android:textColor="#333333"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="검색"
-                android:textSize="35dp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -38,15 +47,15 @@
             android:gravity="right">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/aa" />
-
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/write_board" />
             <TextView
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="글쓰기"
-                android:textSize="35dp" />
+                android:textSize="16dp" />
         </LinearLayout>
     </RelativeLayout>
 

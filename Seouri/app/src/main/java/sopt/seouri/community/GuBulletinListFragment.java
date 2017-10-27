@@ -87,7 +87,7 @@ public class GuBulletinListFragment extends Fragment {
 
         Data = new ArrayList<BulletinPostData>();
         String a = "1";
-        Call<FindBulletinResult> findbulletinresult = service.getFindBulletinResult("1");
+        Call<FindBulletinResult> findbulletinresult = service.getFindBulletinResult("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Mzg3MTIwMzAiLCJpYXQiOjE1MDgzMDkzOTEsImV4cCI6MTUxMDkwMTM5MX0.2kzFCPHqKqWd2cnOltxfI2y3c_doKeEjXbOwmdsfnMQ","1");
         findbulletinresult.enqueue(new Callback<FindBulletinResult>() {
             @Override
             public void onResponse(Call<FindBulletinResult> call, Response<FindBulletinResult> response) {

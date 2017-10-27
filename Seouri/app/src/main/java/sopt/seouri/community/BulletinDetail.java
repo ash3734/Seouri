@@ -44,6 +44,7 @@ public class BulletinDetail extends Fragment {
 
     ArrayList<ImageData> images;
     ArrayList<CommentsData> commentsDatas;
+    ArrayList<postData> posts;
 
     ImageView imageView;
 
@@ -84,7 +85,6 @@ public class BulletinDetail extends Fragment {
 
         Glide.with(context).load(postData.profile).into(imageView);
         D_writer.setText(postData.getName());
-        D_content.setText(postData.content);
         D_date.setText(postData.date);
 
         D_more_reply = (TextView)rootView.findViewById(R.id.D_more_reply);
@@ -104,10 +104,10 @@ public class BulletinDetail extends Fragment {
 //            }
 //        });
 
-
+        posts = new ArrayList<>();
         commentsDatas = new ArrayList<>();
         images = new ArrayList<>();
-        Call<FindBulletinDetailResult> getBulletinDetailResult = service2.getFindBulletinDetailResult(postData.postId);
+        Call<FindBulletinDetailResult> getBulletinDetailResult = service2.getFindBulletinDetailResult("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Mzg3MTIwMzAiLCJpYXQiOjE1MDgzMDkzOTEsImV4cCI6MTUxMDkwMTM5MX0.2kzFCPHqKqWd2cnOltxfI2y3c_doKeEjXbOwmdsfnMQ",postData.postId);
         getBulletinDetailResult.enqueue(new Callback<FindBulletinDetailResult>() {
             @Override
             public void onResponse(Call<FindBulletinDetailResult> call, Response<FindBulletinDetailResult> response)
@@ -116,7 +116,9 @@ public class BulletinDetail extends Fragment {
                 {
                     images = response.body().images;
                     commentsDatas = response.body().comments;
+                    posts = response.body().post;
 
+                    D_content.setText(posts.get(0).content);
                     if(commentsDatas.size() != 0) {
                         D_reply_writer.setText(commentsDatas.get(0).getName().toString());
                         D_reply_content.setText(commentsDatas.get(0).getContent().toString());

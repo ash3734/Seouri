@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 
 import sopt.seouri.R;
 
+import static sopt.seouri.MainActivity.fragmentManager;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -45,7 +47,7 @@ public class GuBulletinFirstFragmnet extends Fragment {
     {
         if(index == 1)
         {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.container,guBulletinListFragment);///gubulletinmain
             transaction.addToBackStack(null);
             transaction.commit();
