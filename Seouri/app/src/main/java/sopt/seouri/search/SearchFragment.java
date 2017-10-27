@@ -16,8 +16,12 @@ import android.widget.TextView;
 import sopt.seouri.R;
 import sopt.seouri.adapters.GridAdapter;
 import sopt.seouri.search.category.CategoryFragment;
+import sopt.seouri.search.popup.SearchPopupFragment;
 
 import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.MainActivity.sToolbarImage;
+import static sopt.seouri.MainActivity.sToolbarLayout;
+import static sopt.seouri.MainActivity.sToolbarText;
 
 /**
  * Created by ash on 2017-09-20.
@@ -29,51 +33,38 @@ public class SearchFragment extends Fragment {
     private TextView search_all_btn;
     private String[] countryList;
 
-
-    /*뭘 의미하는지는 모르겠음*/
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//    private String  mParam1;
-//    private String  mParam2;
-
     public SearchFragment() {
     }
 
     public void setContext(Context context){
         this.context = context;
     }
-//    /*뭘 의미하는지는 모르겠음*/
-//    public static SearchFragment newInstance(String param1, String param2){
-//        SearchFragment fragment = new SearchFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1,param1);
-//        args.putString(ARG_PARAM2,param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         countryList = getResources().getStringArray(R.array.seoul);
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.search_fragment, container, false);
+
+        sToolbarText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                SearchPopupFragment searchPopupFragment = new SearchPopupFragment(context);
+                transaction.add(R.id.container, searchPopupFragment);
+                transaction.commit();
+            }
+        });
         gridView = (GridView)layout.findViewById(R.id.search_location_gridview);
         gridView.setAdapter(new GridAdapter(context, countryList));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                CategoryFragment categoryFragment = new CategoryFragment();
-//
-//                categoryFragment.setContext(context, String.valueOf(position));
-//                transaction.replace(R.id.container,categoryFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
                 toDetailFragment(String.valueOf(position));
 
             }
@@ -97,5 +88,21 @@ public class SearchFragment extends Fragment {
         transaction.replace(R.id.container,categoryFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sToolbarLayout.setVisibility(View.VISIBLE);
+        sToolbarImage.setVisibility(View.VISIBLE);
+        sToolbarText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        sToolbarLayout.setVisibility(View.INVISIBLE);
+        sToolbarImage.setVisibility(View.INVISIBLE);
+        sToolbarText.setVisibility(View.INVISIBLE);
     }
 }
