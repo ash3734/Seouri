@@ -5,4 +5,7 @@ package sopt.seouri.search.popup;
  */
 
 public class SearchPopupResultData {
+    public String villageEnterpriseId;
+    public String name;
+    public String location;
 }
