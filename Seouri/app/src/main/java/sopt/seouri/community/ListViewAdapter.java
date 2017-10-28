@@ -19,10 +19,12 @@ public class ListViewAdapter extends BaseAdapter {
 
     ArrayList<CommentsData> commentsDatas = new ArrayList<>();
 
+    Context context;
 
-    public ListViewAdapter(ArrayList<CommentsData> cc)
+    public ListViewAdapter(ArrayList<CommentsData> cc,Context context)
     {
         commentsDatas = cc;
+        this.context = context;
     }
 
     @Override

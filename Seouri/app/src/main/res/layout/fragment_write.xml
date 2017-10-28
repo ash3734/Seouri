@@ -101,7 +101,7 @@
         android:src="@drawable/okay"
         android:layout_gravity="center"
         android:id="@+id/W_complete"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

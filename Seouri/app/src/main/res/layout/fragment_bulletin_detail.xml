@@ -69,10 +69,10 @@
                 android:layout_marginLeft="15dp"
                 android:id="@+id/D_cimage"
                 android:layout_marginTop="15dp"
-                android:src="@drawable/aa"
+                android:src="@drawable/noimg"
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
-                android:layout_height="180dp" />
+                android:layout_height="250dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -120,7 +120,6 @@
                 android:textSize="16dp"
                 android:textColor="#333333"
                 android:id="@+id/D_reply_writer"
-                android:text="옹성우"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -129,7 +128,6 @@
                 android:id="@+id/D_reply_content"
                 android:layout_toRightOf="@+id/D_reply_writer"
                 android:layout_marginLeft="20dp"
-                android:text=" 좋아요 좋아요"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
