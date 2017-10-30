@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     public TextView textViewToolbar;
     public static ImageView imageViewDdang;
     public static ActionBarDrawerToggle toggle;
-
+    public static MainActivity mainActivity;
 
 //    public static ArrayList<Fragment> fragmentStack;
     // 뒤로버튼 두번 터치시 종료 이벤트 관련 변수
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainActivity = this;
         imageViewDdang = (ImageView)findViewById(R.id.toolbar_ddang);
         imageViewDdang.setVisibility(View.INVISIBLE);
          drawer = (DrawerLayout)findViewById(R.id.drawer_layout);

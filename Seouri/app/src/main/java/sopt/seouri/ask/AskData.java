@@ -5,13 +5,13 @@ package sopt.seouri.ask;
  */
 
 public class AskData {
-    public int userId;
-    public String titile;
+    public String userId;
+    public String title;
     public String content;
 
-    public AskData(int userId, String titile, String content) {
+    public AskData(String userId, String title, String content) {
         this.userId = userId;
-        this.titile = titile;
+        this.title = title;
         this.content = content;
     }
 }

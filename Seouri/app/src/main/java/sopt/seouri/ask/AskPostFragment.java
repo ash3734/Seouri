@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,15 +52,15 @@ public class AskPostFragment extends Fragment {
         super.onStart();
         toolbarImage.setVisibility(View.INVISIBLE);
         toolbarText.setText("문의하기");
-
+        Log.d("ash3734","ask send data"+ApplicationController.serverToken+ApplicationController.memberId);
         service = ApplicationController.getInstance().getNetworkService();
         imageViewConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<String> stringCall = service.getAskPostResult(new AskData(Integer.parseInt(ApplicationController.memberId),editTextTitle.getText().toString(),editTextContent.getText().toString()));
-                stringCall.enqueue(new Callback<String>() {
+                Call<AskPostResult> stringCall = service.getAskPostResult(ApplicationController.serverToken,new AskData(ApplicationController.memberId,editTextTitle.getText().toString(),editTextContent.getText().toString()));
+                stringCall.enqueue(new Callback<AskPostResult>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<AskPostResult> call, Response<AskPostResult> response) {
                         if(response.isSuccessful()){
                             Toast toast = Toast.makeText(getContext(), "성공적으로 완료하였습니다.", Toast.LENGTH_LONG);
                             toast.show();
@@ -72,9 +72,8 @@ public class AskPostFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<AskPostResult> call, Throwable t) {
                         Toast toast = Toast.makeText(getActivity(), "네트워크 상태를 확인하세요", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                     }
                 });

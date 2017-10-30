@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public class AskResult {
     String message;
-    ArrayList<MyQuestion> myQuestion;
+    ArrayList<MyQuestion> myquestion;
 }

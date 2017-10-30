@@ -103,34 +103,7 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
         </RelativeLayout>
-        <View
-            android:background="#F5F5F5"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"></View>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="10dp"
-                android:text="내 근처 마을기업"
-                android:textColor="#333333"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/home_around_com"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="#333333"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+
         <View
             android:background="#F5F5F5"
             android:layout_width="match_parent"
@@ -279,6 +252,34 @@
                 android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
+        <View
+            android:background="#F5F5F5"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"></View>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="내 근처 마을기업"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/home_around_com"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorOrange"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
         <View
             android:background="#F5F5F5"
             android:layout_width="match_parent"

@@ -70,6 +70,7 @@ public class NaviFragment extends Fragment {
         linearLayoutReco.setOnClickListener(clickListner4);
         linearLayoutQuestion.setOnClickListener(clickListener5);
         textViewMyPageBtn.setOnClickListener(clickListener);
+        circularImageView.setOnClickListener(clickListener);
 
         Log.d("ash", "userImg" + ApplicationController.memberImg);
         Glide.with(getActivity()).load(ApplicationController.memberImg).into(circularImageView);

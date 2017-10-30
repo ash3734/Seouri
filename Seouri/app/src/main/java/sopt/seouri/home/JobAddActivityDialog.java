@@ -1,5 +1,6 @@
 package sopt.seouri.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +35,11 @@ public class JobAddActivityDialog extends AppCompatActivity{
     TextView textViewOK;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -44,7 +52,7 @@ public class JobAddActivityDialog extends AppCompatActivity{
         textViewOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<JobResult> jobResultCall = service.getJobResult(new JobRegData(editTextName.getText().toString(),"??","??",editTextPay.getText().toString(),"??"));
+                Call<JobResult> jobResultCall = service.getJobResult(ApplicationController.serverToken,new JobRegData(editTextName.getText().toString(),"??","??",editTextPay.getText().toString(),"??"));
                 jobResultCall.enqueue(new Callback<JobResult>() {
                     @Override
                     public void onResponse(Call<JobResult> call, Response<JobResult> response) {

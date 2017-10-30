@@ -276,6 +276,17 @@ public class HomeFragment extends Fragment {
                         }
                         Linkify.addLinks(textViewNotice4, p,response.body().villageinformation.get(3).inforUrl,null,transform);
                         textViewAround.setText(response.body().distanceRec.name);
+                        textViewAround.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
+                                searchDetailFragment.setContext(context,String.valueOf(response.body().distanceRec.villageEnterpriseId));
+                                transaction.replace(R.id.container,searchDetailFragment);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                            }
+                        });
                         datas = response.body().jobinformation;
                         recyclerView.setHasFixedSize(true);
                         linearLayoutManager = new LinearLayoutManager(getActivity());

@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 
 public class SharedPrefrernceController {
     public static final String UERID = "userID";
-    public static final String KAKAOTOKEN = "kakaoToken";
     public static final String SERVERTOKEN = "serverToken";
     private static final String USER = "user";
 
@@ -22,16 +21,6 @@ public class SharedPrefrernceController {
     public static String getUserId(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
         return pref.getString(UERID,"");
-    }
-    public static void setKakaotoken(Context context,String kakaoToken){
-        SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(KAKAOTOKEN,kakaoToken);
-        editor.commit();
-    }
-    public static String getKakaotoken(Context context){
-        SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
-        return pref.getString(KAKAOTOKEN,"");
     }
     public static void setServertoken(Context context,String serverToekn){
         SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);

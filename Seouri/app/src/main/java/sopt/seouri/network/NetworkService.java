@@ -11,6 +11,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import sopt.seouri.ask.AskData;
+import sopt.seouri.ask.AskPostResult;
 import sopt.seouri.ask.AskResult;
 import sopt.seouri.community.BulletinAddCommentData;
 import sopt.seouri.community.BulletinAddCommentResult;
@@ -35,15 +36,15 @@ import sopt.seouri.search.popup.SearchPopupResult;
 /**
  * Created by 김지원 on 2017-10-05.
  */
-
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJidHRiNkBuYXZlci5jb20iLCJpYXQiOjE1MDkxMTMxMTIsImV4cCI6MTUxMTcwNTExMn0.XrrMQQ5mEqR2yD35JrXFwdYKBowUsbLoEZ9ORKZhZqU
 public interface NetworkService {
     /*성현이 API*/
     @GET("question/{userId}")
-    Call<AskResult> getAskResult(@Header("token")String token,@Path("userid")int userId);
+    Call<AskResult> getAskResult(@Header("token")String token,@Path("userId")String userId);
     @POST("question")
-    Call<String> getAskPostResult(@Body AskData askData);
+    Call<AskPostResult> getAskPostResult(@Header("token")String token, @Body AskData askData);
     @POST("job")
-    Call<JobResult> getJobResult(@Body JobRegData jobRegData);
+    Call<JobResult> getJobResult(@Header("token")String token,@Body JobRegData jobRegData);
     @POST("member/mypage")
     Call<MyPageResult> getMyPageResult(@Header("token")String token,@Body MyPageData myPageData);
     @POST("member")

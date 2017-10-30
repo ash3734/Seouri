@@ -40,6 +40,6 @@ public class AskListAdapter extends RecyclerView.Adapter<AskViewHolder> {
 
     @Override
     public int getItemCount() {
-        return datas.size();
+        return (datas != null) ? datas.size() : 0;
     }
 }

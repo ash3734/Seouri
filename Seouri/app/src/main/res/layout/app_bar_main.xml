@@ -30,10 +30,10 @@
 
             <ImageView
                 android:id="@+id/toolbar_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="84dp"
+                android:layout_height="36dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/seowoori" />
+                android:src="@drawable/logo" />
 
             <TextView
                 android:id="@+id/toolbar_text"
@@ -44,7 +44,7 @@
                 android:textSize="22sp" />
             <ImageView
                 android:id="@+id/toolbar_ddang"
-                android:src="@drawable/threedot"
+                android:src="@drawable/pen"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="17dp"
                 android:layout_alignParentRight="true"

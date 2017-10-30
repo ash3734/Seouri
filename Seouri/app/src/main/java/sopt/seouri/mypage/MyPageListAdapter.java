@@ -38,6 +38,6 @@ public class MyPageListAdapter extends RecyclerView.Adapter<MyPageViewHolder> {
 
     @Override
     public int getItemCount() {
-        return datas.size();
+        return (datas != null) ? datas.size() : 0;
     }
 }

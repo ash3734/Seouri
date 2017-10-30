@@ -1,12 +1,10 @@
 package sopt.seouri.mypage;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,7 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
-import sopt.seouri.login.LoginActivity;
 import sopt.seouri.mypage.networkData.MyPageData;
 import sopt.seouri.mypage.networkData.MyPageResult;
 import sopt.seouri.network.NetworkService;
@@ -86,40 +83,8 @@ public class MyPageFragment extends Fragment {
         relativeLayoutLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
-
-                // 제목셋팅
-                alertDialogBuilder.setTitle("로그아웃");
-
-                // AlertDialog 셋팅
-                alertDialogBuilder
-                        .setMessage("\n정말 로그아웃 하실 것입니까?")
-                        .setCancelable(false)
-                        .setPositiveButton("취소",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(
-                                            DialogInterface dialog, int id) {
-                                        dialog.cancel();
-
-                                    }
-                                })
-                        .setNegativeButton("확인",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(
-                                            DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                        startActivity(intent);
-                                        getActivity().finish();
-                                    }
-                                });
-
-                // 다이얼로그 생성
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                // 다이얼로그 보여주기
-                alertDialog.show();
-
+               Intent intent = new Intent(getActivity(),LogoutActivityDialog.class);
+                startActivity(intent);
             }
         });
         Log.d("ash","userId in mypage"+ApplicationController.memberId);

@@ -44,14 +44,20 @@
         <activity
             android:name=".home.JobAddActivityDialog"
             android:theme="@style/Theme.Transparent" ></activity>
-        <activity android:name=".login.SplashActivity" >
+        <activity
+            android:name=".mypage.LogoutActivityDialog"
+            android:theme="@style/Theme.Transparent" ></activity>
+        <activity android:name=".login.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
          </activity>
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".login.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".login.KakaoSignupActivity"></activity>
 
