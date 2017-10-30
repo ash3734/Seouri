@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="sopt.seouri.community.BulletinDetailMoreReplyFragment">
@@ -29,9 +30,10 @@
                     android:background="@drawable/profile_box"
                     android:id="@+id/DR_proimg"
                     android:src="@drawable/ppp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp" />
                 <TextView
+                    android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="#333333"
                     android:layout_centerVertical="true"
@@ -63,11 +65,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="#ffffff"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:layout_marginTop="15dp"
                 android:textColor="#333333"
                 android:layout_marginLeft="15dp"
                 android:textSize="18dp"
@@ -82,9 +86,9 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="10dp"
                 android:alpha="0.5"
-                android:background="#95989A" />
+                android:background="#FFA500" />
             <LinearLayout
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
@@ -92,7 +96,7 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/R_add_reply_edit"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="14dp"
                     android:hint=" 내용을 입력하세요"
                     android:background="@null"
                     android:layout_weight="0.8"
@@ -100,7 +104,7 @@
                     android:layout_height="wrap_content" />
                 <ImageView
                     android:id="@+id/R_add_reply_img"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:src="@drawable/send"
                     android:layout_width="30dp"
                     android:layout_height="30dp" />

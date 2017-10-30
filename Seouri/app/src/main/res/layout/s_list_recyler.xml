@@ -8,36 +8,36 @@
     android:orientation="vertical">
 
     <View
-        android:background="#95989A"
         android:alpha="0.7"
+        android:background="#95989A"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="15dp">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="10dp">
 
         <ImageView
             android:padding="1dp"
             android:background="@drawable/profile_box"
-            android:id="@+id/b_profile"
+            android:id="@+id/s_profile"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/ppp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/b_profile"
+            android:layout_toRightOf="@+id/s_profile"
             android:orientation="vertical">
 
             <TextView
-                android:textStyle="bold"
-                android:id="@+id/b_writer"
+                android:id="@+id/s_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="희망 마을 운영자"
@@ -46,19 +46,18 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/b_title"
+            android:id="@+id/s_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/b_profile"
-            android:layout_below="@+id/b_profile"
-            android:layout_marginTop="15dp"
+            android:layout_alignLeft="@+id/s_profile"
+            android:layout_below="@+id/s_profile"
+            android:layout_marginTop="16dp"
             android:text="희망 마을 8월 래터"
             android:textColor="#333333"
             android:textSize="17dp" />
 
         <TextView
-            app:font="custom1"
-            android:id="@+id/b_date"
+            android:id="@+id/s_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -71,19 +70,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/b_title">
+            android:layout_below="@+id/s_title">
             <TextView
-                app:font="custom1"
                 android:textSize="12dp"
                 android:textColor="#333333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="조회수 " />
             <TextView
-                app:font="custom1"
                 android:textSize="12dp"
                 android:textColor="#333333"
-                android:id="@+id/b_views"
+                android:id="@+id/s_views"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="37" />

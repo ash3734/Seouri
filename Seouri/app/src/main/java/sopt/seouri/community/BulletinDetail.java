@@ -24,6 +24,7 @@ import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
 import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.MainActivity.toolbarText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +33,7 @@ public class BulletinDetail extends Fragment {
 
     Context context;
     String location;
-    public BulletinPostData postData;
+    BulletinPostData postData;
 
     TextView D_writer;
     TextView D_date;
@@ -64,6 +65,17 @@ public class BulletinDetail extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        toolbarText.setText("글 상세보기");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        toolbarText.setText("");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,6 +131,11 @@ public class BulletinDetail extends Fragment {
                     posts = response.body().post;
 
                     D_content.setText(posts.get(0).content);
+
+                    if(commentsDatas.size() == 0)
+                    {
+                        D_reply_writer.setText("댓글 없음");
+                    }
                     if(commentsDatas.size() != 0) {
                         D_reply_writer.setText(commentsDatas.get(0).getName().toString());
                         D_reply_content.setText(commentsDatas.get(0).getContent().toString());
@@ -141,7 +158,8 @@ public class BulletinDetail extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                bulletinDetailMoreReplyFragment.setContext(getContext(), commentsDatas,postData.profile);
+                bulletinDetailMoreReplyFragment.setContext(getContext(),commentsDatas,postData,postData.profile);
+                transaction.addToBackStack(null);
                 transaction.replace(R.id.container,bulletinDetailMoreReplyFragment);
                 transaction.commit();
             }

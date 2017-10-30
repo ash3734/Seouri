@@ -2,6 +2,7 @@
 <LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="sopt.seouri.community.CommunityFragment"
@@ -32,6 +33,7 @@
         android:layout_height="3dp"></View>
 
     <Button
+        android:id="@+id/C_all"
         android:text=" 서울시 게시판 "
         android:layout_marginTop="15dp"
         android:layout_marginLeft="30dp"

@@ -23,6 +23,8 @@ import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
+import static sopt.seouri.MainActivity.toolbarText;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -31,6 +33,7 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
     Context context;
     ArrayList<CommentsData> commentsDataArrayList;
     String profile;
+    BulletinPostData postData;
 
     ListView listView;
     ImageView addreply;
@@ -44,16 +47,31 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
 
     ImageView R_proimg;
 
+    ArrayList<CommentsData> commentsDatas;
+
+
     public BulletinDetailMoreReplyFragment() {
         // Required empty public constructor
     }
 
-    public void setContext(Context context, ArrayList<CommentsData> cData, String postId) {
+    public void setContext(Context context, ArrayList<CommentsData> cData,BulletinPostData postData,String profile) {
         this.context = context;
         this.commentsDataArrayList = cData;
-        this.profile = postId;
+        this.profile = profile;
+        this.postData = postData;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        toolbarText.setText("댓글");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        toolbarText.setText("");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,11 +85,9 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
 
         R_proimg = (ImageView)v.findViewById(R.id.DR_proimg);
         Glide.with(getContext()).load(profile).into(R_proimg);
-
-
         service = ApplicationController.getInstance().getNetworkService();
 
-        mMyAdapter = new ListViewAdapter(commentsDataArrayList);
+        mMyAdapter = new ListViewAdapter(commentsDataArrayList,getActivity());
         listView.setAdapter(mMyAdapter);
 
         addreply.setOnClickListener(new View.OnClickListener() {
@@ -81,29 +97,47 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
                 String str3 = addreply_edit.getText().toString();
                 bulletinAddCommentData = new BulletinAddCommentData();
 
-                bulletinAddCommentData.userId = "ash3734@naver.com";
-                bulletinAddCommentData.postId = commentsDataArrayList.get(0).postId;
+                bulletinAddCommentData.userId = 533453077;
+                bulletinAddCommentData.postId = postData.postId;
                 bulletinAddCommentData.setContent(str3);
 
                 Call<BulletinAddCommentResult> bulletinAddCommentResultCall = service.getBulletinAddCommentResult(ApplicationController.serverToken,bulletinAddCommentData);
                 bulletinAddCommentResultCall.enqueue(new Callback<BulletinAddCommentResult>() {
                     @Override
-                    public void onResponse(Call<BulletinAddCommentResult> call, Response<BulletinAddCommentResult> response) {
+                    public void onResponse(Call<BulletinAddCommentResult> call, Response<BulletinAddCommentResult> response)
+                    {
                         if(response.isSuccessful())
                         {
-                            mMyAdapter.notifyDataSetChanged();
-                            listView.setAdapter(mMyAdapter);
+
                             Toast.makeText(getContext()," 댓글 등록 성공",Toast.LENGTH_SHORT).show();
                             addreply_edit.setText("");
 
+                            Call<FindBulletinDetailResult> getBulletinDetailResult = service.getFindBulletinDetailResult(ApplicationController.serverToken,postData.postId);
+                            getBulletinDetailResult.enqueue(new Callback<FindBulletinDetailResult>() {
+                                @Override
+                                public void onResponse(Call<FindBulletinDetailResult> call, Response<FindBulletinDetailResult> response)
+                                {
+                                    if(response.isSuccessful())
+                                    {
+                                        commentsDatas = response.body().comments;
+                                        if(commentsDatas.size() > 0) {
+                                            commentsDataArrayList.add(commentsDatas.get(commentsDatas.size() - 1));
+                                        }
+                                        mMyAdapter.notifyDataSetChanged();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<FindBulletinDetailResult> call, Throwable t) {
+                                    Toast.makeText(getContext(),"통신 실패",Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                         else
                         {
-                            Toast.makeText(getContext(),response.body().message.toString(),Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(getContext(),response.message().toString(),Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<BulletinAddCommentResult> call, Throwable t) {
                         Toast.makeText(getContext()," 통신 실패",Toast.LENGTH_SHORT).show();

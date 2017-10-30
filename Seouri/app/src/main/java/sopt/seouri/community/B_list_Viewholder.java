@@ -27,5 +27,8 @@ public class B_list_Viewholder extends RecyclerView.ViewHolder {
         B_date = (TextView)itemView.findViewById(R.id.b_date);
         B_views = (TextView)itemView.findViewById(R.id.b_views);
         B_profile = (ImageView)itemView.findViewById(R.id.b_profile);
+
+
+
     }
 }
