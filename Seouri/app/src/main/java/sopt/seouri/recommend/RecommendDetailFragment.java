@@ -107,9 +107,12 @@ public class RecommendDetailFragment extends Fragment {
                 transaction.commit();
             }
         });
-        textViewRecommendCompanyComment1.setText(recommendData.commpanyComment1.substring(0,40));
-        textViewRecommendCompanyComment2.setText(recommendData.commpanyComment2.substring(0,40));
-        textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3.substring(0,40));
+        textViewRecommendCompanyComment1.setText(recommendData.commpanyComment1.substring(0,60)+"...");
+
+        textViewRecommendCompanyComment2.setText(recommendData.commpanyComment2.substring(0,60)+"...");
+        if(recommendData.commpanyComment3.length()>30)
+        textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3.substring(0,60)+"...");
+        textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3);
     }
 
     @Nullable
