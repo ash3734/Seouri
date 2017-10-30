@@ -119,7 +119,7 @@ public class BulletinDetail extends Fragment {
         posts = new ArrayList<>();
         commentsDatas = new ArrayList<>();
         images = new ArrayList<>();
-        Call<FindBulletinDetailResult> getBulletinDetailResult = service2.getFindBulletinDetailResult("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Mzg3MTIwMzAiLCJpYXQiOjE1MDgzMDkzOTEsImV4cCI6MTUxMDkwMTM5MX0.2kzFCPHqKqWd2cnOltxfI2y3c_doKeEjXbOwmdsfnMQ",postData.postId);
+        Call<FindBulletinDetailResult> getBulletinDetailResult = service2.getFindBulletinDetailResult(ApplicationController.serverToken,postData.postId);
         getBulletinDetailResult.enqueue(new Callback<FindBulletinDetailResult>() {
             @Override
             public void onResponse(Call<FindBulletinDetailResult> call, Response<FindBulletinDetailResult> response)

@@ -25,6 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -51,6 +52,8 @@ public class WriteFragment extends Fragment {
 
     GuBulletinListFragment guBulletinListFragment;
 
+    ArrayList<BulletinPostData> postDatas;
+
     String w_title;
     String w_content;
 
@@ -74,6 +77,8 @@ public class WriteFragment extends Fragment {
 
     BulletinAddPostData bulletinAddPostDataPostData;
 
+    String slocation;
+
     final int REQ_CODE_SELECT_IMAGE = 100;
     String imgUrl = "";
     Uri data;
@@ -84,8 +89,9 @@ public class WriteFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void setContext(Context context) {
+    public void setContext(Context context,String slocation) {
         this.context = context;
+        this.slocation = slocation;
     }
 
     @Override
@@ -156,7 +162,7 @@ public class WriteFragment extends Fragment {
                 title = RequestBody.create(MediaType.parse("multipart/form-data"), W_title.getText().toString());
                 content = RequestBody.create(MediaType.parse("multipart/form-data"), W_content.getText().toString());
                 userId = RequestBody.create(MediaType.parse("multipart/form-data"), "533453077");
-                location = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+                location = RequestBody.create(MediaType.parse("multipart/form-data"),slocation);
 
 
                 if (imgUrl == "") {
@@ -202,7 +208,7 @@ public class WriteFragment extends Fragment {
                                 Toast.makeText(getContext(), "게시글 등록 성공", Toast.LENGTH_SHORT).show();
 
                                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                                guBulletinListFragment.setContext(getContext(), "1");
+                                guBulletinListFragment.setContext(getContext(),slocation);
                                 transaction.addToBackStack(null);
                                 transaction.replace(R.id.container, guBulletinListFragment);
                                 transaction.commit();

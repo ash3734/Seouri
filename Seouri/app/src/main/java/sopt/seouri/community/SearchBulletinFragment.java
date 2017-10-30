@@ -110,7 +110,7 @@ public class SearchBulletinFragment extends Fragment {
                 sendSearchBulletinData = new SendSearchBulletinData();
                 sendSearchBulletinData.key = s_edit.getText().toString();
 
-                Call<SearchBulletinResult> searchBulletinResultCall = service.getSearchBulletinResult("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Mzg3MTIwMzAiLCJpYXQiOjE1MDgzMDkzOTEsImV4cCI6MTUxMDkwMTM5MX0.2kzFCPHqKqWd2cnOltxfI2y3c_doKeEjXbOwmdsfnMQ",sendSearchBulletinData);
+                Call<SearchBulletinResult> searchBulletinResultCall = service.getSearchBulletinResult(ApplicationController.serverToken,sendSearchBulletinData);
                 searchBulletinResultCall.enqueue(new Callback<SearchBulletinResult>() {
                     @Override
                     public void onResponse(Call<SearchBulletinResult> call, Response<SearchBulletinResult> response) {

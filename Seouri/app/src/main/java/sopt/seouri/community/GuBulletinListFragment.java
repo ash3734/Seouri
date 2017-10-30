@@ -214,7 +214,7 @@ public class GuBulletinListFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 WriteFragment writeFragment = new WriteFragment();
-                writeFragment.setContext(context);
+                writeFragment.setContext(context,location);
                 transaction.addToBackStack(null);
                 transaction.replace(R.id.container, writeFragment);
                 transaction.commit();
