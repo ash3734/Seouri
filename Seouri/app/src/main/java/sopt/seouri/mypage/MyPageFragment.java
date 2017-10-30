@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,9 +27,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import sopt.seouri.R;
 import sopt.seouri.application.ApplicationController;
+import sopt.seouri.community.BulletinDetail;
+import sopt.seouri.community.BulletinPostData;
 import sopt.seouri.mypage.networkData.MyPageData;
 import sopt.seouri.mypage.networkData.MyPageResult;
 import sopt.seouri.network.NetworkService;
+
+import static sopt.seouri.MainActivity.fragmentManager;
 
 /**
  * Created by ash on 2017-09-20.
@@ -49,6 +54,7 @@ public class MyPageFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+    public ArrayList<BulletinPostData> bulletinPostDatas;
 
     Context context;
 
@@ -96,6 +102,19 @@ public class MyPageFragment extends Fragment {
                     for (int i = 0; i < response.body().myPosts.size(); i++) {
                         datas.add(response.body().myPosts.get(i).title);
                     }
+                    Log.d("ash3734", String.valueOf(datas.size()));
+                    for(int i=0;i<response.body().myPosts.size();i++){
+                        BulletinPostData bulletinPostData = new BulletinPostData();
+                        bulletinPostData.postId = String.valueOf(response.body().myPosts.get(i).postId);
+                        bulletinPostData.userId = String.valueOf(response.body().myPosts.get(i).userId);
+                        bulletinPostData.title = response.body().myPosts.get(i).title;
+                        bulletinPostData.content = response.body().myPosts.get(i).content;
+                        bulletinPostData.view_num = String.valueOf(response.body().myPosts.get(i).view_num);
+                        bulletinPostData.date = response.body().myPosts.get(i).date;
+                        bulletinPostData.location= String.valueOf(response.body().myPosts.get(i).location);
+                        bulletinPostData.profile = response.body().myPosts.get(i).profile;
+                        bulletinPostDatas.add(bulletinPostData);
+                    }
                     recyclerView.setHasFixedSize(true);
                     linearLayoutManager = new LinearLayoutManager(getActivity());
                     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -118,6 +137,17 @@ public class MyPageFragment extends Fragment {
         });
 
     }
+    public View.OnClickListener clickEvent = new View.OnClickListener() {
+        public void onClick(View v) {
+            int itemPosition = recyclerView.getChildLayoutPosition(v);  //포지션 값 넘겨줘서 첫 페이지 설정 ?? 가능???
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            BulletinDetail bulletinDetail = new BulletinDetail();
+            bulletinDetail.setContext(context,bulletinPostDatas.get(itemPosition));
+            transaction.replace(R.id.container,bulletinDetail);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+    };
 
     @Nullable
     @Override

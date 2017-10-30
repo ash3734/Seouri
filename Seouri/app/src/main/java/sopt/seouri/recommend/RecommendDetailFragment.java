@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import sopt.seouri.R;
+import sopt.seouri.search.detail.SearchDetailFragment;
 
+import static sopt.seouri.MainActivity.fragmentManager;
 import static sopt.seouri.MainActivity.mToolbar;
 import static sopt.seouri.MainActivity.toggle;
 import static sopt.seouri.MainActivity.toolbarText;
@@ -69,11 +72,44 @@ public class RecommendDetailFragment extends Fragment {
         imageViewCommentText.setImageResource(recommendData.recommendComment);
         imageView.setImageResource(recommendData.recommendImg);
         textViewRecommendCompany1.setText(recommendData.commpanyName1);
+        textViewRecommendCompany1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
+                searchDetailFragment.setContext(context,String.valueOf(recommendData.commpanyID1));
+                transaction.replace(R.id.container,searchDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         textViewRecommendCompany2.setText(recommendData.commpanyName2);
+        textViewRecommendCompany2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
+                searchDetailFragment.setContext(context,String.valueOf(recommendData.commpanyID2));
+                transaction.replace(R.id.container,searchDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         textViewRecommendCompany3.setText(recommendData.commpanyName3);
-        textViewRecommendCompanyComment1.setText(recommendData.commpanyComment1);
-        textViewRecommendCompanyComment2.setText(recommendData.commpanyComment2);
-        textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3);
+        textViewRecommendCompany3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
+                searchDetailFragment.setContext(context,String.valueOf(recommendData.commpanyID3));
+                transaction.replace(R.id.container,searchDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+        textViewRecommendCompanyComment1.setText(recommendData.commpanyComment1.substring(0,40));
+        textViewRecommendCompanyComment2.setText(recommendData.commpanyComment2.substring(0,40));
+        textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3.substring(0,40));
     }
 
     @Nullable
