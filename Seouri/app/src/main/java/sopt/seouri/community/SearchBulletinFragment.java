@@ -120,8 +120,6 @@ public class SearchBulletinFragment extends Fragment {
                             {
                                  searchBulletinDatas = response.body().searchRet;
                                 if(searchBulletinDatas.size() !=0 ) {
-                                    Toast.makeText(getActivity(), searchBulletinDatas.get(0).content.toString(), Toast.LENGTH_SHORT).show();
-
                                     s_list_adapter = new S_list_Adapter(searchBulletinDatas, getContext(), mClickListener);
                                     S_recyclerview.setAdapter(s_list_adapter);
                                     s_list_adapter.notifyDataSetChanged();

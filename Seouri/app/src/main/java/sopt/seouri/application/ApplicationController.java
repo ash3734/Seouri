@@ -39,7 +39,7 @@ public class ApplicationController extends Application {
                Typekit.getInstance()
                        .addNormal(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_R_TTF.ttf"))
                         .addBold(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_B_TTF.ttf"))
-                       .addCustom1(Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_L_TTF.ttf"));
+                       .add("custom1",Typekit.createFromAsset(this,"OPENAS_bbTreeGodik_L_TTF.ttf"));
                        //.addCustom2(Typekit.createFromAsset(this,"NanumMyeongjo.ttc"))
                        //.addCustom3(Typekit.createFromAsset(this,"NanumMyeongjoExtraBold.ttf"))
                        //.addCustom4(Typekit.createFromAsset(this,"NanumSquareR.ttf"));

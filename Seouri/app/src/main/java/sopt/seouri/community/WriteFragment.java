@@ -163,10 +163,6 @@ public class WriteFragment extends Fragment {
                     images = null;
                 } else {
 
-                    /**
-                     * 비트맵 관련한 자료는 아래의 링크에서 참고
-                     * http://mainia.tistory.com/468
-                     */
 
                     /*
                     이미지를 리사이징하는 부분입니다.
@@ -207,6 +203,7 @@ public class WriteFragment extends Fragment {
 
                                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                                 guBulletinListFragment.setContext(getContext(), "1");
+                                transaction.addToBackStack(null);
                                 transaction.replace(R.id.container, guBulletinListFragment);
                                 transaction.commit();
 

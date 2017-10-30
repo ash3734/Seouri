@@ -8,24 +8,24 @@
     android:orientation="vertical">
 
     <View
-        android:background="#D0EDEA"
+        android:background="#95989A"
+        android:alpha="0.7"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
 
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:padding="10dp">
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="15dp">
 
         <ImageView
             android:padding="1dp"
             android:background="@drawable/profile_box"
             android:id="@+id/b_profile"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="5dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ppp" />
 
         <LinearLayout
@@ -36,12 +36,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/b_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="희망 마을 운영자"
                 android:textColor="#333333"
-                android:textSize="14dp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <TextView
@@ -53,9 +54,10 @@
             android:layout_marginTop="15dp"
             android:text="희망 마을 8월 래터"
             android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textSize="17dp" />
 
         <TextView
+            app:font="custom1"
             android:id="@+id/b_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,12 +73,14 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/b_title">
             <TextView
+                app:font="custom1"
                 android:textSize="12dp"
                 android:textColor="#333333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="조회수 " />
             <TextView
+                app:font="custom1"
                 android:textSize="12dp"
                 android:textColor="#333333"
                 android:id="@+id/b_views"
@@ -85,11 +89,6 @@
                 android:text="37" />
         </LinearLayout>
     </RelativeLayout>
-
-    <View
-        android:background="#D0EDEA"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"></View>
 
 
 </LinearLayout>
