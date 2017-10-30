@@ -14,7 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,9 +44,10 @@ public class MainActivity extends AppCompatActivity
     private NaviFragment naviFragment;
     public static DrawerLayout drawer;
     public static Toolbar mToolbar;
-    public static ImageView toolbarImage;
+    public static ImageView toolbarImage, sToolbarImage;
     public static TextView toolbarText;
-    public TextView textViewToolbar;
+    public static EditText sToolbarText;
+    public static RelativeLayout sToolbarLayout;
     public static ImageView imageViewDdang;
     public static ActionBarDrawerToggle toggle;
     public static MainActivity mainActivity;
@@ -73,6 +76,15 @@ public class MainActivity extends AppCompatActivity
         toolbarImage = (ImageView)findViewById(R.id.toolbar_img);
         toolbarText = (TextView)findViewById(R.id.toolbar_text);
 
+        // 검색화면 툴바
+        sToolbarLayout = (RelativeLayout) findViewById(R.id.bar_search_layout);
+        sToolbarImage = (ImageView) findViewById(R.id.bar_search_btn);
+        sToolbarText = (EditText) findViewById(R.id.bar_search_text);
+
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        SearchPopupFragment searchPopupFragment = new SearchPopupFragment(getApplicationContext());
+//        transaction.add(R.id.container, searchPopupFragment);
+//        transaction.commit();
 
         fragmentHome = new HomeFragment();
         fragmentSearch = new SearchFragment();
@@ -128,6 +140,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            // addToBackStack(null) 실행 시 쌓인 fragment 스택을 꺼내주는 함수
             if(fragmentManager.getBackStackEntryCount() > 0){
                 fragmentManager.popBackStack();
             } else {
@@ -172,7 +185,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
+        sToolbarLayout.setVisibility(View.INVISIBLE);
+        sToolbarImage.setVisibility(View.INVISIBLE);
+        sToolbarText.setVisibility(View.INVISIBLE);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         int id = item.getItemId();

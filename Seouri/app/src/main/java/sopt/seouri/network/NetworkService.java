@@ -33,6 +33,8 @@ import sopt.seouri.mypage.networkData.MyPageResult;
 import sopt.seouri.search.category.SearchCategoryResult;
 import sopt.seouri.search.detail.SearchDetailResult;
 import sopt.seouri.search.popup.SearchPopupResult;
+import sopt.seouri.search.searchvillage.SearchVillageName;
+import sopt.seouri.search.searchvillage.SearchVillageResult;
 
 
 /**
@@ -65,10 +67,17 @@ public interface NetworkService {
     @GET("villageEnterprise/detail/{villageEnterpriseId}")
     Call<SearchDetailResult> getSearchDetailResult(@Header("token")String token,@Path("villageEnterpriseId") String villageEnterpriseId);
 
-    // 검색 팝업
-    @GET("villageEnterprise/{name}")
-    Call<SearchPopupResult> getSearchPopupResult(@Path("name") String name);
+//    // 검색 팝업
+//    @GET("villageEnterprise/{name}")
+//    Call<SearchPopupResult> getSearchPopupResult(@Path("name") String name);
 
+    // 검색 팝업을 위한 데이터 받아오기
+    @GET("villageEnterprise/total")
+    Call<SearchPopupResult> getSearchPopupResult(@Header("token")String token);
+
+    // 툴바 검색
+    @POST("villageEnterprise/search")
+    Call<SearchVillageResult> getSearchVillageResult(@Header("token")String token, @Body SearchVillageName name);
 
     /////////////////////////////////////////  커뮤니티
 
