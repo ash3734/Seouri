@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 
 import sopt.seouri.R;
@@ -39,6 +40,8 @@ public class CommunityFragment extends Fragment {
     GridView gridView;
     GuBulletinListFragment guBulletinListFragment;
 
+    Button all;
+
     NetworkService service;
     Context context;
     public CommunityFragment() {
@@ -46,7 +49,7 @@ public class CommunityFragment extends Fragment {
     public void setContext(Context context){
         this.context = context;
     }
-    /*뭘 의미하는지는 모르겠음*/
+
 //    public static CommunityFragment newInstance(String param1, String param2){
 //        CommunityFragment fragment = new CommunityFragment();
 //        Bundle args = new Bundle();
@@ -92,11 +95,25 @@ public class CommunityFragment extends Fragment {
 
         guBulletinListFragment = new GuBulletinListFragment();
 
+        all = (Button)rootView.findViewById(R.id.C_all);
+
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                guBulletinListFragment.setContext(getContext(),"0");
+                transaction.addToBackStack(null);
+                transaction.replace(R.id.container,guBulletinListFragment);
+                transaction.commit();
+            }
+        });
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                guBulletinListFragment.setContext(getContext(), String.valueOf(position));
+                guBulletinListFragment.setContext(getContext(), String.valueOf(position+1));
+                transaction.addToBackStack(null);
                 transaction.replace(R.id.container,guBulletinListFragment);
                 transaction.commit();
             }

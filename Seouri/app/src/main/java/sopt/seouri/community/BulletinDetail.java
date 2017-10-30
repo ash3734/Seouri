@@ -134,7 +134,7 @@ public class BulletinDetail extends Fragment {
 
                     if(commentsDatas.size() == 0)
                     {
-                        D_reply_content.setText("댓글 없음");
+                        D_reply_writer.setText("댓글 없음");
                     }
                     if(commentsDatas.size() != 0) {
                         D_reply_writer.setText(commentsDatas.get(0).getName().toString());
@@ -159,6 +159,7 @@ public class BulletinDetail extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 bulletinDetailMoreReplyFragment.setContext(getContext(),commentsDatas,postData,postData.profile);
+                transaction.addToBackStack(null);
                 transaction.replace(R.id.container,bulletinDetailMoreReplyFragment);
                 transaction.commit();
             }

@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="sopt.seouri.community.SearchBulletinFragment">
@@ -42,15 +43,20 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/ssimg"
-        android:layout_marginTop="110dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="121dp"
-        android:layout_marginLeft="121dp"
-        android:src="@drawable/verybigsearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/ssimg"
+            android:layout_gravity="center"
+            android:layout_marginRight="121dp"
+            android:layout_marginLeft="121dp"
+            android:src="@drawable/verybigsearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/Search_recyler"

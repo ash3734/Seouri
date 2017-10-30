@@ -8,7 +8,8 @@
     android:orientation="vertical">
 
     <View
-        android:background="#D0EDEA"
+        android:alpha="0.7"
+        android:background="#95989A"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
 
@@ -23,8 +24,8 @@
             android:padding="1dp"
             android:background="@drawable/profile_box"
             android:id="@+id/s_profile"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ppp" />
 
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="희망 마을 운영자"
                 android:textColor="#333333"
-                android:textSize="14dp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
         <TextView
@@ -50,10 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/s_profile"
             android:layout_below="@+id/s_profile"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
             android:text="희망 마을 8월 래터"
             android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/s_date"
@@ -85,11 +86,6 @@
                 android:text="37" />
         </LinearLayout>
     </RelativeLayout>
-
-    <View
-        android:background="#D0EDEA"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"></View>
 
 
 </LinearLayout>
