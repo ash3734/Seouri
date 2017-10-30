@@ -37,6 +37,7 @@ import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
 import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.MainActivity.toolbarText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,14 +57,22 @@ public class WriteFragment extends Fragment {
     ImageView addImgBtn;
 
     NetworkService service;
+    ////////////////////////////////////////////////////////////  글쓰기
+    WriteData writeData;
+    RequestBody title;
+    RequestBody content;
+    RequestBody userId;
+    RequestBody location;
 
-    public WriteFragment() {
-        // Required empty public constructor
-    }
+    // ArrayList<MultipartBody.Part> images;
+    MultipartBody.Part images;
+    //MultipartBody.Part images[];
+//    String title;
+//    String content;
+//    String userId;
+//    String location;
 
-    public void setContext(Context context){
-        this.context = context;
-    }
+    BulletinAddPostData bulletinAddPostDataPostData;
 
     final int REQ_CODE_SELECT_IMAGE = 100;
     String imgUrl = "";
@@ -71,17 +80,38 @@ public class WriteFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     TextView imgNameTextView;
 
+    public WriteFragment() {
+        // Required empty public constructor
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        toolbarText.setText("글쓰기");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        toolbarText.setText("");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup v = (ViewGroup) inflater.inflate(R.layout.fragment_write, container, false);
+        //images = new ArrayList<MultipartBody.Part>();
 
         service = ApplicationController.getInstance().getNetworkService();
 
-        W_title = (EditText)v.findViewById(R.id.W_title);
-        W_content = (EditText)v.findViewById(R.id.W_content);
-        addImgBtn = (ImageView)v.findViewById(R.id.vv);
-        imgNameTextView = (TextView)v.findViewById(R.id.aa);
+        W_title = (EditText) v.findViewById(R.id.W_title);
+        W_content = (EditText) v.findViewById(R.id.W_content);
+        addImgBtn = (ImageView) v.findViewById(R.id.vv);
+        imgNameTextView = (TextView) v.findViewById(R.id.aa);
 
         guBulletinListFragment = new GuBulletinListFragment();
 
@@ -101,8 +131,9 @@ public class WriteFragment extends Fragment {
         });
 
 
-        complete = (ImageView)v.findViewById(R.id.W_complete);
-        complete.setOnClickListener(new View.OnClickListener() {
+        complete = (ImageView) v.findViewById(R.id.W_complete);
+        complete.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 w_content = W_content.getText().toString();
@@ -116,17 +147,27 @@ public class WriteFragment extends Fragment {
 
                 mProgressDialog.show();
 
-                RequestBody title = RequestBody.create(MediaType.parse("multipart/form-data"), W_title.getText().toString());
-                RequestBody content = RequestBody.create(MediaType.parse("multipart/form-data"),W_content.getText().toString());
-                RequestBody userId = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(ApplicationController.memberId));
-                RequestBody location = RequestBody.create(MediaType.parse("multipart/form-data"),"1");
+                bulletinAddPostDataPostData = new BulletinAddPostData();
+                bulletinAddPostDataPostData.title = W_title.getText().toString();
+                bulletinAddPostDataPostData.setContent(W_content.getText().toString());
+                bulletinAddPostDataPostData.userId = "533453077";
+                bulletinAddPostDataPostData.location = "1";
 
+                title = RequestBody.create(MediaType.parse("multipart/form-data"), W_title.getText().toString());
+                content = RequestBody.create(MediaType.parse("multipart/form-data"), W_content.getText().toString());
+                userId = RequestBody.create(MediaType.parse("multipart/form-data"), "533453077");
+                location = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
 
-                MultipartBody.Part images;
 
                 if (imgUrl == "") {
-                     images = null;
+                    images = null;
                 } else {
+
+                    /**
+                     * 비트맵 관련한 자료는 아래의 링크에서 참고
+                     * http://mainia.tistory.com/468
+                     */
+
                     /*
                     이미지를 리사이징하는 부분입니다.
                     리사이징하는 이유!! 안드로이드는 메모리에 민감하다고 세미나에서 말씀드렸습니다~
@@ -144,29 +185,24 @@ public class WriteFragment extends Fragment {
                     }
                         /*inputstream 형태로 받은 이미지로 부터 비트맵을 만들어 바이트 단위로 압축
                         그이우 스트림 배열에 담아서 전송합니다.
-                         */
-
+                        */
                     Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); // InputStream 으로부터 Bitmap 을 만들어 준다.
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
                     // 압축 옵션( JPEG, PNG ) , 품질 설정 ( 0 - 100까지의 int형 ), 압축된 바이트 배열을 담을 스트림
-                    RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
-
+                    RequestBody photoBody = RequestBody.create(MediaType.parse("images/jpg"), baos.toByteArray());
                     File photo = new File(imgUrl); // 가져온 파일의 이름을 알아내려고 사용합니다
-
-                    // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
-                    images = MultipartBody.Part.createFormData("image", photo.getName(), photoBody);
+                    images = MultipartBody.Part.createFormData("images", photo.getName(), photoBody);
 
                 }
 
-                Call<BulletinAddPostResult> bulletinAddPostResultCall  = service.getBulletinAddPostResult(userId,title,content,location,images);
+
+                Call<BulletinAddPostResult> bulletinAddPostResultCall = service.getBulletinAddPostResult(ApplicationController.serverToken, userId, title, content, images, location);
                 bulletinAddPostResultCall.enqueue(new Callback<BulletinAddPostResult>() {
                     @Override
-                    public void onResponse(Call<BulletinAddPostResult> call, Response<BulletinAddPostResult> response)
-                    {
-                        if(response.isSuccessful())
-                        {
-                            if(response.body().message.equals("Succeed in inserting post.")) {
+                    public void onResponse(Call<BulletinAddPostResult> call, Response<BulletinAddPostResult> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().message.equals("Succeed in inserting post.")) {
                                 Toast.makeText(getContext(), "게시글 등록 성공", Toast.LENGTH_SHORT).show();
 
                                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -176,10 +212,8 @@ public class WriteFragment extends Fragment {
 
                                 mProgressDialog.dismiss();
                             }
-                        }
-                        else
-                        {
-                            Toast.makeText(getContext(),response.message() + "   dfdf",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), response.message() + "   dfdf", Toast.LENGTH_SHORT).show();
                             mProgressDialog.dismiss();
                         }
                     }
@@ -194,10 +228,12 @@ public class WriteFragment extends Fragment {
             }
         });
 
-        return  v;
+        return v;
     }
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+
+    // 선택된 이미지 가져오기
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
@@ -214,6 +250,8 @@ public class WriteFragment extends Fragment {
             }
         }
     }
+
+    // 선택된 이미지 파일명 가져오기
     public String getImageNameToUri(Uri data) {
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = getActivity().managedQuery(data, proj, null, null, null);

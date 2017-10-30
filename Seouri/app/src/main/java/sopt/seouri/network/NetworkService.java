@@ -18,6 +18,8 @@ import sopt.seouri.community.BulletinAddCommentResult;
 import sopt.seouri.community.BulletinAddPostResult;
 import sopt.seouri.community.FindBulletinDetailResult;
 import sopt.seouri.community.FindBulletinResult;
+import sopt.seouri.community.SearchBulletinResult;
+import sopt.seouri.community.SendSearchBulletinData;
 import sopt.seouri.home.MainResult;
 import sopt.seouri.home.networkData.JobRegData;
 import sopt.seouri.home.networkData.JobResult;
@@ -79,13 +81,47 @@ public interface NetworkService {
     Call<FindBulletinDetailResult> getFindBulletinDetailResult(@Header("token")String token,@Path("postId") String postId);
 
     //게시글 작성
+//    @Multipart
+//    @POST("community")
+//    Call<BulletinAddPostResult> getBulletinAddPostResult(@Header("token") String token,
+//                                                         @Body BulletinAddPostData bulletinPostData, List<RequestBody> images);
+
+//    @Multipart
+//    @POST("community")
+//    Call<BulletinAddPostResult> getBulletinAddPostResult(@Header("token") String token,
+//                                                         @Part("userId") RequestBody userId,
+//                                                         @Part("title") RequestBody title,
+//                                                         @Part("content") RequestBody content,
+//                                                         @Part MultipartBody.Part images,
+//                                                         @Part("location") RequestBody location);
+
     @Multipart
     @POST("community")
-    Call<BulletinAddPostResult> getBulletinAddPostResult(@Part("userId") RequestBody userId,
+    Call<BulletinAddPostResult> getBulletinAddPostResult(@Header("token") String token,
+                                                         @Part("userId") RequestBody userId,
                                                          @Part("title") RequestBody title,
                                                          @Part("content") RequestBody content,
-                                                         @Part("location") RequestBody location,
-                                                         @Part MultipartBody.Part images);
+                                                         @Part MultipartBody.Part images,
+                                                         @Part("location") RequestBody location);
+
+//    @Multipart
+//    @POST("community")
+//    Call<BulletinAddPostResult> getBulletinAddPostResult(@Header("token") String token,
+//                                                         @Part("userId") RequestBody userId,
+//                                                         @Part("title") RequestBody title,
+//                                                         @Part("content") RequestBody content,
+//                                                         @Part MultipartBody.Part images[],
+//                                                         @Part("location") RequestBody location);
+
+
+//    @Multipart
+//    @POST("community")
+//    Call<BulletinAddPostResult> getBulletinAddPostResult(@Header("token") String token,
+//                                                         @Part("userId") RequestBody userId,
+//                                                         @Part("title") RequestBody title,
+//                                                         @Part("content") RequestBody content,
+//                                                         @Part("location") RequestBody location,
+//                                                         @Part("images") RequestBody images);
 
 //    Call<BulletinAddPostResult> getBulletinAddPostResult(@Body BulletinAddPostData bulletinAddPostData);
 
@@ -94,5 +130,6 @@ public interface NetworkService {
     Call<BulletinAddCommentResult> getBulletinAddCommentResult(@Header("token")String token,@Body BulletinAddCommentData bulletinAddCommentData);
 
     //게시글 검색
-
+    @POST("community/search")
+    Call<SearchBulletinResult> getSearchBulletinResult(@Header("token")String token,@Body SendSearchBulletinData sendSearchBulletinData);
 }

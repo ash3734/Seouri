@@ -19,6 +19,7 @@ import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
 import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.MainActivity.toolbarText;
 
 /**
  * Created by ash on 2017-09-20.
@@ -61,7 +62,17 @@ public class CommunityFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        toolbarText.setText(" ");
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        toolbarText.setText("게시판");
+    }
 
     @Override
     public void onStart() {

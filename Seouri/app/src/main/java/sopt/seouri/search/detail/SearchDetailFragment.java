@@ -32,6 +32,7 @@ import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
 import static sopt.seouri.R.id.map;
+import static sopt.seouri.application.ApplicationController.serverToken;
 
 /**
  * Created by 김지원 on 2017-10-06.
@@ -133,7 +134,7 @@ public class SearchDetailFragment extends Fragment{
 //                        }
 //                    });
 
-        Call<SearchDetailResult> searchDetailResultCall = service.getSearchDetailResult(villageEnterpriseId);
+        Call<SearchDetailResult> searchDetailResultCall = service.getSearchDetailResult(serverToken,villageEnterpriseId);
         searchDetailResultCall.enqueue(new Callback<SearchDetailResult>() {
             @Override
             public void onResponse(Call<SearchDetailResult> call, Response<SearchDetailResult> response) {
@@ -166,7 +167,7 @@ public class SearchDetailFragment extends Fragment{
                         }
                     });
                 }else {
-                    Log.d("DetailFragment 통신에러",""+response.body().message);
+                    Log.d("DetailFragment 통신에러",""+"");
                 }
             }
 
