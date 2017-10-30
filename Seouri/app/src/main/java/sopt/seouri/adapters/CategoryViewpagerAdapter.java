@@ -53,4 +53,9 @@ public class CategoryViewpagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 5;
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
 }

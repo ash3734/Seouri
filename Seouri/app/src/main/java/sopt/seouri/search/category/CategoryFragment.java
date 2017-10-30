@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,8 @@ import sopt.seouri.R;
 import sopt.seouri.adapters.CategoryViewpagerAdapter;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
+import sopt.seouri.search.searchvillage.SearchVillageName;
+import sopt.seouri.search.searchvillage.SearchVillageResult;
 
 import static sopt.seouri.MainActivity.fragmentManager;
 import static sopt.seouri.application.ApplicationController.serverToken;
@@ -36,8 +39,16 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
     private ViewPager viewpager;
     private ImageView allBtn, nollBtn, muckBtn, gooBtn, chaeBtn;
     private CategoryRecyclerView view1, view2, view3, view4, view5;
+    private CategoryViewpagerAdapter viewpagerAdapter;
+    private int previousBtn = 0;
+    private SearchVillageName name = null;
 
     public CategoryFragment() {
+    }
+
+    public CategoryFragment(Context context, SearchVillageName name){
+        this.context = context;
+        this.name = name;
     }
 
     public void setContext(Context context, String location) {
@@ -55,11 +66,60 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         service = ApplicationController.getInstance().getNetworkService();
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.category_fragment, container, false);
-//        TabHost tabHost = (TabHost) layout.findViewById(R.id.category_tabhost);
-//        tabHost.setup();
+
         viewpager = (ViewPager)layout.findViewById(R.id.category_viewpager);
-        viewpager.setOffscreenPageLimit(2);
+        viewpager.setOffscreenPageLimit(3);
         viewpager.setCurrentItem(0);
+        viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (previousBtn){
+                    case 0:
+                        allBtn.setImageResource(R.drawable.all_);
+                        break;
+                    case 1:
+                        nollBtn.setImageResource(R.drawable.noll_);
+                        break;
+                    case 2:
+                        muckBtn.setImageResource(R.drawable.muk_);
+                        break;
+                    case 3:
+                        gooBtn.setImageResource(R.drawable.goo_);
+                        break;
+                    case 4:
+                        chaeBtn.setImageResource(R.drawable.chae_);
+                        break;
+                }
+                switch (position){
+                    case 0:
+                        allBtn.setImageResource(R.drawable.all);
+                        break;
+                    case 1:
+                        nollBtn.setImageResource(R.drawable.noll);
+                        break;
+                    case 2:
+                        muckBtn.setImageResource(R.drawable.muck);
+                        break;
+                    case 3:
+                        gooBtn.setImageResource(R.drawable.goo);
+                        break;
+                    case 4:
+                        chaeBtn.setImageResource(R.drawable.chae);
+                        break;
+                }
+                previousBtn = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         allBtn = (ImageView)layout.findViewById(R.id.category_all);
         nollBtn = (ImageView)layout.findViewById(R.id.category_noll);
@@ -84,166 +144,31 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
         itemData4 = new ArrayList<>();
         itemData5 = new ArrayList<>();
 
-//        recyclerView1 = (RecyclerView) layout.findViewById(R.id.recycler_category1);
-//        recyclerView1.setHasFixedSize(true);
-//        recyclerView1.setLayoutManager(new LinearLayoutManager(context));
-//
-//        recyclerView2 = (RecyclerView) layout.findViewById(R.id.recycler_category2);
-//        recyclerView2.setHasFixedSize(true);
-//        recyclerView2.setLayoutManager(new LinearLayoutManager(context));
-//
-//        recyclerView3 = (RecyclerView) layout.findViewById(R.id.recycler_category3);
-//        recyclerView3.setHasFixedSize(true);
-//        recyclerView3.setLayoutManager(new LinearLayoutManager(context));
-//
-//        recyclerView4 = (RecyclerView) layout.findViewById(R.id.recycler_category4);
-//        recyclerView4.setHasFixedSize(true);
-//        recyclerView4.setLayoutManager(new LinearLayoutManager(context));
-//
-//        recyclerView5 = (RecyclerView) layout.findViewById(R.id.recycler_category5);
-//        recyclerView5.setHasFixedSize(true);
-//        recyclerView5.setLayoutManager(new LinearLayoutManager(context));
+        viewpagerAdapter = new CategoryViewpagerAdapter(fragmentManager, context, itemData1, itemData2, itemData3, itemData4, itemData5);
+        viewpager.setAdapter(viewpagerAdapter);
+        viewpagerAdapter.notifyDataSetChanged();
 
-//        // 첫번째 탭
-//        TabHost.TabSpec ts1 = tabHost.newTabSpec("Tab Spec1");
-//        ts1.setContent(R.id.tab1);
-//        ts1.setIndicator("전체");
-//        tabHost.addTab(ts1);
-//
-//        // 두번째 탭
-//        TabHost.TabSpec ts2 = tabHost.newTabSpec("Tab Spec2");
-//        ts2.setContent(R.id.tab2);
-//        ts2.setIndicator("놀거리");
-//        tabHost.addTab(ts2);
-//
-//        // 세번째 탭
-//        TabHost.TabSpec ts3 = tabHost.newTabSpec("Tab Spec3");
-//        ts3.setContent(R.id.tab3);
-//        ts3.setIndicator("먹거리");
-//        tabHost.addTab(ts3);
-//
-//        // 네번째 탭
-//        TabHost.TabSpec ts4 = tabHost.newTabSpec("Tab Spec4");
-//        ts4.setContent(R.id.tab4);
-//        ts4.setIndicator("구경거리");
-//        tabHost.addTab(ts4);
-//
-//        // 다섯번째 탭
-//        TabHost.TabSpec ts5 = tabHost.newTabSpec("Tab Spec5");
-//        ts5.setContent(R.id.tab5);
-//        ts5.setIndicator("체험거리");
-//        tabHost.addTab(ts5);
-
-        Call<SearchCategoryResult> searchCategoryResultCall = service.getSearchCategoryResult(serverToken,location);
-        searchCategoryResultCall.enqueue(new Callback<SearchCategoryResult>() {
-            @Override
-            public void onResponse(Call<SearchCategoryResult> call, Response<SearchCategoryResult> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().message.equals("Succeed in selecting location") || response.body().message.equals("Succeed in selecting total location")) {
-                        itemData1 = response.body().list;
-
-                        for(int i=0; i<itemData1.size(); i++) {
-                            if (itemData1.get(i).category.equals("1")){
-                                itemData2.add(itemData1.get(i));
-                            } else if (itemData1.get(i).category.equals("3")) {
-                                itemData3.add(itemData1.get(i));
-                            } else if (itemData1.get(i).category.equals("2")) {
-                                itemData4.add(itemData1.get(i));
-                            } else if (itemData1.get(i).category.equals("4")) {
-                                itemData5.add(itemData1.get(i));
-                            }
-                        }
-
-                        CategoryViewpagerAdapter viewpagerAdapter = new CategoryViewpagerAdapter(fragmentManager, context, itemData1, itemData2, itemData3, itemData4, itemData5);
-                        viewpager.setAdapter(viewpagerAdapter);
-                        viewpagerAdapter.notifyDataSetChanged();
-//                        Toast.makeText(context,"통신"+itemData1.size(), Toast.LENGTH_SHORT).show();
-//                        RecyclerCategoryAdapter adapter1 = new RecyclerCategoryAdapter(itemData1, clickListener, context);
-//                        recyclerView1.setAdapter(adapter1);
-//                        RecyclerCategoryAdapter adapter2 = new RecyclerCategoryAdapter(itemData2, clickListener, context);
-//                        recyclerView1.setAdapter(adapter2);
-//                        RecyclerCategoryAdapter adapter3 = new RecyclerCategoryAdapter(itemData3, clickListener, context);
-//                        recyclerView1.setAdapter(adapter3);
-//                        RecyclerCategoryAdapter adapter4 = new RecyclerCategoryAdapter(itemData4, clickListener, context);
-//                        recyclerView1.setAdapter(adapter4);
-//                        RecyclerCategoryAdapter adapter5 = new RecyclerCategoryAdapter(itemData5, clickListener, context);
-//                        recyclerView5.setAdapter(adapter5);
-                    }
-                } else {
-                    Log.d("SearchCategory 통신 에러", "");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SearchCategoryResult> call, Throwable t) {
-                Log.d("SearchCategory", "통신 실패");
-            }
-        });
         return layout;
     }
 
-//    public View.OnClickListener clickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            int position;
-//            FragmentTransaction transaction = fragmentManager.beginTransaction();
-//            SearchDetailFragment searchDetailFragment = new SearchDetailFragment();
-//
-//            switch (((View)view.getParent()).getId()){
-//                case R.id.recycler_category1 :
-//                    position = recyclerView1.getChildPosition(view);
-////                    Toast.makeText(context,"첫번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData1.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
-//                    searchDetailFragment.setContext(context, String.valueOf(itemData1.get(position).villageEnterpriseId));
-//                    break;
-//
-//                case R.id.recycler_category2 :
-//                    position = recyclerView2.getChildPosition(view);
-////                    Toast.makeText(context,"두번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData2.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
-//                    searchDetailFragment.setContext(context, String.valueOf(itemData2.get(position).villageEnterpriseId));
-//                    break;
-//
-//                case R.id.recycler_category3 :
-//                    position = recyclerView3.getChildPosition(view);
-////                    Toast.makeText(context,"세번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData3.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
-//                    searchDetailFragment.setContext(context, String.valueOf(itemData3.get(position).villageEnterpriseId));
-//                    break;
-//
-//                case R.id.recycler_category4 :
-//                    position = recyclerView4.getChildPosition(view);
-////                    Toast.makeText(context,"네번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData4.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
-//                    searchDetailFragment.setContext(context, String.valueOf(itemData4.get(position).villageEnterpriseId));
-//                    break;
-//
-//                case R.id.recycler_category5 :
-//                    position = recyclerView5.getChildPosition(view);
-////                    Toast.makeText(context,"다섯번째 recycler의 " +(position+1)+"번째 item클릭,"+itemData5.get(position).villageEnterpriseId,Toast.LENGTH_SHORT).show();
-//                    searchDetailFragment.setContext(context, String.valueOf(itemData5.get(position).villageEnterpriseId));
-//                    break;
-//            }
-//
-//            transaction.replace(R.id.container,searchDetailFragment);
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-//        }
-//    };
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.category_all:
-
+                viewpager.setCurrentItem(0);
                 break;
             case R.id.category_noll:
-
+                viewpager.setCurrentItem(1);
                 break;
             case R.id.category_muck:
-
+                viewpager.setCurrentItem(2);
                 break;
             case R.id.category_goo:
-
+                viewpager.setCurrentItem(3);
                 break;
             case R.id.category_chae:
-
+                viewpager.setCurrentItem(4);
                 break;
         }
     }
@@ -251,7 +176,77 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
+        if(name == null){
+            Call<SearchCategoryResult> searchCategoryResultCall = service.getSearchCategoryResult(serverToken, location);
+            searchCategoryResultCall.enqueue(new Callback<SearchCategoryResult>() {
+                @Override
+                public void onResponse(Call<SearchCategoryResult> call, Response<SearchCategoryResult> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().message.equals("Succeed in selecting location") || response.body().message.equals("Succeed in selecting total location")) {
+                            Toast.makeText(context, "카테고리 검색 성공", Toast.LENGTH_SHORT).show();
+                            itemData1 = response.body().list;
 
+                            for (int i = 0; i < itemData1.size(); i++) {
+                                if (itemData1.get(i).category.equals("1")) {
+                                    itemData2.add(itemData1.get(i));
+                                } else if (itemData1.get(i).category.equals("3")) {
+                                    itemData3.add(itemData1.get(i));
+                                } else if (itemData1.get(i).category.equals("2")) {
+                                    itemData4.add(itemData1.get(i));
+                                } else if (itemData1.get(i).category.equals("4")) {
+                                    itemData5.add(itemData1.get(i));
+                                }
+                            }
 
+                            viewpagerAdapter = new CategoryViewpagerAdapter(fragmentManager, context, itemData1, itemData2, itemData3, itemData4, itemData5);
+                            viewpager.setAdapter(viewpagerAdapter);
+                            viewpagerAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Log.d("SearchCategory 통신 에러", "");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SearchCategoryResult> call, Throwable t) {
+                    Log.d("SearchCategory", "통신 실패");
+                }
+            });
+        } else if(name != null) {
+            Call<SearchVillageResult> getSearchVillageResult = service.getSearchVillageResult(serverToken, name);
+            getSearchVillageResult.enqueue(new Callback<SearchVillageResult>() {
+                @Override
+                public void onResponse(Call<SearchVillageResult> call, Response<SearchVillageResult> response) {
+                    if(response.isSuccessful()){
+                        if(response.body().message.equals("Succeed in selecting keywordList")){
+
+                            Toast.makeText(context, "키워드 검색 성공", Toast.LENGTH_SHORT).show();
+                            itemData1 = response.body().KeywordList;
+
+                            for (int i = 0; i < itemData1.size(); i++) {
+                                if (itemData1.get(i).category.equals("1")) {
+                                    itemData2.add(itemData1.get(i));
+                                } else if (itemData1.get(i).category.equals("3")) {
+                                    itemData3.add(itemData1.get(i));
+                                } else if (itemData1.get(i).category.equals("2")) {
+                                    itemData4.add(itemData1.get(i));
+                                } else if (itemData1.get(i).category.equals("4")) {
+                                    itemData5.add(itemData1.get(i));
+                                }
+                            }
+
+                            viewpagerAdapter = new CategoryViewpagerAdapter(fragmentManager, context, itemData1, itemData2, itemData3, itemData4, itemData5);
+                            viewpager.setAdapter(viewpagerAdapter);
+                            viewpagerAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SearchVillageResult> call, Throwable t) {
+
+                }
+            });
+        }
     }
 }
