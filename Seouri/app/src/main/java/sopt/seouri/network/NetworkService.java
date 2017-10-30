@@ -59,11 +59,11 @@ public interface NetworkService {
     /*검색 API**/
     // 카테고리별 마을기업 조회
     @GET("villageEnterprise/list/{location}")
-    Call<SearchCategoryResult> getSearchCategoryResult(@Path("location") String location);
+    Call<SearchCategoryResult> getSearchCategoryResult(@Header("token")String token,@Path("location") String location);
 
     // 특정 마을기업 조회
     @GET("villageEnterprise/detail/{villageEnterpriseId}")
-    Call<SearchDetailResult> getSearchDetailResult(@Path("villageEnterpriseId") String villageEnterpriseId);
+    Call<SearchDetailResult> getSearchDetailResult(@Header("token")String token,@Path("villageEnterpriseId") String villageEnterpriseId);
 
     // 검색 팝업
     @GET("villageEnterprise/{name}")

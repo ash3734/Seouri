@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +16,6 @@ import java.util.ArrayList;
 
 import sopt.seouri.R;
 import sopt.seouri.adapters.SearchPopupAdapter;
-
-import static sopt.seouri.MainActivity.sToolbarText;
-import static sopt.seouri.login.SplashActivity.popupDatas;
 
 /**
  * Created by 김지원 on 2017-10-27.
@@ -55,7 +50,7 @@ public class SearchPopupFragment extends Fragment {
                 Toast.makeText(context, "아이템 클릭", Toast.LENGTH_SHORT).show();
             }
         });
-
+/*
         sToolbarText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -79,7 +74,7 @@ public class SearchPopupFragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 //        recyclerView = (RecyclerView)layout.findViewById(R.id.search_detail_recycler_picture);
 //        recyclerView.setHasFixedSize(true);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));

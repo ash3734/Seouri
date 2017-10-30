@@ -33,30 +33,45 @@
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:id="@+id/mypage_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="250dp">
-    </android.support.v7.widget.RecyclerView>
-    <View
-        android:background="#dfdfdf"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"></View>
     <RelativeLayout
-        android:id="@+id/logout_btn"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
-        <TextView
-            android:text="로그아웃"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_above="@+id/div2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/mypage_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        <View
+            android:background="#ffffff"
+            android:id="@+id/div2"
+            android:layout_above="@+id/div"
+            android:layout_width="match_parent"
+            android:layout_height="9dp"></View>
+        <View
+            android:id="@+id/div"
+            android:background="#dfdfdf"
+            android:layout_above="@+id/logout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/logout_btn"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="55dp">
+            <TextView
+                android:text="로그아웃"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

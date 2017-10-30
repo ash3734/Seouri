@@ -16,12 +16,8 @@ import android.widget.TextView;
 import sopt.seouri.R;
 import sopt.seouri.adapters.GridAdapter;
 import sopt.seouri.search.category.CategoryFragment;
-import sopt.seouri.search.popup.SearchPopupFragment;
 
 import static sopt.seouri.MainActivity.fragmentManager;
-import static sopt.seouri.MainActivity.sToolbarImage;
-import static sopt.seouri.MainActivity.sToolbarLayout;
-import static sopt.seouri.MainActivity.sToolbarText;
 
 /**
  * Created by ash on 2017-09-20.
@@ -51,7 +47,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.search_fragment, container, false);
 
-        sToolbarText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    /*    sToolbarText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -59,7 +55,7 @@ public class SearchFragment extends Fragment {
                 transaction.add(R.id.container, searchPopupFragment);
                 transaction.commit();
             }
-        });
+        });*/
         gridView = (GridView)layout.findViewById(R.id.search_location_gridview);
         gridView.setAdapter(new GridAdapter(context, countryList));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -93,16 +89,16 @@ public class SearchFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        sToolbarLayout.setVisibility(View.VISIBLE);
+        /*sToolbarLayout.setVisibility(View.VISIBLE);
         sToolbarImage.setVisibility(View.VISIBLE);
-        sToolbarText.setVisibility(View.VISIBLE);
+        sToolbarText.setVisibility(View.VISIBLE);*/
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        sToolbarLayout.setVisibility(View.INVISIBLE);
+        /*sToolbarLayout.setVisibility(View.INVISIBLE);
         sToolbarImage.setVisibility(View.INVISIBLE);
-        sToolbarText.setVisibility(View.INVISIBLE);
+        sToolbarText.setVisibility(View.INVISIBLE);*/
     }
 }
