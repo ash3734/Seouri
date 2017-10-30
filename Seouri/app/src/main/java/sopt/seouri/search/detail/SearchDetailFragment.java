@@ -31,6 +31,10 @@ import sopt.seouri.adapters.RecyclerDetailAdapter;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
+import static sopt.seouri.MainActivity.sToolbarImage;
+import static sopt.seouri.MainActivity.sToolbarLayout;
+import static sopt.seouri.MainActivity.sToolbarText;
+import static sopt.seouri.MainActivity.toolbarText;
 import static sopt.seouri.R.id.map;
 import static sopt.seouri.application.ApplicationController.serverToken;
 
@@ -146,9 +150,14 @@ public class SearchDetailFragment extends Fragment{
                 if(response.isSuccessful()){
                     if(response.body().message.equals("Succeed in selecting Specific VillageEnterprise"))
                     itemDatas = response.body().specificVe;
+                    toolbarText.setText(itemDatas.name);
                     Glide.with(context).load(itemDatas.photo).into(image);
                     intro.setText(itemDatas.detail);
                     newsName.setText(itemDatas.name +" 소식");
+                    for(int i=0; i<itemDatas.article.size(); i++){
+                        news.append(itemDatas.article.get(i).title +"\n");
+                        news.append(itemDatas.article.get(i).url +"\n");
+                    }
                     news.setText(itemDatas.article.get(0).title);
                     homepage.setText(itemDatas.url);
                     phone.setText(itemDatas.phone);
@@ -195,5 +204,18 @@ public class SearchDetailFragment extends Fragment{
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        toolbarText.setVisibility(View.VISIBLE);
+        sToolbarLayout.setVisibility(View.INVISIBLE);
+        sToolbarImage.setVisibility(View.INVISIBLE);
+        sToolbarText.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        toolbarText.setVisibility(View.INVISIBLE);
+        sToolbarLayout.setVisibility(View.VISIBLE);
+        sToolbarImage.setVisibility(View.VISIBLE);
+        sToolbarText.setVisibility(View.VISIBLE);
     }
 }
