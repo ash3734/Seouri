@@ -31,6 +31,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -65,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/reco_home_img"
                     android:layout_marginLeft="35dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/yellowline" />
 
                 <TextView
@@ -109,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/reco_home_img2"
                     android:layout_marginLeft="35dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/yellowline" />
 
                 <TextView
@@ -153,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/reco_home_img3"
                     android:layout_marginLeft="35dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="15dp"
                     android:src="@drawable/yellowline" />
 
                 <TextView

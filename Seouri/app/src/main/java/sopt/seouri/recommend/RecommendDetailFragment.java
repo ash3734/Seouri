@@ -71,9 +71,9 @@ public class RecommendDetailFragment extends Fragment {
         textViewRecommendCompany1.setText(recommendData.commpanyName1);
         textViewRecommendCompany2.setText(recommendData.commpanyName2);
         textViewRecommendCompany3.setText(recommendData.commpanyName3);
-        textViewRecommendCompanyComment1.setText(recommendData.commpanyComment1.substring(0,25));
-        textViewRecommendCompanyComment2.setText(recommendData.commpanyComment2.substring(0,25));
-        textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3.substring(0,25));
+        textViewRecommendCompanyComment1.setText(recommendData.commpanyComment1);
+        textViewRecommendCompanyComment2.setText(recommendData.commpanyComment2);
+        textViewRecommendCompanyComment3.setText(recommendData.commpanyComment3);
     }
 
     @Nullable
