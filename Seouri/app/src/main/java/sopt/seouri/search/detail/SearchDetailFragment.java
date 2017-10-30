@@ -52,6 +52,11 @@ public class SearchDetailFragment extends Fragment{
     public SearchDetailFragment() {
     }
 
+    public SearchDetailFragment(Context context, String villageEnterpriseId) {
+        this.context = context;
+        this.villageEnterpriseId = villageEnterpriseId;
+    }
+
     public void setContext(Context context, String villageEnterpriseId){
         this.context = context;
         this.villageEnterpriseId = villageEnterpriseId;
@@ -144,11 +149,11 @@ public class SearchDetailFragment extends Fragment{
                     Glide.with(context).load(itemDatas.photo).into(image);
                     intro.setText(itemDatas.detail);
                     newsName.setText(itemDatas.name +" 소식");
-                    news.setText(itemDatas.article);
+                    news.setText(itemDatas.article.get(0).title);
                     homepage.setText(itemDatas.url);
                     phone.setText(itemDatas.phone);
                     address.setText(itemDatas.address);
-
+                    Glide.with(context).load(itemDatas.coupon).into(coupon);
                     RecyclerDetailAdapter adapter = new RecyclerDetailAdapter(itemDatas.images, context);
                     recyclerView.setAdapter(adapter);
 
