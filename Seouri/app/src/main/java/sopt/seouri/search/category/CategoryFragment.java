@@ -1,11 +1,11 @@
 package sopt.seouri.search.category;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,11 +36,9 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
     private Context context;
     private String location;
     private NetworkService service;
-    private RecyclerView recyclerView1, recyclerView2, recyclerView3, recyclerView4, recyclerView5;
     private ArrayList<SearchCategoryResultData> itemData1, itemData2, itemData3, itemData4, itemData5;
     private ViewPager viewpager;
     private ImageView allBtn, nollBtn, muckBtn, gooBtn, chaeBtn;
-    private CategoryRecyclerView view1, view2, view3, view4, view5;
     private CategoryViewpagerAdapter viewpagerAdapter;
     private int previousBtn = 0;
     private SearchVillageName name = null;
@@ -48,6 +46,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
     public CategoryFragment() {
     }
 
+    @SuppressLint("ValidFragment")
     public CategoryFragment(Context context, SearchVillageName name){
         this.context = context;
         this.name = name;
@@ -56,11 +55,6 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
     public void setContext(Context context, String location) {
         this.context = context;
         this.location = location;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Nullable

@@ -1,5 +1,6 @@
 package sopt.seouri.recommend;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -43,7 +44,10 @@ public class RecommendDetailFragment extends Fragment {
     private ImageView imageViewText;
     private ImageView imageViewCommentText;
 
+    public RecommendDetailFragment() {
+    }
 
+    @SuppressLint("ValidFragment")
     public RecommendDetailFragment(RecommendData recommendData) {
         this.recommendData =recommendData;
     }

@@ -1,5 +1,6 @@
 package sopt.seouri.search.detail;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -52,7 +53,7 @@ public class SearchDetailFragment extends Fragment{
 
     public SearchDetailFragment() {
     }
-
+    @SuppressLint("ValidFragment")
     public SearchDetailFragment(Context context, String villageEnterpriseId) {
         this.context = context;
         this.villageEnterpriseId = villageEnterpriseId;

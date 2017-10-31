@@ -1,5 +1,6 @@
 package sopt.seouri.search.popup;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,7 +28,7 @@ public class SearchPopupFragment extends Fragment {
 
     public SearchPopupFragment() {
     }
-
+    @SuppressLint("ValidFragment")
     public SearchPopupFragment(Context context){
         this.context = context;
     }

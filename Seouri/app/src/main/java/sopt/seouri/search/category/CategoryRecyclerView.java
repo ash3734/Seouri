@@ -1,5 +1,6 @@
 package sopt.seouri.search.category;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,6 +35,7 @@ public class CategoryRecyclerView extends Fragment{
     public CategoryRecyclerView() {
     }
 
+    @SuppressLint("ValidFragment")
     public CategoryRecyclerView(Context context, ArrayList<SearchCategoryResultData> itemData){
         this.context = context;
         this.itemData = itemData;
