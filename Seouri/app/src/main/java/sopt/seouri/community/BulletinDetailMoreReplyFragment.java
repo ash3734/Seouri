@@ -24,6 +24,7 @@ import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
 import static sopt.seouri.MainActivity.toolbarText;
+import static sopt.seouri.application.ApplicationController.serverToken;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -97,11 +98,11 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
                 String str3 = addreply_edit.getText().toString();
                 bulletinAddCommentData = new BulletinAddCommentData();
 
-                bulletinAddCommentData.userId = 533453077;
+                bulletinAddCommentData.userId = Integer.parseInt(ApplicationController.memberId);
                 bulletinAddCommentData.postId = postData.postId;
                 bulletinAddCommentData.setContent(str3);
 
-                Call<BulletinAddCommentResult> bulletinAddCommentResultCall = service.getBulletinAddCommentResult(ApplicationController.serverToken,bulletinAddCommentData);
+                Call<BulletinAddCommentResult> bulletinAddCommentResultCall = service.getBulletinAddCommentResult(serverToken,bulletinAddCommentData);
                 bulletinAddCommentResultCall.enqueue(new Callback<BulletinAddCommentResult>() {
                     @Override
                     public void onResponse(Call<BulletinAddCommentResult> call, Response<BulletinAddCommentResult> response)
@@ -112,7 +113,7 @@ public class BulletinDetailMoreReplyFragment extends Fragment {
                             Toast.makeText(getContext()," 댓글 등록 성공",Toast.LENGTH_SHORT).show();
                             addreply_edit.setText("");
 
-                            Call<FindBulletinDetailResult> getBulletinDetailResult = service.getFindBulletinDetailResult(ApplicationController.serverToken,postData.postId);
+                            Call<FindBulletinDetailResult> getBulletinDetailResult = service.getFindBulletinDetailResult(serverToken,postData.postId);
                             getBulletinDetailResult.enqueue(new Callback<FindBulletinDetailResult>() {
                                 @Override
                                 public void onResponse(Call<FindBulletinDetailResult> call, Response<FindBulletinDetailResult> response)
