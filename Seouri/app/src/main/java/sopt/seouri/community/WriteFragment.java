@@ -156,12 +156,12 @@ public class WriteFragment extends Fragment {
                 bulletinAddPostDataPostData = new BulletinAddPostData();
                 bulletinAddPostDataPostData.title = W_title.getText().toString();
                 bulletinAddPostDataPostData.setContent(W_content.getText().toString());
-                bulletinAddPostDataPostData.userId = "533453077";
-                bulletinAddPostDataPostData.location = "1";
+                bulletinAddPostDataPostData.userId = ApplicationController.memberId;
+                bulletinAddPostDataPostData.location = slocation;
 
                 title = RequestBody.create(MediaType.parse("multipart/form-data"), W_title.getText().toString());
                 content = RequestBody.create(MediaType.parse("multipart/form-data"), W_content.getText().toString());
-                userId = RequestBody.create(MediaType.parse("multipart/form-data"), "533453077");
+                userId = RequestBody.create(MediaType.parse("multipart/form-data"), ApplicationController.memberId);
                 location = RequestBody.create(MediaType.parse("multipart/form-data"),slocation);
 
 

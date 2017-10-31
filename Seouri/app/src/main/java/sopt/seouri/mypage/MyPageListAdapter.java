@@ -18,16 +18,19 @@ public class MyPageListAdapter extends RecyclerView.Adapter<MyPageViewHolder> {
 
     ArrayList<String> datas;
     Context context;
+    View.OnClickListener clickEvent;
 
     @Override
     public MyPageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.mypage_list_recyler,parent,false);
+        v.setOnClickListener(clickEvent);
         return new MyPageViewHolder(v);
     }
 
-    public MyPageListAdapter(ArrayList<String> bulletinItems, Context context) {
+    public MyPageListAdapter(ArrayList<String> bulletinItems, Context context,View.OnClickListener clickEvent) {
         this.context = context;
         this.datas = bulletinItems;
+        this.clickEvent = clickEvent;
     }
 
 

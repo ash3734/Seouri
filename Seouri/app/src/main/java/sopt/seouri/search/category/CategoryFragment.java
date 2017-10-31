@@ -183,7 +183,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
                 public void onResponse(Call<SearchCategoryResult> call, Response<SearchCategoryResult> response) {
                     if (response.isSuccessful()) {
                         if (response.body().message.equals("Succeed in selecting location") || response.body().message.equals("Succeed in selecting total location")) {
-                            Toast.makeText(context, "카테고리 검색 성공", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, "카테고리 검색 성공", Toast.LENGTH_SHORT).show();
                             itemData1 = response.body().list;
 
                             for (int i = 0; i < itemData1.size(); i++) {

@@ -82,6 +82,7 @@ public class MyPageFragment extends Fragment {
     public void onStart() {
         super.onStart();
         datas = new ArrayList<String>();
+        bulletinPostDatas = new ArrayList<BulletinPostData>();
         service = ApplicationController.getInstance().getNetworkService();
         if (!ApplicationController.memberImg.equals(""))
             Glide.with(getActivity()).load(ApplicationController.memberImg).into(circularImageView);
@@ -119,7 +120,7 @@ public class MyPageFragment extends Fragment {
                     linearLayoutManager = new LinearLayoutManager(getActivity());
                     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    myPageListAdapter = new MyPageListAdapter(datas, getContext());
+                    myPageListAdapter = new MyPageListAdapter(datas, getContext(),clickEvent);
                     recyclerView.setAdapter(myPageListAdapter);
                 } else {
                     Toast toast = Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG);
