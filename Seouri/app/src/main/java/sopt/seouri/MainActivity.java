@@ -28,6 +28,8 @@ import sopt.seouri.mypage.MyPageFragment;
 import sopt.seouri.navi.NaviFragment;
 import sopt.seouri.recommend.RecommendFragment;
 import sopt.seouri.search.SearchFragment;
+import sopt.seouri.search.category.CategoryFragment;
+import sopt.seouri.search.searchvillage.SearchVillageName;
 
 import static sopt.seouri.R.id.toolbar;
 
@@ -80,6 +82,17 @@ public class MainActivity extends AppCompatActivity
         sToolbarLayout = (RelativeLayout) findViewById(R.id.bar_search_layout);
         sToolbarImage = (ImageView) findViewById(R.id.bar_search_btn);
         sToolbarText = (EditText) findViewById(R.id.bar_search_text);
+        sToolbarImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                SearchVillageName name = new SearchVillageName();
+                name.name = sToolbarText.getText().toString();
+                transaction.replace(R.id.container,new CategoryFragment(getApplicationContext(), name));
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
 //        FragmentTransaction transaction = fragmentManager.beginTransaction();
 //        SearchPopupFragment searchPopupFragment = new SearchPopupFragment(getApplicationContext());
