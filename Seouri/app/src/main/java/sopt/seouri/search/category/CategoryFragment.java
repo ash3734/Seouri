@@ -27,6 +27,9 @@ import sopt.seouri.search.searchvillage.SearchVillageName;
 import sopt.seouri.search.searchvillage.SearchVillageResult;
 
 import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.MainActivity.sToolbarImage;
+import static sopt.seouri.MainActivity.sToolbarLayout;
+import static sopt.seouri.MainActivity.sToolbarText;
 import static sopt.seouri.application.ApplicationController.serverToken;
 
 
@@ -176,6 +179,10 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
+        sToolbarLayout.setVisibility(View.VISIBLE);
+        sToolbarImage.setVisibility(View.VISIBLE);
+        sToolbarText.setVisibility(View.VISIBLE);
+
         if(name == null){
             Call<SearchCategoryResult> searchCategoryResultCall = service.getSearchCategoryResult(serverToken, location);
             searchCategoryResultCall.enqueue(new Callback<SearchCategoryResult>() {
@@ -249,4 +256,13 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
             });
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        sToolbarLayout.setVisibility(View.INVISIBLE);
+        sToolbarImage.setVisibility(View.INVISIBLE);
+        sToolbarText.setVisibility(View.INVISIBLE);
+    }
+
 }
