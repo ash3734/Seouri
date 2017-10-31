@@ -198,9 +198,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        sToolbarLayout.setVisibility(View.INVISIBLE);
-        sToolbarImage.setVisibility(View.INVISIBLE);
-        sToolbarText.setVisibility(View.INVISIBLE);
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         int id = item.getItemId();
@@ -208,7 +206,10 @@ public class MainActivity extends AppCompatActivity
         for(int i=0; i<fragmentManager.getBackStackEntryCount(); i++) {
             fragmentManager.popBackStack();
         }
-
+        sToolbarLayout.setVisibility(View.INVISIBLE);
+        sToolbarImage.setVisibility(View.INVISIBLE);
+        sToolbarText.setVisibility(View.INVISIBLE);
+        
         if (id == R.id.nav_camera) {
             transaction.replace(R.id.container,fragmentHome);
 
