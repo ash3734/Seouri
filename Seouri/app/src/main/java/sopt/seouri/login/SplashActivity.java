@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,12 +15,9 @@ import sopt.seouri.R;
 import sopt.seouri.SharedPrefrernceController;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
-import sopt.seouri.search.popup.SearchPopupResult;
-import sopt.seouri.search.popup.SearchPopupResultData;
 
 public class SplashActivity extends AppCompatActivity {
 
-    public static ArrayList<SearchPopupResultData> popupDatas = new ArrayList<>();
     NetworkService service;
 
     @Override
@@ -65,24 +60,6 @@ public class SplashActivity extends AppCompatActivity {
                                 ApplicationController.memberName = response.body().userInfo.name;
                                 ApplicationController.serverToken = response.body().token;
                                 Log.d("ash", "serverToken in login" + response.body().token);
-                                Call<SearchPopupResult> getSearchPopupResult = service.getSearchPopupResult(response.body().token);
-                                getSearchPopupResult.enqueue(new Callback<SearchPopupResult>() {
-                                    @Override
-                                    public void onResponse(Call<SearchPopupResult> call, Response<SearchPopupResult> response) {
-                                        if (response.isSuccessful()) {
-                                            if (response.body().message.equals("Succeed in selecting total villageEnterprise")) {
-                                                popupDatas = response.body().TotalVelist;
-                                            }
-                                        } else {
-                                            Log.d("getSearchPopupResult", "통신 에러");
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<SearchPopupResult> call, Throwable t) {
-                                        Log.d("getSearchPopupResult", "onFailure");
-                                    }
-                                });
                                 finish();
                                 startActivity(intent);
 

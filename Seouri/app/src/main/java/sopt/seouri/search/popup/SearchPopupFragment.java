@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,7 +46,7 @@ public class SearchPopupFragment extends Fragment {
         recyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "아이템 클릭", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "아이템 클릭", Toast.LENGTH_SHORT).show();
             }
         });
 /*

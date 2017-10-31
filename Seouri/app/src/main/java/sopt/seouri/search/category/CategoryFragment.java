@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -227,7 +226,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener{
                     if(response.isSuccessful()){
                         if(response.body().message.equals("Succeed in selecting keywordList")){
 
-                            Toast.makeText(context, "키워드 검색 성공", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context, "키워드 검색 성공", Toast.LENGTH_SHORT).show();
                             itemData1 = response.body().KeywordList;
 
                             for (int i = 0; i < itemData1.size(); i++) {

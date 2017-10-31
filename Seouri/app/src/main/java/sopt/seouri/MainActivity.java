@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         sToolbarLayout.setVisibility(View.INVISIBLE);
         sToolbarImage.setVisibility(View.INVISIBLE);
         sToolbarText.setVisibility(View.INVISIBLE);
-        
+
         if (id == R.id.nav_camera) {
             transaction.replace(R.id.container,fragmentHome);
 
