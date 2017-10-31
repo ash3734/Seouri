@@ -177,7 +177,7 @@ public class SearchDetailFragment extends Fragment{
                             googleMap.addMarker(markerOptions);
 
                             googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
-                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
                         }
                     });
                 }else {
