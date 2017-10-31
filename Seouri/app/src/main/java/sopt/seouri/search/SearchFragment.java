@@ -18,6 +18,9 @@ import sopt.seouri.adapters.GridAdapter;
 import sopt.seouri.search.category.CategoryFragment;
 
 import static sopt.seouri.MainActivity.fragmentManager;
+import static sopt.seouri.MainActivity.sToolbarImage;
+import static sopt.seouri.MainActivity.sToolbarLayout;
+import static sopt.seouri.MainActivity.sToolbarText;
 
 /**
  * Created by ash on 2017-09-20.
@@ -89,16 +92,16 @@ public class SearchFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        /*sToolbarLayout.setVisibility(View.VISIBLE);
+        sToolbarLayout.setVisibility(View.VISIBLE);
         sToolbarImage.setVisibility(View.VISIBLE);
-        sToolbarText.setVisibility(View.VISIBLE);*/
+        sToolbarText.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        /*sToolbarLayout.setVisibility(View.INVISIBLE);
+    public void onDestroyView() {
+        super.onDestroyView();
+        sToolbarLayout.setVisibility(View.INVISIBLE);
         sToolbarImage.setVisibility(View.INVISIBLE);
-        sToolbarText.setVisibility(View.INVISIBLE);*/
+        sToolbarText.setVisibility(View.INVISIBLE);
     }
 }

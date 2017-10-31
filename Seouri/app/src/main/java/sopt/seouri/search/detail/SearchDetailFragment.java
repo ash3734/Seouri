@@ -31,9 +31,6 @@ import sopt.seouri.adapters.RecyclerDetailAdapter;
 import sopt.seouri.application.ApplicationController;
 import sopt.seouri.network.NetworkService;
 
-import static sopt.seouri.MainActivity.sToolbarImage;
-import static sopt.seouri.MainActivity.sToolbarLayout;
-import static sopt.seouri.MainActivity.sToolbarText;
 import static sopt.seouri.MainActivity.toolbarText;
 import static sopt.seouri.R.id.map;
 import static sopt.seouri.application.ApplicationController.serverToken;
@@ -205,17 +202,17 @@ public class SearchDetailFragment extends Fragment{
         super.onResume();
         mapView.onResume();
         toolbarText.setVisibility(View.VISIBLE);
-        sToolbarLayout.setVisibility(View.INVISIBLE);
-        sToolbarImage.setVisibility(View.INVISIBLE);
-        sToolbarText.setVisibility(View.INVISIBLE);
+//        sToolbarLayout.setVisibility(View.INVISIBLE);
+//        sToolbarImage.setVisibility(View.INVISIBLE);
+//        sToolbarText.setVisibility(View.INVISIBLE);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         toolbarText.setVisibility(View.INVISIBLE);
-        sToolbarLayout.setVisibility(View.VISIBLE);
-        sToolbarImage.setVisibility(View.VISIBLE);
-        sToolbarText.setVisibility(View.VISIBLE);
+//        sToolbarLayout.setVisibility(View.VISIBLE);
+//        sToolbarImage.setVisibility(View.VISIBLE);
+//        sToolbarText.setVisibility(View.VISIBLE);
     }
 }
